@@ -1,0 +1,190 @@
+<section class="inner-page">
+<div class="profile">
+
+<div class="inner-head">
+<div class="container">
+<div class="row">
+<h2>{{ 'PROFILE.prifle' | translate }}</h2>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-12">
+<div class="profile-details mar-btm-50">
+        <!-- Tab panes -->
+                <div class="tab-content">
+                <div class="row">
+                <div class="col-12 col-lg-8 col-md-8">
+                        <form [formGroup]="userProfileForm">
+                        <div class="mar-20">
+
+                        <div class="cgp-bdr">
+                        <div class="row">
+                        <div class="col-12">
+                          <mat-radio-group [(ngModel)]="gender" formControlName="gender">
+                            <mat-radio-button class="d-flex" value="MALE" (change)="radioChange($event)">{{ 'PROFILE.mr' | translate }}</mat-radio-button>
+                            <mat-radio-button value="FEMALE" (change)="radioChange($event)">{{ 'PROFILE.mrs' | translate }}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': userProfileForm.controls['firstName'].invalid && submitUserAttempt, 'border-green': !userProfileForm.controls['firstName'].invalid  && submitUserAttempt }">
+                        <div class="form-group cgp-style-input">
+                                <input type="text" class="form-control" required="required" placeholder="{{ 'PROFILE.firstname' | translate }}" formControlName="firstName">
+                        </div>
+                        <div *ngIf="userProfileForm.controls['firstName'].invalid && (userProfileForm.controls['firstName'].dirty || submitUserAttempt)" class="err">
+                                <p *ngIf="userProfileForm.controls['firstName'].errors?.required">
+                                    {{'PROFILE.validation.firstName-required' | translate}}
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': userProfileForm.controls['lastName'].invalid && submitUserAttempt, 'border-green': !userProfileForm.controls['lastName'].invalid  && submitUserAttempt }">
+                        <div class="form-group cgp-style-input">
+                                <input type="text" class="form-control" required="required" placeholder="{{ 'PROFILE.lastname' | translate }}" formControlName="lastName">
+                        </div>
+                        <div *ngIf="userProfileForm.controls['lastName'].invalid && (userProfileForm.controls['lastName'].dirty || submitUserAttempt)" class="err">
+                                <p *ngIf="userProfileForm.controls['lastName'].errors?.required">
+                                    {{'PROFILE.validation.lastName-required' | translate}}
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr">
+                        <div class="form-group cgp-style-input">
+                                <input type="email" class="form-control" required="required" placeholder="{{ 'PROFILE.email' | translate }}" formControlName="email">
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-12">
+                        <div class="text-right">
+                        <button class="btn btn-link pull-right" (click)="updateProfile()">{{ 'PROFILE.save' | translate }}</button>
+                        </div>
+                        </div>
+                        </div>
+
+
+                        </div>
+
+                        </div>
+                     </form>
+
+                <div class="mar-20">
+                        <div class="cgp-bdr">
+                        <h2>{{ 'PROFILE.password' | translate }}</h2>
+                        <form [formGroup]="userPasswordForm">
+                        <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['oldPassword'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['oldPassword'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.oldpassword' | translate }}" formControlName="oldPassword">
+                                        </div>
+                                        <div *ngIf="userPasswordForm.controls['oldPassword'].invalid && (userPasswordForm.controls['oldPassword'].dirty || submitPasswordAttempt)" class="err">
+                                                <p *ngIf="userPasswordForm.controls['oldPassword'].errors?.required">
+                                                {{'PROFILE.validation.password-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['oldPassword'].errors?.pattern">
+                                                {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                        </div>
+                                </div>
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['password'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['password'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.newpassword' | translate }}" formControlName="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                        </div>
+                                        <div *ngIf="userPasswordForm.controls['password'].invalid && (userPasswordForm.controls['password'].dirty || submitPasswordAttempt)" class="err">
+                                                <p *ngIf="userPasswordForm.controls['password'].errors?.required">
+                                                        {{'PROFILE.validation.newpassword-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['password'].errors?.pattern">
+                                                        {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                                </div>
+                                </div>
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['confirmPassword'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['confirmPassword'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.passwordConfirm' | translate }}" formControlName="confirmPassword" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                        </div>
+                                        <div *ngIf="userPasswordForm.controls['confirmPassword'].invalid && (userPasswordForm.controls['confirmPassword'].dirty || submitPasswordAttempt)" class="err">
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.required">
+                                                {{'PROFILE.validation.passwordconfrim-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.mustMatch">
+                                                        {{'PROFILE.validation.match-password-required' | translate}}
+                                                        </p>
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.pattern">
+                                                {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 col-md-6">
+                                <div class="paswordrole">
+                                        <ul>
+                                        <li>{{ 'PROFILE.8char' | translate }}</li>
+                                        <li>{{ 'PROFILE.1upper' | translate }}</li>
+                                        <li>{{ 'PROFILE.1special' | translate }}</li>
+                                        </ul>
+                                </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-12">
+                                        <div class="text-right">
+                                                <button class="btn btn-link pull-right" (click)="updatePassword()">{{ 'PROFILE.save' | translate }}</button>
+                                        </div>
+                                </div>
+                        </div>
+                </form>
+
+                        </div>
+                </div>
+</div>
+        <div class="col-12 col-lg-4 col-md-4">
+                <div class="mar-20">
+                        <div class="cgp-bdr">
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="pad-30">
+                                        <a  aria-label="Change Profile Picture">
+
+                                          <div class="profile-pic" style="background-image: url({{url}})" >
+                                            <input style="display: none" type="file" (change)="onSelectFile($event)" #fileInput>
+                                            <div class="mr-auto edit">
+                                              <button class="btn" type="submit" (click)="fileInput.click()"><i class="fas fa-pencil-alt"></i></button>
+                                            </div>
+                                          </div>
+                                        </a>
+                                </div>
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="text-right">
+                                        <button class="btn btn-link pull-right" (click)="onUpdateCGPImageInfo()">{{ 'PROFILE.save' | translate }}</button>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                        </div>
+                        </div>
+                        </div>
+        </div>
+        </div>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+</div>
+</section>

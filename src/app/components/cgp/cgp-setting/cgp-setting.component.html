@@ -1,0 +1,755 @@
+<section class="inner-page">
+<div class="profile">
+
+<div class="inner-head">
+<div class="container">
+        <div class="row">
+                <h2>{{ 'PROFILE.prifle' | translate }}</h2>
+        </div>
+</div>
+</div>
+<div class="container-fluid inner-head-link">
+        <div class="row">
+        <div class="col-12">
+                <div class="container">
+                        <div class="inner-head-link">
+
+                                <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">{{ 'PROFILE.myprofile' | translate }}</a>
+                                        </li>
+                                </ul>
+                            </div>
+                </div>
+        </div>
+
+        </div>
+</div>
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="profile-details mar-btm-50">
+                                <!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+    <div class="row">
+            <div class="col-12 col-lg-8 col-md-8">
+           
+            <div class="mar-20">
+                <form [formGroup]="userProfileForm">
+                    <div class="cgp-bdr">
+                    <div class="row">
+                            <div class="col-12 col-lg-6 col-md-6">
+
+                                <mat-radio-group [(ngModel)]="gender" formControlName="gender">
+                                <mat-radio-button class="d-flex" value="MALE" (change)="radioChange($event)">{{ 'PROFILE.mr' | translate }}</mat-radio-button>
+                                <mat-radio-button value="FEMALE" (change)="radioChange($event)">{{ 'PROFILE.mrs' | translate }}</mat-radio-button>
+                                </mat-radio-group>
+
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                            <div class="cgp-bdr" [ngClass]="{ 'border-red': userProfileForm.controls['firstName'].invalid && submitUserAttempt, 'border-green': !userProfileForm.controls['firstName'].invalid  && submitUserAttempt }">
+                                    <div class="form-group cgp-style-input">
+                                            <input type="text" class="form-control" required="required" placeholder="{{ 'PROFILE.firstname' | translate }}" formControlName="firstName">
+                                    </div>
+                                    <div *ngIf="userProfileForm.controls['firstName'].invalid && (userProfileForm.controls['firstName'].dirty || submitUserAttempt)" class="err">
+                                            <p *ngIf="userProfileForm.controls['firstName'].errors?.required">
+                                                {{'PROFILE.validation.firstName-required' | translate}}
+                                            </p>
+                                      <p *ngIf="userProfileForm.controls['firstName'].errors?.minlength">
+                                        {{'LOGIN.validation.firstName-minlength' | translate}}
+                                      </p>
+                                        </div>
+                            </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6">
+                            <div class="cgp-bdr" [ngClass]="{ 'border-red': userProfileForm.controls['lastName'].invalid && submitUserAttempt, 'border-green': !userProfileForm.controls['lastName'].invalid  && submitUserAttempt }">
+                            <div class="form-group cgp-style-input">
+                                    <input type="text" class="form-control"  placeholder="{{ 'PROFILE.lastname' | translate }}" formControlName="lastName">
+                            </div>
+                            <div *ngIf="userProfileForm.controls['lastName'].invalid && (userProfileForm.controls['lastName'].dirty || submitUserAttempt)" class="err">
+                                    <p *ngIf="userProfileForm.controls['lastName'].errors?.required">
+                                            {{'PROFILE.validation.lastName-required' | translate}}
+                                    </p>
+                              <p *ngIf="userProfileForm.controls['lastName'].errors?.minlength">
+                                {{'LOGIN.validation.lastName-minlength' | translate}}
+                              </p>
+                                    </div>
+                            </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-12 col-lg-6 col-md-6">
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': userProfileForm.controls['function'].invalid && submitUserAttempt, 'border-green': !userProfileForm.controls['function'].invalid  && submitUserAttempt }">
+                                            <div class="form-group cgp-style-input">
+                                                    <input type="text" class="form-control" required="required" placeholder="{{ 'PROFILE.function' | translate }}" formControlName="function">
+                                            </div>
+                                            <div *ngIf="userProfileForm.controls['function'].invalid && (userProfileForm.controls['function'].dirty || submitUserAttempt)" class="err">
+                                            <p *ngIf="userProfileForm.controls['function'].errors?.required">
+                                                {{'PROFILE.validation.function-required' | translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-6">
+                                    <div class="cgp-bdr">
+                                            <div class="form-group cgp-style-input">
+                                                    <input type="email" class="form-control" required="required" placeholder="{{ 'PROFILE.email' | translate }}" formControlName="email" [readonly]="true">
+                                            </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+
+
+            <div class="row">
+                    <div class="col-12">
+                            <div class="text-right">
+                                    <button class="btn btn-link pull-right" (click)="updateProfile()">{{ 'PROFILE.save' | translate }}</button>
+                            </div>
+                    </div>
+            </div>
+
+
+            </div>
+        </form>
+            </div>
+
+            <div class="mar-20">
+                <form [formGroup]="userAddressProfileForm">
+                    <div class="cgp-bdr">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 col-md-6">
+
+                                <div class="cgp-bdr-non">
+                                    <input type="checkbox" id="1" [checked]="checkaddress" name="addressstatus" (change)="changeAddress($event)">
+                                    <label for="1">{{ 'PROFILE.Same-address' | translate }}</label>
+                                </div>
+
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                            <div class="cgp-bdr" >
+                              <div class="form-group cgp-style">
+                                <input type="text" class="form-control" placeholder="BATIMENT A" formControlName="addressComplement">
+                              </div>
+                              <div *ngIf="userAddressProfileForm.controls['addressComplement'].invalid && (userAddressProfileForm.controls['addressComplement'].dirty || submitAddressAttempt)" class="err">
+                                <p *ngIf="userAddressProfileForm.controls['addressComplement'].errors?.required">
+                                  {{'PROFILE.validation.addressComplement-required' | translate}}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-lg-6 col-md-6">
+                            <div class="cgp-bdr">
+                              <div class="form-group cgp-style">
+                                <input type="text" class="form-control" placeholder="PL" formControlName="addressType">
+                              </div>
+                              <div *ngIf="userAddressProfileForm.controls['addressType'].invalid && (userAddressProfileForm.controls['addressType'].dirty || submitAddressAttempt)" class="err">
+                                <p *ngIf="userAddressProfileForm.controls['addressType'].errors?.required">
+                                  {{'PROFILE.validation.addressType-required' | translate}}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': userAddressProfileForm.controls['addressNumber'].invalid && submitAddressAttempt, 'border-green': !userAddressProfileForm.controls['addressNumber'].invalid  && submitAddressAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="16" formControlName="addressNumber">
+                            </div>
+                            <div *ngIf="userAddressProfileForm.controls['addressNumber'].invalid && (userAddressProfileForm.controls['addressNumber'].dirty || submitAddressAttempt)" class="err">
+                              <p *ngIf="userAddressProfileForm.controls['addressNumber'].errors?.required">
+                                {{'PROFILE.validation.addressNumber-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': userAddressProfileForm.controls['addressStreet'].invalid && submitAddressAttempt, 'border-green': !userAddressProfileForm.controls['addressStreet'].invalid  && submitAddressAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="CHARLES DE GAULLE" formControlName="addressStreet">
+                            </div>
+                            <div *ngIf="userAddressProfileForm.controls['addressStreet'].invalid && (userAddressProfileForm.controls['addressStreet'].dirty || submitAddressAttempt)" class="err">
+                              <p *ngIf="userAddressProfileForm.controls['addressStreet'].errors?.required">
+                                {{'PROFILE.validation.addressStreet-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': userAddressProfileForm.controls['city'].invalid && submitAddressAttempt, 'border-green': !userAddressProfileForm.controls['city'].invalid  && submitAddressAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="SAINT-GERMAIN-EN-LAYE" formControlName="city">
+                            </div>
+                            <div *ngIf="userAddressProfileForm.controls['city'].invalid && (userAddressProfileForm.controls['city'].dirty || submitAddressAttempt)" class="err">
+                              <p *ngIf="userAddressProfileForm.controls['city'].errors?.required">
+                                {{'PROFILE.validation.city-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': userAddressProfileForm.controls['country'].invalid && submitAddressAttempt, 'border-green': !userAddressProfileForm.controls['country'].invalid  && submitAddressAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="FRANCE" formControlName="country">
+                            </div>
+                            <div *ngIf="userAddressProfileForm.controls['country'].invalid && (userAddressProfileForm.controls['country'].dirty || submitAddressAttempt)" class="err">
+                              <p *ngIf="userAddressProfileForm.controls['country'].errors?.required">
+                                {{'PROFILE.validation.country-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': userAddressProfileForm.controls['postalCode'].invalid && submitAddressAttempt, 'border-green': !userAddressProfileForm.controls['postalCode'].invalid  && submitAddressAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" (keydown)="validateNumber($event)" class="form-control" required="required"
+                                     placeholder="78100" formControlName="postalCode">
+                            </div>
+                            <div *ngIf="userAddressProfileForm.controls['postalCode'].invalid && (userAddressProfileForm.controls['postalCode'].dirty || submitAddressAttempt)" class="err">
+                              <p *ngIf="userAddressProfileForm.controls['postalCode'].errors?.required">
+                                {{'PROFILE.validation.postalCode-required' | translate}}
+                              </p>
+                              <p
+                                *ngIf="userAddressProfileForm.controls['postalCode'].errors?.pattern">
+                                {{'PROFILE.validation.number-pattern' | translate}}
+                              </p>
+                              <p
+                                *ngIf="userAddressProfileForm.controls['postalCode'].errors?.maxlength?.actualLength > 5">
+                                {{'CGP-REGISTER.validation.postalcode-length'
+                                | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+
+
+
+            <div class="row">
+                    <div class="col-12">
+                            <div class="text-right">
+                                    <button class="btn btn-link pull-right" (click)="updateAddress()" [disabled]="checkaddress">{{ 'PROFILE.save' | translate }}</button>
+                            </div>
+                    </div>
+            </div>
+
+
+            </div>
+        </form>
+            </div>
+           
+
+                <div class="mar-20">
+                        <div class="cgp-bdr">
+                        <h2>{{ 'PROFILE.password' | translate }}</h2>
+                        <form [formGroup]="userPasswordForm">
+                        <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['oldPassword'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['oldPassword'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.oldpassword' | translate }}" formControlName="oldPassword">
+                                        </div>
+                                        <div *ngIf="userPasswordForm.controls['oldPassword'].invalid && (userPasswordForm.controls['oldPassword'].dirty || submitPasswordAttempt)" class="err">
+                                                <p *ngIf="userPasswordForm.controls['oldPassword'].errors?.required">
+                                                {{'PROFILE.validation.password-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['oldPassword'].errors?.pattern">
+                                                {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                        </div>
+                                </div>
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['password'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['password'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.newpassword' | translate }}" formControlName="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" (blur)="checkOldPass($event)">
+                                        </div>
+                                        <div *ngIf="validateoldpass || (userPasswordForm.controls['password'].invalid && (userPasswordForm.controls['password'].dirty || submitPasswordAttempt))" class="err">
+                                                <p *ngIf="userPasswordForm.controls['password'].errors?.required">
+                                                        {{'PROFILE.validation.newpassword-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['password'].errors?.pattern">
+                                                        {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['password'].valid && validateoldpass">
+                                                  {{'PROFILE.validation.oldpasswordmatch' | translate}}
+                                                </p>
+                                                </div>
+                                </div>
+                                <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': userPasswordForm.controls['confirmPassword'].invalid && submitPasswordAttempt, 'border-green': !userPasswordForm.controls['confirmPassword'].invalid  && submitPasswordAttempt }">
+                                        <div class="form-group cgp-style-input">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'PROFILE.passwordConfirm' | translate }}" formControlName="confirmPassword" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                        </div>
+                                        <div *ngIf="userPasswordForm.controls['confirmPassword'].invalid && (userPasswordForm.controls['confirmPassword'].dirty || submitPasswordAttempt)" class="err">
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.required">
+                                                {{'PROFILE.validation.passwordconfrim-required' | translate}}
+                                                </p>
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.mustMatch">
+                                                        {{'PROFILE.validation.match-password-required' | translate}}
+                                                        </p>
+                                                <p *ngIf="userPasswordForm.controls['confirmPassword'].errors?.pattern">
+                                                {{'PROFILE.validation.password-pattern' | translate}}
+                                                </p>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 col-md-6">
+                                <div class="paswordrole">
+                                        <ul>
+                                        <li>{{ 'PROFILE.8char' | translate }}</li>
+                                        <li>{{ 'PROFILE.1upper' | translate }}</li>
+                                        <li>{{ 'PROFILE.1special' | translate }}</li>
+                                        </ul>
+                                </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-12">
+                                        <div class="text-right">
+                                                <button class="btn btn-link pull-right" (click)="updatePassword()">{{ 'PROFILE.save' | translate }}</button>
+                                        </div>
+                                </div>
+                        </div>
+                </form>
+
+                        </div>
+                </div>
+            </div>
+                        <div class="col-12 col-lg-4 col-md-4">
+                                <div class="mar-20">
+                                        <div class="cgp-bdr">
+                                        <div class="row">
+                                        <div class="col-12">
+                                                <div class="pad-30">
+                                                        <a  aria-label="Change Profile Picture">
+
+                                                                <div class="profile-pic" style="background-image: url({{url}})" >
+                                                                <input style="display: none" type="file" (change)="onSelectFile($event)" #fileInput>
+                                                                <div class="mr-auto edit">
+                                                                        <button class="btn" type="submit" (click)="fileInput.click()"><i class="fas fa-pencil-alt"></i></button>
+                                                                </div>
+                                                                </div>
+                                                        </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-12">
+                                              <div class="text-right">
+                                                <button class="btn btn-link pull-right" (click)="onUpdateCGPImageInfo()">{{ 'PROFILE.save' | translate }}</button>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                </div>
+                <!--cal-->
+                <div class="tab-pane" id="tabs-2" role="tabpanel">
+
+                        <div class="mar-top-50">
+                                        <div class="container">
+                                        <div class="col-12">
+                                        <div class="config-cal">
+
+                                        <form>
+                                        <div class="config-head">
+                                        <p>{{ 'CGP.CONFIG.Availabilities' | translate }}</p>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12 col-lg-8 col-md-4">
+                                                        <div class="cgp-bdr">
+                                                            <div class="table-top">
+                                                                    <p>{{ 'CGP.CONFIG.Select-the-times' | translate }}</p>
+                                                            </div>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                          <tbody>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="1"  name="name">
+                                                                                    <label for="1">{{ 'CGP.CONFIG.Monday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="2"  name="name">
+                                                                                    <label for="2">{{ 'CGP.CONFIG.Tuesday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="3"  name="name">
+                                                                                    <label for="3">{{ 'CGP.CONFIG.Wednesday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="4"  name="name">
+                                                                                    <label for="4">{{ 'CGP.CONFIG.Thursday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="5"  name="name">
+                                                                                    <label for="5">{{ 'CGP.CONFIG.Friday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="6"  name="name">
+                                                                                    <label for="6">{{ 'CGP.CONFIG.Saturday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                            <td>
+                                                                                <div class="cgp-style">
+                                                                                    <input type="checkbox" id="7"  name="name">
+                                                                                    <label for="7">{{ 'CGP.CONFIG.Sunday' | translate }}</label>
+                                                                                </div>
+                                                                            </td>
+                                                                              <td>
+                                                                                <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td>
+                                                                                  <div class="cgp-bdr-3">
+                                                                                    <div class="form-group cgp-style">
+                                                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}">
+                                                                                    </div>
+                                                                                </div>
+                                                                              </td>
+                                                                              <td class="btn-list">
+                                                                                  <ul>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-plus-square"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></li>
+                                                                                      <li><button class="btn btn-none"><i class="far fa-copy"></i></button></li>
+                                                                                  </ul>
+                                                                              </td>
+                                                                            </tr>
+                                                                          </tbody>
+                                                                        </table>
+                                                                </div>
+
+                                                        </div>
+                                                </div>
+                                                <div class="col-12 col-lg-4 col-md-4">
+                                                        <div class="cgp-bdr">
+                                                            <div class="table-top">
+                                                                    <p>{{ 'CGP.CONFIG.Add-times' | translate }}</p>
+                                                            </div>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>{{'CGP.CONFIG.Dates' | translate }}</th>
+                                                                                <th>{{'CGP.CONFIG.Availabilities' | translate }}</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                          <tbody>
+                                                                            <tr>
+                                                                              <td>{{'CGP.CONFIG.Dec' | translate }} 12, 2021</td>
+                                                                              <td>09:00 - 17:00</td>
+                                                                              <td><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>{{'CGP.CONFIG.Dec' | translate }} 12, 2021</td>
+                                                                              <td>09:00 - 17:00</td>
+                                                                              <td><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>{{'CGP.CONFIG.Dec' | translate }} 12, 2021</td>
+                                                                              <td>09:00 - 17:00</td>
+                                                                              <td><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>{{'CGP.CONFIG.Dec' | translate }} 12, 2021</td>
+                                                                              <td>09:00 - 17:00</td>
+                                                                              <td><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>{{'CGP.CONFIG.Dec' | translate }} 12, 2021</td>
+                                                                              <td>09:00 - 17:00</td>
+                                                                              <td><button class="btn btn-none"><i class="far fa-trash-alt"></i></button></td>
+                                                                            </tr>
+                                                                          </tbody>
+                                                                        </table>
+                                                                </div>
+
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6 col-md-6">
+                                                    <div class="config-head-1">
+                                                        <h2>{{ 'CGP.CONFIG.Duration-of-an-appointment' | translate }}</h2>
+                                                        <p>{{ 'CGP.CONFIG.Choose-the-duration' | translate }}</p>
+                                                    </div>
+                                                    <div class="radio-style">
+                                                        <mat-radio-group>
+                                                            <mat-radio-button class="d-flex" value="1">15 min</mat-radio-button>
+                                                            <mat-radio-button class="d-flex" value="2" >30 min</mat-radio-button>
+                                                            <mat-radio-button class="d-flex" value="3" >45 min</mat-radio-button>
+                                                            <mat-radio-button class="d-flex" value="4" >60 min</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 col-md-6">
+                                                    <div class="config-head-1">
+                                                        <h2>&nbsp;</h2>
+                                                        <p>{{ 'CGP.CONFIG.set-specific-time' | translate }}</p>
+                                                    </div>
+                                                    <div class="radio-style">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="mar-20">
+                                                                    <mat-radio-group>
+                                                                        <mat-radio-button class="d-flex" value="1"></mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="form-group cgp-style-input">
+                                                                        <input type="text" class="form-control wid-100" required="required">
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="form-group cgp-style-input">
+                                                                            <select class="form-control" id="sel1">
+                                                                                <option>Min</option>
+                                                                                <option>Hr</option>
+                                                                            </select>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                    <div class="config-head-1">
+                                                            <h2>{{ 'CGP.CONFIG.Transition-time' | translate }}</h2>
+                                                            <p>{{ 'CGP.CONFIG.Transition-time-text' | translate }}</p>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12 col-lg-4 col-md-4">
+                                                        <div class="cgp-bdr pad-5">
+                                                                <div class="form-group cgp-style pad-5">
+                                                                        <select class="form-control" id="sel1">
+                                                                                <option>5 min</option>
+                                                                                <option>10 min</option>
+                                                                            </select>
+                                                                    <label>{{ 'CGP.CONFIG.Before-the-appointment' | translate }} </label>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                <div class="col-12 col-lg-4 col-md-4">
+                                                        <div class="cgp-bdr pad-5">
+                                                                <div class="form-group cgp-style pad-5">
+                                                                        <select class="form-control" id="sel1">
+                                                                                <option>0 min</option>
+                                                                                <option>5 min</option>
+                                                                            </select>
+                                                                            <label>{{ 'CGP.CONFIG.After-the-appointment' | translate }} </label>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                <div class="col-4">
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col text-center">
+                                                        <button class="btn btn-primary w-auto btn-pad-20">{{ 'CGP.CONFIG.Validate-my-registration' | translate }}</button>
+                                                    </div>
+                                            </div>
+
+
+                                        </form>
+                                        </div>
+                                        </div>
+
+                                        </div>
+                                        </div>
+
+
+                </div>
+                <!--cal-->
+                <!--syn-->
+                <div class="tab-pane" id="tabs-3" role="tabpanel">
+
+
+
+                </div>
+                <!--syn-->
+        </div>
+        </div>
+</div>
+
+</div>
+</div>
+
+
+</div>
+</section>

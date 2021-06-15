@@ -1,0 +1,151 @@
+<app-speciality-header></app-speciality-header>
+<div style="position: relative">
+  <div id="loader-cgp">
+    <section class="category">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="category-list">
+                            <div class="most-head">
+                                    <h2>
+                                        {{ details?.title }}
+                                    </h2>
+                                    <p>
+                                      {{ details?.description}}
+                                    </p>
+                            </div>
+                    </div>
+                    
+                  <div *ngIf="subTopicShow">
+                    <swiper [slidesPerView]="4" [spaceBetween]="30" [virtual]="true" [slidesPerGroup]="5" [navigation]="true" class="swiper-pc">
+                            <ng-container *ngFor="let slide of slides; index as i">
+                                <div>
+                              <ng-template swiperSlide *ngFor="let subtopic of details.subtopics">
+                                    <!-- <div class="carousel-cell" >
+                                            <div (click)="subtopicDetails('/landing/article/' + details?.id + '/' + subtopic?.id)">
+                                              <div class="card">
+                                                <div class="card-top">
+                                                  <p> {{ subtopic?.subtopicTitle }}</p>
+                                                </div>
+                                                <div class="card-block">
+                                                  <p class="card-text">{{ (subtopic?.description)? (subtopic?.description | slice:0:80) + '...': (subtopic?.description) }}</p>
+
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                    </div> -->
+                                    <div class="carousel-cell" >
+                                      <div (click)="subtopicDetails('/landing/article/' + details?.id + '/' + subtopic?.id)">
+                                        <div class="card">
+                                          <div class="card-top">
+                                            <p> {{ subtopic?.subtopicTitle }}</p>
+                                          </div>
+                                          <div class="card-block">
+                                            <p class="card-text">{{ (subtopic?.description)? (subtopic?.description | slice:0:80) + '...': (subtopic?.description) }}</p>
+
+                                          </div>
+                                        </div>
+                                      </div>
+
+                              </div>
+                              </ng-template>
+                            </div>
+                            </ng-container>
+                          </swiper>
+                          <swiper [slidesPerView]="1" [spaceBetween]="20" [virtual]="true"  [navigation]="true" [slidesPerGroup]="1" class="swiper-mobile">
+                            <ng-container *ngFor="let slide of slides; index as i">
+                                <div>
+                              <ng-template swiperSlide *ngFor="let subtopic of details.subtopics">
+                                    <!-- <div class="carousel-cell" >
+                                            <div (click)="subtopicDetails('/landing/article/' + details?.id + '/' + subtopic?.id)">
+                                              <div class="card">
+                                                <div class="card-top">
+                                                  <p> {{ subtopic?.subtopicTitle }}</p>
+                                                </div>
+                                                <div class="card-block">
+                                                  <p class="card-text">{{ (subtopic?.description)? (subtopic?.description | slice:0:80) + '...': (subtopic?.description) }}</p>
+
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                    </div> -->
+                                    <div class="carousel-cell" >
+                                      <div (click)="subtopicDetails('/landing/article/' + details?.id + '/' + subtopic?.id)">
+                                        <div class="card">
+                                          <div class="card-top">
+                                            <p> {{ subtopic?.subtopicTitle }}</p>
+                                          </div>
+                                          <div class="card-block">
+                                            <p class="card-text">{{ (subtopic?.description)? (subtopic?.description | slice:0:80) + '...': (subtopic?.description) }}</p>
+
+                                          </div>
+                                        </div>
+                                      </div>
+
+                              </div>
+                              </ng-template>
+                            </div>
+                            </ng-container>
+                          </swiper>
+                  </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+  <div *ngIf="updateExpert">
+   <app-cgp-grid [cgpList]="cgpList" [updateExpert] ="updateExpert" [search]="details?.specialtyName"></app-cgp-grid>
+  </div>
+
+    <section class="our-advice expert-advice" *ngIf="mostRecentArticles?.length || mostViewArticles?.length">
+            <div class="most-head">
+                    <h2>
+                      {{"HOME.EXPERT-ADVICE.Our" | translate}} {{ details?.specialtyName | lowercase }} {{"HOME.EXPERT-ADVICE.advice" | translate}}
+                    </h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h4>
+                            {{ 'HOME.EXPERT-ADVICE.The-most-recent' | translate }}
+                        </h4>
+                        <div *ngIf="mostRecentArticles.length">
+                          <app-articles-grid [list]="mostRecentArticles" [type]="'recent'"></app-articles-grid>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <h4>
+                            {{ 'HOME.CATEGORY.The-most-consulted' | translate }}
+                        </h4>
+                        <div class="most-viewed-list mar-top-50">
+                                <ol>
+                                        <li *ngFor="let article of mostViewArticles">
+                                          <a [routerLink]="'/landing/articles/' + article?.title">
+                                          <a>{{ article?.title }}</a>
+                                          <p>
+                                              By {{ article?.cgp ? article?.cgp.establishmentName : '' }}
+                                          </p>
+                                          </a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="mostViewArticles.length">
+                        <div class="col-lg-12">
+                            <div class="text-center mar-top-20">
+                                <button class="btn btn-outline w-auto pad-lr-20" [routerLink]="'/landing/more-articles/recent-speciality/' + id + '/' + details?.specialtyName">{{ 'HOME.CATEGORY.See-all' | translate }} {{details?.specialtyName.toLowerCase()}} advice</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </section>
+
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>
+
+

@@ -1,0 +1,30 @@
+@import '../../../../styles.scss';
+
+.browser-default{
+    border: 1px solid #E1E2E6;
+    border-radius: 0;
+    }
+
+.content-table{
+    table{
+        thead{
+            tr{
+                th{
+                    border-top: none !important;
+                    border-bottom: 1px solid #EFEFEF;
+                }
+            }
+        }
+        tr{
+            td{
+                color: #4F4F4F;
+                font-size: 14px;
+                vertical-align: middle;
+                border-bottom: 1px solid #EFEFEF;
+                &:last-child{
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,140 @@
+<app-speciality-header></app-speciality-header>
+<div style="position: relative">
+  <div id="loader-cgp">
+<section class="category">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="category-list">
+          <div class="most-head">
+            <h2>
+              {{ details?.title | titlecase}}
+            </h2>
+            <h3>By {{ details?.cgp?.establishmentName | titlecase}} {{details?.createdAt | date: 'mediumDate'}}</h3>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="article">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="article-l">
+          <img src="{{details?.articleUrl}}" class="responsive">
+          <div class="text-justify white-space">{{ details?.description}}</div>
+
+          <h2 *ngIf="details?.articleEditor"></h2>
+          <div *ngIf="details?.articleEditor" [innerHTML]="details?.articleEditor"> </div>
+
+          <div class="attach">
+          <img src="{{details?.articleImage}}" class="responsive" *ngIf="details?.type === 'article'">
+          <video class="responsive"  src="{{details?.articleImage}}" height="400" width="700" controls *ngIf="details?.type === 'video'"></video>
+          <div class="cgp-bdr" *ngIf="details?.type === 'podcast'"><audio src="{{details?.articleImage}}" height="400" controls ></audio></div>
+          <div  class="cgp-bdr" *ngIf="details?.type === 'guide'">
+            <div class="row">
+                <div class="col-md-8">
+                <p>{{this.filename}}</p>
+                </div>
+                <div class="col-md-4">
+                <a  class="btn btn-primary-right" [href]="safeUrl(details?.articleImage)" download> {{ 'HOME.ARTICLE.download' | translate }}
+        <i  class="fas fa-download">
+        </i></a>
+                </div>
+            </div>
+        </div>
+
+          <iframe [src]="safeUrl(details?.articleImage)" width="730" height="400" *ngIf="details?.type === 'video-embed' || details?.type === 'podcast-embed'"></iframe>
+          </div>
+
+          <div class="row">
+            <ul class="tags-follow">
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let specialties of details?.cgpArticlesSpecialities">
+                {{ specialties.specialties.specialtyName }}
+              </li>
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let subtopic of details?.cgpArticlesSubtopics">
+                {{ subtopic.subtopics.subtopicTitle }}
+              </li>
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let tag of details?.cgpArticlesTags">
+                <a [routerLink]="'/landing/tags-articles/' + tag?.subtopicTags.tagTitle + '/' + tag?.subtopicTags.id">
+                {{ tag?.subtopicTags.tagTitle }}</a>
+              </li>
+            </ul>
+          </div>
+
+          <ul class="follow">
+            <li>{{ 'HOME.ARTICLE.share' | translate }}</li>
+            <li class="f-color"><a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&t=' + encodeURIComponent(location.href)); return false;"> <i class="fab fa-facebook-square"></i></a></li>
+            <li class="f-color"><a href="#" onclick="window.open('https://twitter.com/intent/tweet?text=%20Check%20up%20this%20awesome%20content' + encodeURIComponent(document.title) + ':%20 ' + encodeURIComponent(location.href)); return false;"><i class="fab fa-twitter"></i></a></li>
+            <li class="f-color"><a href="#" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)); return false;"><i class="fab fa-linkedin-in"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="article-r">
+          <h3>
+            {{ details?.cgp?.establishmentName }} {{'HOME.ARTICLE.can-accompany' | translate }}
+          </h3>
+          <p class="location">
+            {{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}}
+          </p>
+          <!--1-->
+          <div class="card" routerLink="/landing/{{details?.cgp?.establishmentName}}/profile">
+            <div class="position-relative">
+              <img class="card-img-top header-image" src="./assets/images/nearby.png" alt="" *ngIf="!details?.cgp?.bannerImage">
+              <img class="card-img-top" src="{{details?.cgp?.bannerImage}}" alt="" *ngIf="details?.cgp?.bannerImage">
+              <img src="{{details?.cgp?.logo}}" *ngIf="details?.cgp?.logo" class="group-logo">
+              <img class="group-logo" src="assets/images/Mask-Group.png" *ngIf="!details?.cgp?.logo">
+            </div>
+            <div class="card-block mar-top-20">
+              <h4 class="card-title">{{ details?.cgp?.establishmentName }}</h4>
+              <p class="card-text">{{ details?.cgp?.city }}</p>
+
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+              <div class="stats"><i class="fas fa-map-marker-alt"></i> At {{(details?.cgp?.reason * 1.6).toFixed()}}kms</div>
+              <div class="stats">
+                <i class="fas fa-users"></i> {{ details?.cgp?.cgpTeams.length}} {{ 'CGP-PROFILE.consultants' | translate }}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+<section class="same-subject category" *ngIf="details?.similarArticles?.length">
+  <div class="most-head">
+    <h2>
+      {{ 'HOME.ARTICLE.Similar-content' | translate }}
+    </h2>
+  </div>
+  <div class="container">
+    <app-articles-grid [list]="details?.similarArticles" [type]="'similar-articles'"></app-articles-grid>
+  </div>
+</section>
+
+
+<section class="same-subject category" *ngIf="details?.otherArticles?.length">
+  <div class="most-head">
+    <h2>
+      {{ details?.cgp?.establishmentName }}'s {{ 'HOME.ARTICLE.Other-content' | translate }}
+    </h2>
+  </div>
+  <div class="container">
+    <app-articles-grid [list]="details?.otherArticles" [type]="'other-articles'"></app-articles-grid>
+  </div>
+</section>
+
+
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>
+

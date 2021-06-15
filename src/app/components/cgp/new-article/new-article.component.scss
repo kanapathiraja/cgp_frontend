@@ -1,0 +1,250 @@
+@import '../../../../styles.scss';
+
+.btn-rad {
+    border-radius: 100% !important;
+}
+
+.new-article{
+    padding: 60px 0;
+    .article-head{
+        margin-bottom: 10px;
+        img{
+            height: 296px;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .edit{
+                    position: relative;
+                    left: 45px;
+                    float: right;
+                    top: -20px;
+                    .btn{
+                        border-radius: 5px !important;
+                        border: 1px solid $primary-color !important;
+                        border-top-left-radius: 5px !important;
+                        border-bottom-left-radius: 5px !important;
+                        background-color: #E7ECFD;
+                        cursor: pointer;
+                        i{
+                            color: $primary-color;
+                            font-size: 13px;
+                        }
+                        &:hover{
+                            @include btn-color;
+                            i{
+                                color: #fff !important;
+                            }
+                        }
+                    }
+                }
+    }
+    .most-head{
+            h2{
+            font-weight: 500;
+            font-size: 40px;
+            line-height: 40px;
+            align-items: center;
+            text-align: left;
+        }
+    }
+    .title-add{
+        // margin-top: 30px;
+        button{
+            box-shadow: 0px 8px 15px rgb(0 0 0 / 10%);
+            cursor: pointer;
+            i{
+                font-size: 14px;
+            }
+        }
+        // &:hover{
+        //     background: #ffffff;
+        //     border: 1px solid $primary-color;
+        //     i{
+        //         color: $primary-color;
+        //     }
+        // }
+    }
+    .text-editor{
+        // margin-top: 30px;
+        input{
+            &::placeholder{
+                font-size: 14px !important;
+            }
+        }
+        textarea{
+            &::placeholder{
+                font-size: 14px !important;
+            }
+        }
+        p{
+            padding: 10px;
+        }
+    }
+    .text-editor-1{
+        margin-top: 10px;
+        p{
+            margin-bottom: 0px !important;
+        }
+        button{
+            margin-bottom: 10px !important;
+        }
+        input{
+            &::placeholder{
+                font-size: 14px !important;
+            }
+        }
+        textarea{
+            &::placeholder{
+                font-size: 14px !important;
+            }
+        }
+    }
+    .article-l{
+        text-align: justify;
+        font-size: 14px;
+        line-height: 20px;
+        .text-justify{
+            font-size: 14px;
+            line-height: 20px;
+            white-space: pre-wrap !important;
+        }
+        .attach{
+            video{
+                border: 1px solid $primary-color;
+                border-radius: 5px;
+                width: 100% !important;
+                padding:5px;
+            }
+            audio{
+                border: 1px solid $primary-color;
+                border-radius: 5px;
+                width: 100% !important;
+                padding:5px;
+            }
+            .cgp-bdr{
+                @include cgp-bdr;
+            }
+        }
+    }
+    .article-style{
+        ul{
+            list-style: none;
+            padding-left: 0px !important;
+            li{
+                width: 46px;
+                height: 46px;
+                box-shadow: 0px 8px 15px rgb(0 0 0 / 10%);
+                border-radius: 50%;
+                border: 1px solid $primary-color;
+                cursor: pointer;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 9px 4px 0px;
+                i{
+                    color: $primary-color;
+                }
+                &:hover{
+                    @include btn-color;
+                    i{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+.bdr-none{
+    border: none !important;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1; /* Firefox */
+    font-size: 25px;
+  }
+  .h-200{
+      height: 200px;
+  }
+
+  .modal {
+    left: auto !important;
+    padding-right: 0px !important;
+    width: 100%;
+    .modal-dialog {
+      margin: 0 auto !important;
+      max-width: 100% !important;
+      .modal-content {
+        height: auto;
+        padding: 60px;
+        border-radius: 0 !important;
+          .modal-header {
+            border-bottom: none;
+        }
+          .modal-footer {
+            border-top: none;
+        }
+        .modal-body{
+            .cgp-bdr{
+                padding-top: 50px;
+                text-align: center;
+                cursor: pointer;
+                p{
+                    font-size: 14px;
+                }
+            }
+            input{
+                height: 60px;
+            }
+            p{
+                padding-top: 5px;
+            }
+            input[type="file"] {
+                width: 70%;
+                opacity: 0;
+                position: absolute;
+                height: 55%;
+            }
+        }
+      }
+
+    }
+  }
+
+  input[type="file"] {
+    width: 30px;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.upload-btn{
+    width: 100% !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 35px !important;
+    margin-top: 25px;
+    cursor: pointer;
+}
+.btn-mar-top{
+    margin-top: 25px;
+}
+.overlap_name{
+    overflow-wrap: break-word
+}
+.btn-primary-right-save{
+    border: 1px solid #6C63FF;
+    border-radius: 3px;
+}
+.err {
+  font-size: 12px;
+  font-weight: 300;
+  padding: 0;
+
+  p {
+    margin-bottom: 0 !important;
+  }
+}

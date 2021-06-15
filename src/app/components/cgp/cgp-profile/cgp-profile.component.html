@@ -1,0 +1,1136 @@
+<div style="position: relative">
+  <div id="loader-cgp">
+<section class="inner-page">
+    <div class="header-bg" >
+        <div class="container" >
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                    <div class="head-left">
+                        <div class="cgp-bdr">
+                            <div class="position-relative">
+                                <img src="{{viewCGPInfoDetails?.bannerImage}}" *ngIf="viewCGPInfoDetails?.bannerImage" class="header-image">
+                                <img src="./assets/images/cgp-header.png" *ngIf="!viewCGPInfoDetails?.bannerImage">
+                                <!-- <img src="{{viewCGPInfoDetails?.logo}}" *ngIf="viewCGPInfoDetails?.logo" class="group-logo"> -->
+                                <img src="{{viewCGPInfoDetails?.logo}}" *ngIf="viewCGPInfoDetails?.logo" class="group-logo">
+                                <img class="group-logo" src="assets/images/Mask-Group.png" *ngIf="!viewCGPInfoDetails?.logo">
+                            </div>
+                            <div class="mr-auto edit">
+                                    <button data-toggle="modal" data-target="#cgpEditImage" (click)="getCGPImage(viewCGPInfoDetails?.bannerImage,viewCGPInfoDetails?.logo)" class="btn" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                            </div>
+                            <div class="group-info">
+
+                                <h4>{{ viewCGPInfoDetails?.establishmentName }}</h4>
+                                <p>{{ viewCGPInfoDetails?.companyAddress }}</p>
+                                <div class="mr-auto edit">
+                                    <button data-toggle="modal" data-target="#cgpEdit" (click)="getCGPSpecialityInformation(viewCGPInfoDetails?.id)" class="btn" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                               </div>
+                                <ul>
+                                    <li><span><i class="far fa-building"></i></span>{{ 'CGP-PROFILE.created' | translate }} {{ viewCGPInfoDetails?.foundedYear }}</li>
+                                    <li><span><i class="fas fa-users"></i></span>{{countteam}} {{ 'CGP-PROFILE.consultants' | translate }}</li>
+                                    <li *ngIf="website"><a href="{{website}}" target="_blank" class="href-nolink"><span><i class="fas fa-globe"></i></span>{{ 'CGP-PROFILE.website' | translate }}</a></li>
+                                    <li *ngIf="!website"><span><i class="fas fa-globe"></i></span>{{ 'CGP-PROFILE.website' | translate }}</li>
+                                    <li><a href="https://www.google.com/maps/search/?api=1&query={{latitude}},{{longitude}}" target="_blank" class="href-nolink"><span><i class="fas fa-map-marker-alt"></i></span>At {{(viewCGPInfoDetails?.reason * 1.6).toFixed() }}kms</a></li>
+                                    <!-- <li><a data-toggle="modal" data-target="#cgpEdit">{{ 'CGP-PROFILE.update_city' | translate }}</a></li> -->
+
+                                </ul>
+                                <div class="tag">
+                                    <p>{{ 'CGP-PROFILE.specialties' | translate }}</p>
+                                    <ul>
+                                        <li *ngFor="let specialties of viewCGPSpecialitiesDetails">
+                                                {{ specialties.specialties.specialtyName }}
+                                        </li>
+                                        <li *ngFor="let subtopic of viewCGPSubtopicDetails">
+                                            {{ subtopic.subtopics.subtopicTitle }}
+                                        </li>
+                                        <li *ngFor="let tag of viewCGPTagDetails">
+                                            {{ tag.subtopicTags.tagTitle }}
+                                       </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                        <div class="head-right">
+                            <div class="cgp-bdr">
+                                <div class="map">
+                                    <agm-map
+                                    [latitude]="latitude"
+                                    [longitude]="longitude"
+                                    [zoom]="zoom" >
+                                    <agm-marker
+                                    [latitude]="latitude"
+                                    [longitude]="longitude" [label]="labelOptions" [iconUrl]="icon"
+                                    (markerClick)="clickedMarker()"></agm-marker></agm-map>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="pro-bdr pro-bdr-btm">
+        <div class="pro-info">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                                <div class="pro-info-left">
+                                    <h2>{{ 'CGP-PROFILE.presentation' | translate }}</h2>
+                                    <p>
+                                        {{ viewCGPInfoDetails?.presentationText }}
+                                    </p>
+                                    <div class="mr-auto edit">
+                                            <button class="btn" data-toggle="modal" data-target="#description" (click)="getCGPPresentation(cgpId)"  type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                    <div class="pro-info-right mar-btm-20">
+                                      <div class="partners-logo">
+                                            <h2>{{ 'CGP-PROFILE.opening-hours' | translate }}
+                                            <span class="text-right">
+                                              <div class="mr-auto edit">
+                                                      <button class="btn btn-outline" data-toggle="modal" data-target="#myModal" (click)="getCGPPracticalInformation(cgpId)" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                              </div>
+                                              </span></h2>
+                                            <ul>
+                                                <li *ngFor="let info of viewCGPPracticalInfoDetails; let i = index; " class="opening-hours">
+                                                        <label *ngIf="info.startTime && info.endTime">{{ 'CGP.CONFIG.' + info.dayName | translate }} : {{ info.startTime }} - {{ info.endTime }}</label>
+<!--                                                        <label *ngIf="info.startTime && info.endTime">{{ info.dayName }} : {{ info.startTime }} - {{ info.endTime }}</label>-->
+                                                </li>
+                                            </ul>
+                                        <h2 *ngIf="viewCGPInfoDetails?.facebook || viewCGPInfoDetails?.twitter || viewCGPInfoDetails?.linkedIn || viewCGPInfoDetails?.instagram || viewCGPInfoDetails?.youtube">{{ 'CGP-PROFILE.follow-us' | translate }}</h2>
+                                            <ul class="follow">
+                                                <li class="f-color" *ngIf="viewCGPInfoDetails?.facebook">
+                                                  <a (click)="gotoURL(viewCGPInfoDetails?.facebook)"><i class="fab fa-facebook-square"></i></a></li>
+                                                <li class="f-color" *ngIf="viewCGPInfoDetails?.twitter"><a (click)="gotoURL(viewCGPInfoDetails?.twitter)"><i class="fab fa-twitter"></i></a></li>
+                                                <li class="f-color" *ngIf="viewCGPInfoDetails?.linkedIn"><a (click)="gotoURL(viewCGPInfoDetails?.linkedIn)"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <li class="f-color" *ngIf="viewCGPInfoDetails?.instagram"><a (click)="gotoURL(viewCGPInfoDetails?.instagram)"><i class="fab fa-instagram"></i></a></li>
+                                                <li class="f-color" *ngIf="viewCGPInfoDetails?.youtube"><a (click)="gotoURL(viewCGPInfoDetails?.youtube)"><i class="fab fa-youtube"></i></a></li>
+
+                                            </ul>
+                                          </div>
+                                        </div>
+                            </div>
+                        </div>
+            </div>
+            </div>
+</section>
+<section class="pro-bdr pro-bdr-btm">
+        <div class="pro-info">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                                <div class="pro-info-left">
+                                    <h2>{{ 'CGP-PROFILE.our-team' | translate }}</h2>
+                                     <span class="text-right">
+                                        <div class="mr-auto edit">
+                                                <button class="btn" data-toggle="modal" data-target="#ourTeam" (click)="getCGPTeamInformation('',cgpId)" type="submit"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                      </span>
+                                    <div class="row mar-btm-20" *ngFor="let team of viewCGPTeamInfoDetails | slice:startPage:paginationLimit">
+                                        <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12">
+                                            <div class="team-img">
+                                                <img class="rounded" src="{{team.bannerUrl}}" *ngIf="team.bannerUrl">
+                                                <img class="rounded" src="assets/images/team-image-2.jpg" *ngIf="!team.bannerUrl">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                                            <div class="team-text">
+                                                <h3>
+                                                        {{ team.firstname }} {{ team.lastname }}
+                                                        <span class="text-right">
+                                                                <div class="mr-auto edit">
+                                                                        <button data-toggle="modal" data-target="#ourTeam" (click)="getCGPTeamInformation(team.id,cgpId)" class="btn" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                                                </div>
+                                                        </span>
+                                                </h3>
+                                                <h4>{{ team.designation }}</h4>
+                                                <p *ngIf="team.description !== 'null'"> {{ team.description }}</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mar-btm-20">
+                                        <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                                            <a *ngIf ="paginationLimit < viewCGPTeamInfoDetails.length" (click)="showMoreItems()">{{ 'CGP-PROFILE.see-the-3' | translate }} {{viewCGPTeamInfoDetails.length - 3}} {{ 'CGP-PROFILE.other-collaborators' | translate }}<i class="fas fa-sort-down"></i> </a>
+                                            <a *ngIf ="paginationLimit > 3" (click)="showLessItems()">
+                                                {{ 'CGP-PROFILE.less-the-3' | translate }} {{viewCGPTeamInfoDetails.length - 3}} {{ 'CGP-PROFILE.other-collaborators' | translate }} <i class="fas fa-sort-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                    <div class="pro-info-right mar-btm-20">
+                                            <div class="client-tag">
+                                                <h2>{{ 'CGP-PROFILE.our-clients' | translate }}
+                                                        <span class="text-right">
+                                                                <div class="mr-auto edit">
+                                                                        <button class="btn" data-toggle="modal" data-target="#clients" (click)="getCGPCustomerInformation(cgpId)" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                                                </div>
+                                                        </span>
+                                                </h2>
+                                                        <ul>
+                                                                <span *ngFor="let client of viewCGPCustomerInfoDetails; let i = index;">
+                                                                        <li>
+                                                                            {{ client.customer_type }}
+                                                                        </li>
+                                                                </span>
+
+                                                            </ul>
+                                            </div>
+                                            <div class="partners-logo">
+                                                    <h2>
+                                                        {{ 'CGP-PROFILE.partners' | translate }}
+                                                        <span class="text-right">
+                                                                <div class="mr-auto edit">
+                                                                    <button class="btn" data-toggle="modal" data-target="#partners" (click)="getCGPPartnerInformation(cgpId)" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                                                </div>
+                                                        </span>
+                                                    </h2>
+                                                            <ul>
+                                                                <span *ngFor="let partner of viewCGPPartnersDetails; let i = index;">
+
+																	<li *ngIf="partner.partner_logo"><img src="{{img_url}}{{  partner.partner_logo.url  }}" width="75" height="50"></li>
+																	<li *ngIf="!partner.partner_logo"><img src="assets/images/placeholder-logo.jpg" width="130" height="50"></li>
+
+                                                                </span>
+                                                                </ul>
+                                                </div>
+                                        </div>
+                            </div>
+                        </div>
+            </div>
+            </div>
+</section>
+<section class="pro-bdr category">
+        <div class="pro-info">
+            <div class="container" *ngIf="articlesList.length">
+                    <div class="row">
+                            <div class="col-12">
+                                <div class="pro-info-left">
+                                    <h2>{{ 'CGP-PROFILE.expert-advice' | translate }}</h2>
+                                    <div class="advice mar-btm-20">
+                                        <div class="row" >
+                                            <div class="col-12" *ngIf="cgpId">
+                                                  <app-articles-grid [list]="articlesList" [limit]="8" [type]="'cgp'" [id]="cgpId" [login]="true" ></app-articles-grid>
+
+                                        </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="text-center mar-top-20">
+                                                    <button class="btn btn-outline w-25" [routerLink]="'/landing/more-articles/cgp/' + cgpId + '/' + viewCGPInfoDetails?.establishmentName + '\'s Articles'">{{ 'CGP-PROFILE.see-all-expert-reviews' | translate }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            </div>
+</section>
+
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>
+
+
+
+
+<!--Popup-->
+<div class="modal" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">{{ 'CGP-PROFILE.practical-info' | translate }}</h2>
+              <button type="button" class="close" #myModalCloseCGPPractical data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                    <form [formGroup]="cgpPracticalInfoForm">
+                        <div *ngFor="let cgpPracticalValue of cgpPracticalInfoValue; let i = index; ">
+                                <div class="row">
+
+                                <div class="col-4">
+                                        <label class="margin-top-15">{{ cgpPracticalValue.language | translate}} :</label>
+                                </div>
+                                <div class="col-4">
+                                        <div class="cgp-bdr">
+                                                <div class="form-group cgp-style">
+                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.start' | translate }}" value="{{cgpPracticalValue.startTime}}" (focusout)="onFocusCGPPracticalInfo(i, $event.target, 1)">
+                                                </div>
+                                                </div>
+                                </div>
+                                <div class="col-4">
+                                        <div class="cgp-bdr">
+                                                <div class="form-group cgp-style">
+                                                        <input type="time" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.end' | translate }}" value="{{cgpPracticalValue.endTime}}" (focusout)="onFocusCGPPracticalInfo(i, $event.target, 0)">
+                                                </div>
+
+                                                </div>
+                                </div>
+
+                                </div>
+                                <div class="row">
+                                  <div class="col-4"></div>
+                                  <div class="col-8 time_err" *ngIf="Timeerr[i]"> <p>{{'CGP-PROFILE.time_error' | translate}}</p></div>
+                                </div>
+
+
+                        </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                  <input class="form-control" type="text" formControlName="datevalidate" hidden required>
+                                  <div *ngIf="cgpPracticalInfoForm.controls['datevalidate'].invalid && (cgpPracticalInfoForm.controls['datevalidate'].dirty || submitCGPPracticalAttempt)" class="err">
+                                    <p *ngIf="cgpPracticalInfoForm.controls['datevalidate'].errors?.required">
+                                        {{'CGP-PROFILE.validation.datevalidate-required' | translate}}
+                                    </p>
+                                </div></div></div>
+                        <div class="row">
+                                <div class="col-12">
+                                <h4>{{ 'CGP-PROFILE.follow-us' | translate }}</h4>
+                                        <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPracticalInfoForm.controls['twitter'].invalid && submitCGPPracticalAttempt, 'border-green': !cgpPracticalInfoForm.controls['twitter'].invalid  && submitCGPPracticalAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="text" class="form-control" placeholder="{{'CGP-PROFILE.twitter' | translate}}" formControlName="twitter" pattern="(?:(?:http|https):\/\/)?(?:www.)?twitter.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)*([\w\-\.]*)">
+                                                </div>
+                                                <div *ngIf="cgpPracticalInfoForm.controls['twitter'].invalid && (cgpPracticalInfoForm.controls['twitter'].dirty || submitCGPPracticalAttempt)" class="err">
+                                                    <p *ngIf="cgpPracticalInfoForm.controls['twitter'].errors?.pattern">
+                                                        {{'CGP-PROFILE.validation.twitterurl-required' | translate}}
+                                                    </p>
+                                                </div>
+                                        </div>
+                                        <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPracticalInfoForm.controls['facebook'].invalid && submitCGPPracticalAttempt, 'border-green': !cgpPracticalInfoForm.controls['facebook'].invalid  && submitCGPPracticalAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="text" class="form-control" placeholder="{{'CGP-PROFILE.facebook' | translate}}" formControlName="facebook" pattern="(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)*([\w\-\.]*)">
+                                                </div>
+                                                <div *ngIf="cgpPracticalInfoForm.controls['facebook'].invalid && (cgpPracticalInfoForm.controls['facebook'].dirty || submitCGPPracticalAttempt)" class="err">
+                                                    <p *ngIf="cgpPracticalInfoForm.controls['facebook'].errors?.pattern">
+                                                        {{'CGP-PROFILE.validation.facebookurl-required' | translate}}
+                                                    </p>
+                                                </div>
+                                                </div>
+                                                <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPracticalInfoForm.controls['linkedIn'].invalid && submitCGPPracticalAttempt, 'border-green': !cgpPracticalInfoForm.controls['linkedIn'].invalid  && submitCGPPracticalAttempt }">
+                                                        <div class="form-group cgp-style">
+                                                                <input type="text" class="form-control" placeholder="{{'CGP-PROFILE.linkedin' | translate}}" formControlName="linkedIn" pattern="(?:(?:http|https):\/\/)?(?:www.)?linkedin.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)*([\w\-\.]*)">
+                                                        </div>
+                                                        <div *ngIf="cgpPracticalInfoForm.controls['linkedIn'].invalid && (cgpPracticalInfoForm.controls['linkedIn'].dirty || submitCGPPracticalAttempt)" class="err">
+                                                            <p *ngIf="cgpPracticalInfoForm.controls['linkedIn'].errors?.pattern">
+                                                                {{'CGP-PROFILE.validation.linkedInurl-required' | translate}}
+                                                            </p>
+                                                        </div>
+                                                </div>
+                                                <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPracticalInfoForm.controls['instagram'].invalid && submitCGPPracticalAttempt, 'border-green': !cgpPracticalInfoForm.controls['instagram'].invalid  && submitCGPPracticalAttempt }">
+                                                    <div class="form-group cgp-style">
+                                                            <input type="text" class="form-control" placeholder="{{'CGP-PROFILE.instagram' | translate}}" formControlName="instagram" pattern="(?:(?:http|https):\/\/)?(?:www.)?instagram.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)*([\w\-\.]*)">
+                                                    </div>
+                                                    <div *ngIf="cgpPracticalInfoForm.controls['instagram'].invalid && (cgpPracticalInfoForm.controls['instagram'].dirty || submitCGPPracticalAttempt)" class="err">
+
+                                                        <p *ngIf="cgpPracticalInfoForm.controls['instagram'].errors?.pattern">
+                                                            {{'CGP-PROFILE.validation.instagramurl-required' | translate}}
+                                                        </p>
+                                                    </div>
+                                            </div>
+                                            <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPracticalInfoForm.controls['youtube'].invalid && submitCGPPracticalAttempt, 'border-green': !cgpPracticalInfoForm.controls['youtube'].invalid  && submitCGPPracticalAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="text" class="form-control" placeholder="{{'CGP-PROFILE.youtube' | translate}}" formControlName="youtube" pattern="(?:(?:http|https):\/\/)?(?:www.)?youtube.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)*([\w\-\.]*)">
+                                                </div>
+                                                <div *ngIf="cgpPracticalInfoForm.controls['youtube'].invalid && (cgpPracticalInfoForm.controls['youtube'].dirty || submitCGPPracticalAttempt)" class="err">
+
+                                                    <p *ngIf="cgpPracticalInfoForm.controls['youtube'].errors?.pattern">
+                                                        {{'CGP-PROFILE.validation.youtubeurl-required' | translate}}
+                                                    </p>
+                                                </div>
+                                                </div>
+                                </div>
+                        </div>
+                    </form>
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer justify-content-right">
+                    <p class="text-right">
+                            <button type="button" class="btn btn-primary-right" id="closeModal" (click)="onUpdateCGPPracticalInfo(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                        </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+<!-- out team-->
+<div class="modal" id="ourTeam">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">{{ 'CGP-PROFILE.our-team' | translate }}</h2>
+              <button type="button" #myModalCloseCGPTeam class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                    <form  [formGroup]="cgpTeamInfoForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="cgp-bdr pad-0">
+                                    <div class="portrait">
+                                        <img class="compny-profile-img" [src]="teamurl" *ngIf="teamurl">
+                                        <img class="compny-profile-img" src="assets/images/team-image-2.jpg" *ngIf="!teamurl">
+                                     </div>
+                                     <div class="mr-auto edit image-upload">
+                                <button data-toggle="modal" type="submit" data-target="#sdf" class="btn" ><input type="file"
+                                        #fileInput
+                                        (change)="onSelectFileTeam($event)" accept="image/x-png,image/gif,image/jpeg"/><i class="fas fa-pencil-alt"></i></button>
+                                     </div>
+                                     <!-- <div *ngIf="cgpTeamInfoForm.controls['bannerUrl'].invalid && (cgpTeamInfoForm.controls['bannerUrl'].dirty || submitCGPTeamAttempt)" class="err">
+                                        <p *ngIf="cgpTeamInfoForm.controls['bannerUrl'].errors?.required">
+                                            {{'CGP-PROFILE.validation.bannerUrl-required' | translate}}
+                                        </p>
+                                    </div> -->
+                                    <div class="img_label">
+                                      <p> {{'CGP-PROFILE.image_size' | translate}}<p>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-12">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['firstname'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['firstname'].invalid  && submitCGPTeamAttempt }">
+                                  <div class="form-group cgp-style">
+                                          <input type="text" minlength="2" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.firstname' | translate }}" formControlName="firstname">
+                                  </div>
+                                  <div *ngIf="cgpTeamInfoForm.controls['firstname'].invalid && (cgpTeamInfoForm.controls['firstname'].dirty || submitCGPTeamAttempt )" class="err">
+                                      <p *ngIf="cgpTeamInfoForm.controls['firstname'].errors?.required">
+                                          {{'CGP-PROFILE.validation.firstname-required' | translate}}
+                                      </p>
+                                    <p *ngIf="cgpTeamInfoForm.controls['firstname'].errors?.minlength">
+                                      {{'LOGIN.validation.firstName-minlength' | translate}}
+                                    </p>
+                                  </div>
+                              </div>
+                              <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['lastname'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['lastname'].invalid  && submitCGPTeamAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text" minlength="2" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.lastname' | translate }}" formControlName="lastname">
+                                </div>
+                                <div *ngIf="cgpTeamInfoForm.controls['lastname'].invalid && (cgpTeamInfoForm.controls['lastname'].dirty || submitCGPTeamAttempt)" class="err">
+                                    <p *ngIf="cgpTeamInfoForm.controls['lastname'].errors?.required">
+                                        {{'CGP-PROFILE.validation.lastname-required' | translate}}
+                                    </p>
+                                  <p *ngIf="cgpTeamInfoForm.controls['lastname'].errors?.minlength">
+                                    {{'LOGIN.validation.lastName-minlength' | translate}}
+                                  </p>
+                                </div>
+                            </div>
+
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['email'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['email'].invalid  && submitCGPTeamAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="email" class="form-control" placeholder="{{ 'CGP-PROFILE.email' | translate }}" formControlName="email">
+                            </div>
+                            <div *ngIf="emailValidate || (cgpTeamInfoForm.controls['email'].invalid && (cgpTeamInfoForm.controls['email'].dirty || submitCGPTeamAttempt))" class="err">
+                              <p *ngIf="cgpTeamInfoForm.controls['email'].errors?.required">
+                                  {{'CGP-PROFILE.validation.email-required' | translate}}
+                              </p>
+                              <p *ngIf="cgpTeamInfoForm.controls['email'].errors?.pattern">
+                                  {{'CGP-PROFILE.validation.email-pattern' | translate}}
+                              </p>
+                              <p *ngIf="cgpTeamInfoForm.controls['email'].valid && emailValidate">{{'CGP-PROFILE.validation.email-exists' | translate}}</p>
+                          </div>
+                          </div>
+
+                          <!-- <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['role'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['role'].invalid  && submitCGPTeamAttempt }">
+                            <div class="form-group cgp-style">
+                                    <select class="form-control" formControlName="role" id="sel2" name="sellist2">
+                                      <option value="null">--Select--</option>
+                                      <option *ngFor="let role of role_status" [ngValue]="role">{{role}}</option>
+                                      </select>
+                            </div>
+                            <div *ngIf="cgpTeamInfoForm.controls['role'].invalid && (cgpTeamInfoForm.controls['role'].dirty || submitCGPTeamAttempt)" class="err">
+                                <p *ngIf="cgpTeamInfoForm.controls['role'].errors?.required">
+                                    {{'CGP-PROFILE.validation.role-required' | translate}}
+                                </p>
+                            </div>
+                        </div> -->
+
+
+                            <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['designation'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['designation'].invalid  && submitCGPTeamAttempt }">
+                                    <div class="form-group cgp-style">
+                                            <input type="text" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.function' | translate }}" formControlName="designation">
+                                    </div>
+                                    <div *ngIf="cgpTeamInfoForm.controls['designation'].invalid && (cgpTeamInfoForm.controls['designation'].dirty || submitCGPTeamAttempt)" class="err">
+                                        <p *ngIf="cgpTeamInfoForm.controls['designation'].errors?.required">
+                                            {{'CGP-PROFILE.validation.designation-required' | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+                                  <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['description'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['description'].invalid  && submitCGPTeamAttempt }">
+                                          <div class="form-group cgp-style">
+                                                  <textarea class="form-control" rows="5" formControlName="description" placeholder="{{ 'CGP-PROFILE.description' | translate }}"></textarea>
+                                          </div>
+                                          <div *ngIf="cgpTeamInfoForm.controls['description'].invalid && (cgpTeamInfoForm.controls['description'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['description'].errors?.required">
+                                                  {{'CGP-PROFILE.validation.description-required' | translate}}
+                                              </p>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12 col-lg-12 col-md-12">
+            
+                                            <div class="cgp-bdr-non">
+                                                <input type="checkbox" id="1" [checked]="checkaddress" name="addressstatus" (change)="changeAddress($event)">
+                                                <label for="1">{{ 'PROFILE.Same-address' | translate }}</label>
+                                            </div>
+                  
+                                      </div>
+                                      </div>
+                                    <div *ngIf="!checkaddress">
+                                      <div class="row">
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" >
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" placeholder="BATIMENT A" formControlName="addressComplement">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['addressComplement'].invalid && (cgpTeamInfoForm.controls['addressComplement'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['addressComplement'].errors?.required">
+                                                {{'PROFILE.validation.addressComplement-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" placeholder="PL" formControlName="addressType">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['addressType'].invalid && (cgpTeamInfoForm.controls['addressType'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['addressType'].errors?.required">
+                                                {{'PROFILE.validation.addressType-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['addressNumber'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['addressNumber'].invalid  && submitCGPTeamAttempt }">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" required="required" placeholder="16" formControlName="addressNumber">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['addressNumber'].invalid && (cgpTeamInfoForm.controls['addressNumber'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['addressNumber'].errors?.required">
+                                                {{'PROFILE.validation.addressNumber-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['addressStreet'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['addressStreet'].invalid  && submitCGPTeamAttempt }">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" required="required" placeholder="CHARLES DE GAULLE" formControlName="addressStreet">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['addressStreet'].invalid && (cgpTeamInfoForm.controls['addressStreet'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['addressStreet'].errors?.required">
+                                                {{'PROFILE.validation.addressStreet-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['city'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['city'].invalid  && submitCGPTeamAttempt }">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" required="required" placeholder="SAINT-GERMAIN-EN-LAYE" formControlName="city">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['city'].invalid && (cgpTeamInfoForm.controls['city'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['city'].errors?.required">
+                                                {{'PROFILE.validation.city-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['country'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['country'].invalid  && submitCGPTeamAttempt }">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" class="form-control" required="required" placeholder="FRANCE" formControlName="country">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['country'].invalid && (cgpTeamInfoForm.controls['country'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['country'].errors?.required">
+                                                {{'PROFILE.validation.country-required' | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12 col-lg-6 col-md-6">
+                                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpTeamInfoForm.controls['postalCode'].invalid && submitCGPTeamAttempt, 'border-green': !cgpTeamInfoForm.controls['postalCode'].invalid  && submitCGPTeamAttempt }">
+                                            <div class="form-group cgp-style">
+                                              <input type="text" (keydown)="validateNumber($event)" class="form-control" required="required"
+                                                     placeholder="78100" formControlName="postalCode">
+                                            </div>
+                                            <div *ngIf="cgpTeamInfoForm.controls['postalCode'].invalid && (cgpTeamInfoForm.controls['postalCode'].dirty || submitCGPTeamAttempt)" class="err">
+                                              <p *ngIf="cgpTeamInfoForm.controls['postalCode'].errors?.required">
+                                                {{'PROFILE.validation.postalCode-required' | translate}}
+                                              </p>
+                                              <p
+                                                *ngIf="cgpTeamInfoForm.controls['postalCode'].errors?.pattern">
+                                                {{'PROFILE.validation.number-pattern' | translate}}
+                                              </p>
+                                              <p
+                                                *ngIf="cgpTeamInfoForm.controls['postalCode'].errors?.maxlength?.actualLength > 5">
+                                                {{'CGP-REGISTER.validation.postalcode-length'
+                                                | translate}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        </div>
+                                      </div>
+                                      </div>
+                       </div>
+
+
+                    </form>
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer justify-content-right">
+                    <p class="text-right">
+                            <button type="button" class="btn btn-primary-right" id="closeModal" (click)="onUpdateCGPTeamInfo(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                        </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Presentation-->
+<div class="modal" id="description">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">{{ 'CGP-PROFILE.presentation' | translate }}</h2>
+              <button type="button" class="close" #myModalCloseCGPDesc data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                    <form [formGroup]="cgpPresentationForm">
+                        <div class="row">
+                                <div class="col-12">
+                            <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpPresentationForm.controls['presentationText'].invalid && submitCGPPresentationAttempt, 'border-green': !cgpPresentationForm.controls['presentationText'].invalid  && submitCGPPresentationAttempt }">
+                                    <div class="form-group cgp-style pad-20">
+<!--                                            <h2>{{ 'CGP-PROFILE.presentation' | translate }}</h2>-->
+                                            <textarea class="form-control" rows="15" formControlName="presentationText" required="required"></textarea>
+
+                                    </div>
+                                    <div *ngIf="cgpPresentationForm.controls['presentationText'].invalid && (cgpPresentationForm.controls['presentationText'].dirty || submitCGPPresentationAttempt)" class="err">
+                                        <p *ngIf="cgpPresentationForm.controls['presentationText'].errors?.required">
+                                            {{'CGP-PROFILE.validation.description-required' | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+                    </form>
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer justify-content-right">
+                    <p class="text-right">
+                            <button type="button" class="btn btn-primary-right" id="closeModal"  (click)="onUpdateCGPPresentation(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                        </p>
+            </div>
+
+          </div>
+          </div>
+        </div>
+      <!--Clients-->
+<div class="modal" id="clients">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">{{ 'CGP-PROFILE.our-clients' | translate }}</h2>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                    <form >
+                        <div class="row">
+
+                                <div class="col-6" *ngFor="let customer of cgpCustomerInfoValue; let i = index;">
+                                    <div class="cgp-bdr-1">
+                                            <div class="cgp-style">
+                                                    <input type="checkbox" id="customer_{{ customer.id }}" [checked]="customer.active" name="{{ customer.id }}" (change)="onChangeCGPCCustomerhecked(i,$event, customer)">
+                                                    <label for="customer_{{ customer.id }}">{{  customer.customer_type  }}</label>
+                                            </div>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                    </form>
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer justify-content-right">
+                    <p class="text-right">
+                            <button type="button" class="btn btn-primary-right" data-dismiss="modal" (click)="onUpdateCGPClientInformation(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                        </p>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- CGP EDIT-->
+<div class="modal" id="cgpEdit">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'CGP-PROFILE.company-details' | translate }}</h2>
+          <button type="button" #myModalCloseCGPEdit class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form  [formGroup]="cgpInfoForm">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['establishmentName'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['establishmentName'].invalid  && submitCGPAttempt }">
+                                    <div class="form-group cgp-style">
+                                            <input type="text" class="form-control" required="required" placeholder="{{ 'CGP-REGISTER.establishmentName' | translate }}" formControlName="establishmentName">
+                                    </div>
+                                    <div *ngIf="cgpInfoForm.controls['establishmentName'].invalid && (cgpInfoForm.controls['establishmentName'].dirty || submitCGPAttempt)" class="err">
+                                        <p *ngIf="cgpInfoForm.controls['establishmentName'].errors?.required">
+                                            {{'CGP-REGISTER.validation.establishmentName-required' | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" placeholder="BATIMENT A" formControlName="addressComplement">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['addressComplement'].invalid && (cgpInfoForm.controls['addressComplement'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['addressComplement'].errors?.required">
+                                {{'PROFILE.validation.addressComplement-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" placeholder="PL" formControlName="addressType">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['addressType'].invalid && (cgpInfoForm.controls['addressType'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['addressType'].errors?.required">
+                                {{'PROFILE.validation.addressType-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['addressNumber'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['addressNumber'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="16" formControlName="addressNumber">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['addressNumber'].invalid && (cgpInfoForm.controls['addressNumber'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['addressNumber'].errors?.required">
+                                {{'PROFILE.validation.addressNumber-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['addressStreet'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['addressStreet'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="CHARLES DE GAULLE" formControlName="addressStreet">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['addressStreet'].invalid && (cgpInfoForm.controls['addressStreet'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['addressStreet'].errors?.required">
+                                {{'PROFILE.validation.addressStreet-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['city'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['city'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="SAINT-GERMAIN-EN-LAYE" formControlName="city">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['city'].invalid && (cgpInfoForm.controls['city'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['city'].errors?.required">
+                                {{'PROFILE.validation.city-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['country'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['country'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" class="form-control" required="required" placeholder="FRANCE" formControlName="country">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['country'].invalid && (cgpInfoForm.controls['country'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['country'].errors?.required">
+                                {{'PROFILE.validation.country-required' | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['postalCode'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['postalCode'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                              <input type="text" (keydown)="validateNumber($event)" class="form-control" required="required"
+                                     placeholder="78100" formControlName="postalCode">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['postalCode'].invalid && (cgpInfoForm.controls['postalCode'].dirty || submitCGPAttempt)" class="err">
+                              <p *ngIf="cgpInfoForm.controls['postalCode'].errors?.required">
+                                {{'PROFILE.validation.postalCode-required' | translate}}
+                              </p>
+                              <p
+                                *ngIf="cgpInfoForm.controls['postalCode'].errors?.pattern">
+                                {{'PROFILE.validation.number-pattern' | translate}}
+                              </p>
+                              <p
+                                *ngIf="cgpInfoForm.controls['postalCode'].errors?.maxlength?.actualLength > 5">
+                                {{'CGP-REGISTER.validation.postalcode-length'
+                                | translate}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6">
+                          <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['foundedYear'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['foundedYear'].invalid  && submitCGPAttempt }">
+                            <div class="form-group cgp-style">
+                                    <input type="number" class="form-control" required="required" placeholder="{{ 'CGP-REGISTER.created' | translate }}" formControlName="foundedYear">
+                            </div>
+                            <div *ngIf="cgpInfoForm.controls['foundedYear'].invalid && (cgpInfoForm.controls['foundedYear'].dirty || submitCGPAttempt)" class="err">
+                                <p *ngIf="cgpInfoForm.controls['foundedYear'].errors?.required">
+                                    {{'CGP-REGISTER.validation.foundedYear-required' | translate}}
+                                    </p>
+                            </div>
+                        </div>
+                        </div>
+
+                      </div>
+
+
+
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': cgpInfoForm.controls['website'].invalid && submitCGPAttempt, 'border-green': !cgpInfoForm.controls['website'].invalid  && submitCGPAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="text" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.website' | translate }}" formControlName="website" pattern="(?:(?:http|https):\/\/)?(?:www.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)">
+                                        </div>
+                                          <div *ngIf="cgpInfoForm.controls['website'].invalid && (cgpInfoForm.controls['website'].dirty || submitCGPAttempt)" class="err">
+                                            <p *ngIf="cgpInfoForm.controls['website'].errors?.required">
+                                                {{'CGP-REGISTER.validation.website-required' | translate}}
+                                                </p>
+                                                 <p *ngIf="cgpInfoForm.controls['website'].errors?.pattern">
+                                                {{'CGP-REGISTER.validation.websiteurl-required' | translate}}
+                                                </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group cgp-style" >
+                                    <div class="tag">
+                                        <p>{{ 'CGP-PROFILE.topics' | translate }}</p>
+                                        </div>
+
+                                        <div class="multi-select">
+                                                <ng-select [items]="cgpSpecialityInfoValue"
+                                                    [hideSelected]="true"
+                                                    [multiple]="true"
+                                                    bindLabel="specialty_name"
+                                                    [(ngModel)]="selectedSpeciality"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    class="custom"
+                                                           (change)="specilaityUpdate($event)"
+                                                    >
+                                               </ng-select>
+
+                                    </div>
+                                </div>
+
+
+                                        <!-- <ul>
+                                            <li *ngFor="let specialties of selectedSpeciality">
+                                                    {{ specialties.specialty_name }}
+                                            </li>
+                                        </ul> -->
+                                        <div class="form-group cgp-style">
+                                        <div class="tag">
+                                            <p>{{ 'CGP-PROFILE.subtopic' | translate }}</p>
+                                            </div>
+
+                                            <div class="multi-select">
+                                                    <ng-select [items]="cgpSubtopicInfoValue"
+                                                        [hideSelected]="true"
+                                                        [multiple]="true"
+                                                        bindLabel="subtopicTitle"
+                                                        [(ngModel)]="selectedSubtopic"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        class="custom"
+                                                        >
+                                            </ng-select>
+
+                                        </div>
+                                        </div>
+
+                                     <div class="form-group cgp-style" >
+                                        <div class="tag">
+                                            <p>{{ 'CGP-PROFILE.tag' | translate }}</p>
+                                            </div>
+
+                                             <div class="multi-select">
+                                                   <ng-select [items]="cgpTagInfoValue"
+                                                        [hideSelected]="true"
+                                                        [multiple]="true"
+                                                        bindLabel="tagTitle"
+                                                        [(ngModel)]="selectedTag"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        class="custom"
+                                                        >
+                                            </ng-select>
+
+                                        </div>
+                                    </div>
+
+                    </div>
+                </div>
+                </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer justify-content-right">
+                <p class="text-right">
+                        <button type="button" class="btn btn-primary-right" id="closeModal" (click)="onUpdateCGPInfo(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                    </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+ <!--CGP Edit Image-->
+ <div class="modal" id="cgpEditImage">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'CGP-PROFILE.company-images' | translate }}</h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form  [formGroup]="cgpInfoForm">
+                    <h4 class="modal-title">{{ 'CGP-PROFILE.profile-banner' | translate }}</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="cgp-bdr pad-0">
+                                    <div class="portrait">
+                                       <img class="compny-profile-img" [src]="url">
+                                    </div>
+                                    <div class="mr-auto edit image-upload">
+                                            <button data-toggle="modal" type="submit" data-target="#sdf" class="btn" ><i class="fas fa-pencil-alt"></i><input type="file"
+                                                #fileInput
+                                                (change)="onSelectFile($event)" accept="image/x-png,image/gif,image/jpeg"/></button>
+                                    </div>
+                            </div>
+                            <h4 class="modal-title">{{ 'CGP-PROFILE.logo' | translate }}</h4>
+                      <div class="row">
+                         <div class="col-4">
+                            <div class="cgp-bdr">
+                                <div class="portrait">
+                                    <img class="compny-profile-img" [src]="url_logo">
+                                    </div>
+                                    <div class="mr-auto edit logo-upload">
+                                    <button data-toggle="modal" type="submit" data-target="#sdf" class="btn" ><input type="file"
+                                    #fileInput
+                                    (change)="onSelectFileLogo($event)" accept="image/x-png"/><i class="fas fa-pencil-alt"></i></button>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="row" *ngIf="imageChangedEvent">
+                              <div class="text-center col-md-8">
+                                <h5>{{ 'CGP-PROFILE.crop_image' | translate }}</h5>
+                                <image-cropper
+                                [imageChangedEvent]="imageChangedEvent"
+                                [maintainAspectRatio]="true"
+                                [aspectRatio]="4 / 4"
+                                [resizeToWidth]="250"
+                                format="png"
+                                [roundCropper]="true"
+                                [transform]="transform"
+                                (imageCropped)="imageCropped($event)"
+                                ></image-cropper>
+                                <button class="btn" *ngIf="croppedImage" (click)="zoomOut()"> -</button> <button class="btn" *ngIf="croppedImage" (click)="zoomIn()"> +</button>
+                            </div>
+
+                            <div class="text-center col-md-4">
+                                <h5>{{ 'CGP-PROFILE.preview' | translate }}</h5>
+                                <div class="portrait">
+                                  <img class="group-logo" *ngIf="croppedImage" [src]="croppedImage">
+                                  </div>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-12">
+                            </div>
+                        </div>
+                </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer justify-content-right">
+                <p class="text-right">
+                        <button type="button" class="btn btn-primary-right" data-dismiss="modal" (click)="onUpdateCGPImageInfo(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                    </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Partners-->
+<div class="modal" id="partners">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'CGP-PROFILE.partners' | translate }}</h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form >
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="multi-select">
+                            <ng-select [items]="cgpPartnerInfoValue"
+                                [hideSelected]="true"
+                                [multiple]="true"
+                                bindLabel="partner_name"
+                                [(ngModel)]="selectedPartner"
+                                [ngModelOptions]="{standalone: true}"
+                                class="custom"
+
+                                >
+                           </ng-select>
+
+                    </div>
+                </div>
+                    </div>
+
+                </form>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer justify-content-right">
+                <p class="text-right">
+                        <button type="button" class="btn btn-primary-right" data-dismiss="modal" (click)="onUpdateCGPPartnerInformation(cgpId)">{{ 'CGP-PROFILE.record' | translate }} <i class="fas fa-arrow-right"></i></button>
+                    </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="edit">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'LANDING-LIST.Find-Geolocation' | translate }}</h2>
+          <button type="button" class="close" #myModalCloseCGPLocation data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                    <div class="row">
+                            <div class="col-12">
+                              <p>{{ 'LANDING-LIST.You-are-geolocated' | translate }}</p>
+                              <p class="b-text">{{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}}</p>
+
+                              <div class="">
+                                  <div class="form-group cgp-style-input">
+                                    <input type="text" class="form-control" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" autofocus #search_location [(ngModel)]="search_clear">
+                                  </div>
+                              </div>
+
+                              <div class="mar-top-40">
+                                <button class="btn btn-primary" (click)="validateAddress()">{{ 'LANDING-LIST.Validate' | translate }} <i class="fas fa-arrow-right"></i></button>
+                              </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+      </div>
+    </div>

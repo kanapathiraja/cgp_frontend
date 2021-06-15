@@ -1,0 +1,33 @@
+.err {
+    color: #EC526B;
+    font-size: 12px;
+    font-weight: 300;
+    float: left;
+    padding: 10px 0px;
+
+    p {
+        margin-bottom: 0 !important;
+    }
+}
+.border-red{
+    border: 1px solid #EC526B !important;
+    label{
+        color: #EC526B !important;
+    }
+}
+.border-green{
+    border: 1px solid #0AB21B !important;
+    label{
+        color: #0AB21B !important;
+    }
+}
+
+.forgot {
+    text-align: center;
+    a{
+        color:#6C63FF;
+        font-size: 15px;
+    }
+   
+}
+

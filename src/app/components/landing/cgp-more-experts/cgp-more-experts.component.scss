@@ -1,0 +1,47 @@
+@import '../../../../styles.scss';
+
+.category{
+  padding: 60px 0;
+  .category-list{
+    .most-head{
+      h2{
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 40px;
+        align-items: center;
+        text-align: left;
+      }
+      ul{
+        list-style: none;
+        padding-left: 0px;
+        li{
+          display: inline-block;
+          margin-right: 10px;
+          &:hover{
+            @include txt-color;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .advisors-list {
+    font-size: 20px;
+  }
+
+}
+.location {
+  display: flex;
+  p{
+    margin-bottom: 0px !important;
+    align-items: center !important;
+    margin-top: 10px;
+  }
+  .edit {
+    margin-left: 15px;
+  }
+}
+.category {
+  padding: 60px 0 0 0px;
+}

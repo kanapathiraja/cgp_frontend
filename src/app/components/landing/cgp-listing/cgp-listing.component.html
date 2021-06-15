@@ -1,0 +1,12 @@
+<app-speciality-header></app-speciality-header>
+
+<div style="position: relative">
+  <div id="loader-cgp">
+
+<app-cgp-grid [cgpList]="cgpList" [search]="search" [updateExpert]="'search'"></app-cgp-grid>
+
+<app-subtopic-grid></app-subtopic-grid>
+
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>

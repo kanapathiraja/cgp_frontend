@@ -1,0 +1,36 @@
+.err {
+    color: red;
+    font-size: 12px;
+    font-weight: 300;
+    float: right;
+
+    p {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+.signup {
+
+    .fa.fa-check {
+        font-size: 5rem;
+        color: #fff;
+        background: #4985c9;
+        border-radius: 100%;
+        padding: 10px;
+          width: 100px;
+        height: 100px;
+    }
+    
+    
+    
+    .fa.fa-times {
+        font-size: 5rem;
+        color: #fff;
+        background: #ff1100;
+        border-radius: 100%;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+    }
+}

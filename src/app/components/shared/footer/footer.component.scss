@@ -1,0 +1,61 @@
+@import '../../../../styles.scss';
+
+
+/*-----------------------
+ Footer
+-------------------------*/
+
+.footer {
+    // padding: 14px 30px 14px;
+    background-color: #fff;
+    width: 100%;
+    height: 80px;
+    // position: fixed;
+    bottom: 0px;
+    .cgp-logo {
+        text-align: center;
+        padding: 20px;
+        img{
+            text-align: center;
+            margin: 0 auto;
+        }
+    }
+    .foot-link{
+        margin-top: 30px;
+        text-align: center;
+        ul{
+            list-style: none;
+            padding: 0px;
+            li{
+                display: inline-block;
+                margin-right: 40px;
+                cursor: pointer;
+                font-size: 14px;
+                &:hover{
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+    .social{
+        margin-top: 25px;
+        .follow{
+            padding: 0px;
+            li{
+                display: inline-block;
+                padding-right: 15px;
+                font-size: 25px;
+                font-weight: 500;
+                @include txt-color;
+                cursor: pointer;
+                    &:hover{
+                        @include txt-color-hover;
+                    }
+            }
+        }
+    }
+}
+
+a{
+    color: black !important;
+}

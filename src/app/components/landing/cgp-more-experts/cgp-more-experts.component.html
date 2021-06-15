@@ -1,0 +1,33 @@
+<app-speciality-header></app-speciality-header>
+<div style="position: relative">
+  <div id="loader-cgp">
+<section class="category">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="category-list">
+          <div class="most-head">
+            <ul *ngIf="subSpeciality !== 'speciality' && subSpeciality !== 'type'">
+              <li routerLink="/landing/category">{{ details?.specialtyName }} </li>
+              <li>></li>
+              <li *ngIf="details?.subtopics && details?.subtopics.length"> {{ details?.subtopics[0]?.subtopicTitle }} </li>
+            </ul>
+            <h2>
+              {{ details?.specialtyName }}
+            </h2>
+
+            <h3 class="advisors-list">{{cgpCount}} Advisers</h3>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<app-cgp-grid [subSpeciality]="subSpeciality" [speciality]="search"></app-cgp-grid>
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>

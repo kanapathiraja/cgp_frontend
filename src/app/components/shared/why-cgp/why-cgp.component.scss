@@ -1,0 +1,235 @@
+@import '../../../../styles';
+
+.why-cgp{
+    background-image: url("../../../../assets/images/why-cgp.png");
+    height: 574px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    position: relative;
+    .diamond {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        left: 0;
+        top: 0px;
+        background: #E7ECFD;
+        border-radius: 20px;
+        transform: rotate(45deg);
+        z-index: 2;
+        overflow: hidden;
+      }
+      .diamond-1{
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        left: -326px;
+        top: 0px;
+        @include btn-color;
+        border-radius: 20px;
+        transform: rotate(45deg);
+        z-index: 1;
+      }
+      .why-cgp-head{
+        position: absolute;
+        z-index: 4;
+        top: 75px;
+        left: 100px;
+        width: 300px;
+          h3{
+              font-size: 26px;
+              margin-bottom: 15px;
+          }
+          p{
+              font-size: 14px;
+              text-align: justify;
+              line-height: 20px;
+          }
+      }
+
+}
+.why-cgp-content{
+    .container{
+        .why-cgp-l{
+            margin: 100px 0;
+            h3{
+                font-size: 20px;
+                margin-bottom: 20px;
+                font-weight: 600;
+                line-height: 30px;
+            }
+            p{
+                font-size: 20px;
+                line-height: 30px;
+            }
+
+        }
+        .why-cgp-r{
+        #main {
+            margin: 100px 0;
+            .accordion {
+                .card {
+                    margin-bottom: 30px;
+                    border: 0;
+                    .card-header {
+                        border: 0;
+                        -webkit-box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+                        box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+                        border-radius: 2px;
+                        padding: 0;
+                        margin-bottom: 0px !important;
+                        a{
+                            word-break: break-all;
+                            white-space: pre-wrap;
+                        }
+                        .btn-header-link {
+                            color: #000;
+                            display: block;
+                            text-align: left;
+                            background: #ffffff;
+                            border: 1px solid #DDDDDD;
+                            border-bottom: none;
+                            color: #222;
+                            padding: 20px;
+                            &:after {
+                                content: "\f107";
+                                font-family: 'Font Awesome 5 Free';
+                                font-weight: 900;
+                                float: right;
+                            }
+                        }
+                        .btn-header-link.collapsed {
+                            border: 1px solid #DDDDDD;
+                            background: #ffffff;
+                            color: #000;
+                            .card-body{
+                                display: none;
+                            }
+                            &:after {
+                                content: "\f106";
+                            }
+                        }
+                    }
+                    .collapsing {
+                        background: #FFF;
+                        line-height: 30px;
+                    }
+                    .collapse {
+                        border: 0;
+                    }
+                    .collapse.show {
+                        background: #FFF;
+                        border: 1px solid #DDDDDD;
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+                        border-top: none;
+                        margin-top: -2px;
+                        line-height: 30px;
+                        color: #222;
+                        font-size: 15px;
+                        line-height: 20px;
+                        .card-body{
+                            text-align: justify;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    }
+}
+.category{
+    padding: 60px 0 0;
+    .category-list{
+        .most-head{
+                h2{
+                font-weight: 500;
+                font-size: 40px;
+                line-height: 40px;
+                align-items: center;
+                text-align: left;
+            }
+            ul{
+                list-style: none;
+                padding-left: 0px;
+                li{
+                    display: inline-block;
+                    margin-right: 10px;
+                    &:hover{
+                        @include txt-color;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+}
+.mobile-hide{
+    display: block;
+}
+.desk-hide{
+    display: none;
+}
+
+.accordion{
+    margin: 40px 0;
+  }
+  .accordion .item {
+      border: none;
+      margin-bottom: 50px;
+      background: none;
+  }
+  .t-p{
+    color: rgb(193 206 216);
+    padding: 40px 30px 0px 30px;
+  }
+  .accordion .item .item-header h2 button.btn.btn-link {
+      background: #333435;
+      color: white;
+      border-radius: 0px;
+      font-family: 'Poppins';
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 2.5;
+      text-decoration: none;
+  }
+  .accordion .item .item-header {
+      border-bottom: none;
+      background: transparent;
+      padding: 0px;
+      margin: 2px;
+  }
+
+  .accordion .item .item-header h2 button {
+      color: white;
+      font-size: 20px;
+      padding: 15px;
+      display: block;
+      width: 100%;
+      text-align: left;
+  }
+
+  .accordion .item .item-header h2 i {
+      float: right;
+      font-size: 30px;
+      color: #eca300;
+      background-color: black;
+      width: 60px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+  }
+
+  button.btn.btn-link.collapsed i {
+      transform: rotate(0deg);
+  }
+
+  button.btn.btn-link i {
+      transform: rotate(180deg);
+      transition: 0.5s;
+  }

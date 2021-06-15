@@ -1,0 +1,269 @@
+
+<section class="app-form">
+<div class="cpg-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-1"></div>
+        <div class="col-lg-5 col-md-5 col-12">
+            <div class="login-form">
+                    <!-- server response alert -->
+                    <div class="alert {{ responseMessage.alertType }}"  *ngIf="responseMessage.flag" role="alert">{{ responseMessage.message | translate }}</div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" [ngClass]="{'active' : activeTab == 'SIGNIN'}" data-toggle="tab" href="#tabs-1" role="tab" (click)="tabChange('SIGNIN')">{{ 'CGP-PROFILE.appointment.LOGIN.login' | translate }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [ngClass]="{'active' : activeTab == 'SIGNUP'}" data-toggle="tab" href="#tabs-2" role="tab" (click)="tabChange('SIGNUP')">{{ 'CGP-PROFILE.appointment.LOGIN.Sign-up-now' | translate }}</a>
+                            </li>
+                        </ul><!-- Tab panes -->
+                        <div class="tab-content">
+
+                                <div class="tab-pane active" [ngClass]="{'active' : activeTab == 'SIGNIN'}" id="tabs-1" role="tabpanel">
+
+                                        <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                                            <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['email'].invalid && submitAttempt, 'border-green': !form.controls['email'].invalid  && submitAttempt }">
+
+                                                <div class="form-group cgp-style">
+                                                        <input type="email" class="form-control" required="required" placeholder="{{ 'LOGIN.email' | translate }}" formControlName="email" >
+                                                </div>
+
+                                                <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || submitAttempt)" class="err">
+                                                    <p *ngIf="form.controls['email'].errors?.required">
+                                                        {{'LOGIN.validation.email-required' | translate}}
+                                                    </p>
+                                                    <p *ngIf="form.controls['email'].errors?.pattern">
+                                                        {{'LOGIN.validation.email-pattern' | translate}}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['password'].invalid && submitAttempt, 'border-green': !form.controls['password'].invalid  && submitAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="password" class="form-control" required="required" placeholder="{{ 'LOGIN.password' | translate }}" formControlName="password">
+                                                </div>
+
+                                                <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || submitAttempt)" class="err">
+                                                    <p *ngIf="form.controls['password'].errors?.required">
+                                                        {{'LOGIN.validation.password-required' | translate}}
+                                                    </p>
+                                                </div>
+                                        </div>
+
+                                        <button class="btn btn-primary pad-20" type="button" (click)="authenticate()">
+                                            {{ 'LOGIN.login' | translate }}
+                                    </button>
+                                        </form>
+                                        <div class=" pad-20 forgot"><a routerLink="/auth/password/forgot">Forgot password</a></div>
+                                        <div style="height: 150px;"></div>
+                                </div>
+
+                                <div class="tab-pane" [ngClass]="{'active' : activeTab == 'SIGNUP'}" id="tabs-2" role="tabpanel">
+                                        <form autocomplete="off" [formGroup]="signupForm" (keydown)="keyDownRegister($event)">
+
+                                            <!-- <div class="cgp-bdr mar-btm-40" [ngClass]="{ 'border-red': signupForm.controls['firstName'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['firstName'].invalid  && submitSignupAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="text" class="form-control" required="required" placeholder="" formControlName="firstName">
+                                                        <label>{{ 'LOGIN.firstName' | translate }} </label>
+                                                </div>
+
+                                                <div *ngIf="signupForm.controls['firstName'].invalid && (signupForm.controls['firstName'].dirty || submitSignupAttempt)" class="err">
+                                                    <p *ngIf="signupForm.controls['firstName'].errors?.required">
+                                                        {{'LOGIN.validation.firstName-required' | translate}}
+                                                    </p>
+                                                    <p *ngIf="signupForm.controls['firstName'].errors?.minlength">
+                                                        {{'LOGIN.validation.firstName-minlength' | translate}}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                            <div class="cgp-bdr mar-btm-40">
+                                                    <div class="form-group cgp-style">
+                                                            <input type="text" class="form-control" placeholder="" formControlName="lastName">
+                                                            <label>{{ 'LOGIN.lastName' | translate }} </label>
+                                                    </div>
+
+                                                </div>-->
+
+                                            <div class="cgp-bdr mar-btm-40">
+                                                <div class="form-group cgp-style">
+                                                        <input type="text" class="form-control" placeholder="{{ 'LOGIN.email' | translate }}" formControlName="lastName">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="cgp-bdr"  [ngClass]="{ 'border-red': signupForm.controls['email'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['email'].invalid  && submitSignupAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="email" class="form-control" required="required" placeholder="{{ 'CGP-PROFILE.appointment.LOGIN.Email-confirmation' | translate }}" formControlName="email">
+                                                </div>
+
+                                                <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || submitSignupAttempt)" class="err">
+                                                    <p *ngIf="signupForm.controls['email'].errors?.required">
+                                                        {{'LOGIN.validation.email-required' | translate}}
+                                                    </p>
+                                                    <p *ngIf="signupForm.controls['email'].errors?.pattern">
+                                                        {{'LOGIN.validation.email-pattern' | translate}}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                            <div class="cgp-bdr mar-btm-40"  [ngClass]="{ 'border-red': signupForm.controls['password'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['password'].invalid  && submitSignupAttempt }">
+                                                <div class="form-group cgp-style">
+                                                        <input type="password" class="form-control" required="required" placeholder="{{ 'LOGIN.password' | translate }}" formControlName="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                                </div>
+
+                                                <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || submitSignupAttempt)" class="err">
+                                                    <p *ngIf="signupForm.controls['password'].errors?.required">
+                                                        {{'LOGIN.validation.password-required' | translate}}
+                                                    </p>
+                                                    <p *ngIf="signupForm.controls['password'].errors?.pattern">
+                                                        {{'LOGIN.validation.password-pattern' | translate}}
+                                                    </p>
+                                                </div>
+
+
+                                        </div>
+
+                                        <!-- <div class="cgp-bdr mar-btm-40"  [ngClass]="{ 'border-red': signupForm.controls['confirm_password'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['confirm_password'].invalid  && submitSignupAttempt }">
+                                            <div class="form-group cgp-style">
+                                                    <input type="password" class="form-control" required="required" placeholder="" formControlName="confirm_password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                                    <label>{{ 'LOGIN.confirm-password' | translate }} </label>
+                                            </div>
+                                        <div *ngIf="signupForm.controls['confirm_password'].invalid && (signupForm.controls['confirm_password'].dirty || submitSignupAttempt)" class="err">
+                                            <p *ngIf="signupForm.controls['confirm_password'].errors?.required">
+                                                {{'LOGIN.validation.confirm-password-required' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['confirm_password'].errors?.mustMatch">
+                                                {{'LOGIN.validation.match-password-required' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['confirm_password'].errors?.pattern">
+                                                {{'LOGIN.validation.password-pattern' | translate}}
+                                            </p>
+                                        </div>
+                                       </div> -->
+                                       <div class="cgp-bdr-non">
+                                            <input type="checkbox" id="1" [checked]="" name="" >
+                                            <label for="1">{{ 'CGP-PROFILE.appointment.LOGIN.Sign-up-now' | translate }}</label>
+                                    </div>
+                                        <button class="btn btn-primary pad-20" type="button" (click)="register()">
+                                            {{ 'CGP-PROFILE.appointment.LOGIN.Sign-up-now' | translate }}
+                                    </button>
+                                        </form>
+                                        <div style="height: 50px;"></div>
+                                </div>
+
+                        </div>
+
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 cal-12">
+            <div class="app-login">
+                <div class="cgp-bdr">
+                    <div class="top">
+                        <h4>November 12, 2020 at 2pm</h4>
+                        <p>{{ 'CGP-PROFILE.appointment.LOGIN.1st-wealth-audit-appointment' | translate }}</p>
+                        <h5><i class="fas fa-video"></i> {{ 'CGP-PROFILE.appointment.In-video' | translate }}</h5>
+                    </div>
+                    <div class="btm">
+                        <div class="art-logo">
+                            <img src="assets/images/advisor.png">
+                        </div>
+                        <div class="art-text">
+                            <h4>John Dupont</h4>
+                            <p>{{ 'CGP-PROFILE.appointment.LOGIN.Asset-Manager' | translate }}</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+        </div>
+        </div>
+    </section>
+<div style="border-bottom: 1px solid #474747;"></div>
+    <section class="app-form">
+            <div class="cpg-main">
+                    <div class="container">
+                        <div class="row">
+                    <div class="col-lg-8 col-md-6 col-12">
+                        <div class="app-textArea">
+                            <h4>{{ 'CGP-PROFILE.appointment.LOGIN.Confirmation-appointment' | translate }}</h4>
+                            <div class="cgp-bdr">
+                                    <div class="form-group cgp-style">
+                                            <textarea class="form-control" rows="5" placeholder="{{ 'CGP-PROFILE.appointment.LOGIN.message' | translate }}"></textarea>
+                                    </div>
+                            </div>
+                            <p>{{ 'CGP-PROFILE.appointment.LOGIN.confirming-text' | translate }}</p>
+                            <button class="btn btn-primary pad-20" type="button" (click)="register()">
+                                    {{ 'CGP-PROFILE.appointment.LOGIN.Confirm-this-appointment' | translate }}
+                            </button>
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 cal-12">
+                        <div class="app-login">
+                            <div class="cgp-bdr">
+                                <div class="top">
+                                    <h4>November 12, 2020 at 2pm</h4>
+                                    <p>{{ 'CGP-PROFILE.appointment.LOGIN.1st-wealth-audit-appointment' | translate }}</p>
+                                    <h5><i class="fas fa-video"></i> {{ 'CGP-PROFILE.appointment.In-video' | translate }}</h5>
+                                </div>
+                                <div class="btm">
+                                    <div class="art-logo">
+                                        <img src="assets/images/advisor.png">
+                                    </div>
+                                    <div class="art-text">
+                                        <h4>John Dupont</h4>
+                                        <p>{{ 'CGP-PROFILE.appointment.LOGIN.Asset-Manager' | translate }}</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    </div>
+                    </div>
+                </section>
+<div style="border-bottom: 1px solid #474747; margin-top: 50px;"></div>
+    <section class="app-form">
+                        <div class="cpg-main">
+                                <div class="container">
+                                    <div class="row">
+                                <div class="col-lg-4 col-md-6 col-12">
+                                </div>
+                                <div class="col-lg-4 col-md-5 cal-12">
+                                    <div class="app-login">
+                                        <div class="success">
+                                                <i class="far fa-check-circle"></i>
+                                            <h4>{{ 'CGP-PROFILE.appointment.LOGIN.Your-appointment-is-confirmed' | translate }}</h4>
+                                            <button class="btn btn-primary pad-20" type="button">
+                                                    {{ 'CGP-PROFILE.appointment.LOGIN.Your-appointment-is-confirmed' | translate }}
+                                            </button>
+                                        </div>
+                                        <div class="cgp-bdr">
+                                            <div class="top">
+                                                <h4>November 12, 2020 at 2pm</h4>
+                                                <p>{{ 'CGP-PROFILE.appointment.LOGIN.1st-wealth-audit-appointment' | translate }}</p>
+                                                <h5><i class="fas fa-video"></i> {{ 'CGP-PROFILE.appointment.In-video' | translate }}</h5>
+                                            </div>
+                                            <div class="btm">
+                                                <div class="art-logo">
+                                                    <img src="../../../../assets/images/advisor.png">
+                                                </div>
+                                                <div class="art-text">
+                                                    <h4>John Dupont</h4>
+                                                    <p>{{ 'CGP-PROFILE.appointment.LOGIN.Asset-Manager' | translate }}</p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+
+                                </div>
+                                </div>
+    </section>

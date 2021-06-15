@@ -1,0 +1,235 @@
+<section class="search-result">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="advisors-nearby">
+          <div *ngIf="search">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-12">
+                <div class="most-head">
+                  <h2 *ngIf="updateExpert === 'nonSearch'">
+                    {{ 'HOME.ADVISORS.expert-advisor' | translate}}
+                  </h2>
+                  <h2 *ngIf="updateExpert === 'search'">
+                    {{ 'SEARCH-RESULT.CGP-listing.result-of' | translate }} "{{search}}"
+                  </h2>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-12 text-right">
+            <div class="tag">
+              <ul>
+                <li class="p-text">
+                  {{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}} ({{cgpList.length}})
+                </li>
+                <li data-toggle="modal" data-target="#edit">
+                  {{ 'LANDING-LIST.Edit' | translate }}
+                </li>
+                <li data-toggle="modal" data-target="#distance">
+                  {{ 'LANDING-LIST.Distance-around' | translate }} {{value}}Km
+                </li>
+                <li data-toggle="modal" data-target="#availabilities">
+                  {{ 'LANDING-LIST.Availabilities' | translate }}
+                </li>
+                <li data-toggle="modal" (click)="clearAll()" class="lst-text">
+                  {{ 'LANDING-LIST.Clear' | translate }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row" *ngIf="cgpList.length">
+            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" *ngFor="let cgp of cgpList">
+              <div class="card" routerLink="/landing/{{cgp?.establishmentName}}/profile">
+                <div class="position-relative">
+                  <img class="card-img-top" src="./assets/images/nearby.png" alt="" *ngIf="!cgp.bannerImage" class="header-image">
+                  <img class="card-img-top" src="{{cgp.bannerImage}}" alt="" *ngIf="cgp.bannerImage">
+                  <img src="{{cgp?.logo}}" *ngIf="cgp?.logo" class="group-logo-small">
+                  <img class="group-logo-small" src="assets/images/Mask-Group.png" *ngIf="!cgp?.logo">
+                </div>
+                <div class="card-block mar-top-20">
+                  <h4 class="card-title">{{ cgp?.establishmentName }}</h4>
+                  <p class="card-text">{{ cgp?.city }}</p>
+
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                  <div class="stats"><i class="fas fa-map-marker-alt"></i>At {{(cgp?.reason * 1.6).toFixed()}} kms</div>
+                  <div class="stats">
+                    <i class="fas fa-users"></i> {{ cgp?.cgpTeams.length}} {{ 'CGP-PROFILE.consultants' | translate }}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row" *ngIf="cgpList.length && routerCheck[2] !== 'more-advisors' && updateExpert !== 'search'">
+            <div class="col-lg-12">
+              <div class="text-center mar-top-20">
+                <button class="btn btn-outline w-auto pad-lr-20" [routerLink]="'/landing/more-advisors/speciality/' + search" *ngIf="type !== 'landing'">
+                  <span *ngIf="search">{{ 'HOME.CATEGORY.See-all' | translate }} {{search.toLowerCase()}} advisors</span>
+                  <span *ngIf="!search">{{ 'HOME.CATEGORY.See-all-advisors' | translate }}</span>
+                </button>
+                <button class="btn btn-outline w-auto pad-lr-20" [routerLink]="'/landing/more-advisors/type/Expert Advisors'" *ngIf="type === 'landing'">
+                  <span *ngIf="search">{{ 'HOME.CATEGORY.See-all' | translate }} {{search.toLowerCase()}} advisors</span>
+                  <span *ngIf="!search">{{ 'HOME.CATEGORY.See-all-advisors' | translate }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!cgpList.length">
+            <div class="no-data">No CGP available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Edit-->
+<div class="modal" id="edit">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'LANDING-LIST.Find-Geolocation' | translate }}</h2>
+          <button type="button" class="close" #myModalCloseCGPLocation data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                    <div class="row">
+                            <div class="col-12">
+                              <p>{{ 'LANDING-LIST.You-are-geolocated' | translate }}</p>
+                              <p class="b-text">{{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}}</p>
+
+                              <div class="">
+                                  <div class="form-group cgp-style-input">
+                                    <input type="text" class="form-control" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" autofocus #search_location [(ngModel)]="searchClear">
+                                  </div>
+                              </div>
+
+                              <div class="mar-top-40">
+                                <button class="btn btn-primary" (click)="validateAddress()">{{ 'LANDING-LIST.Validate' | translate }} <i class="fas fa-arrow-right"></i></button>
+                              </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+      </div>
+    </div>
+
+    <!-- Distance around me-->
+<div class="modal" id="distance">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'LANDING-LIST.Distance-around-me' | translate }}</h2>
+          <button type="button" class="close" #myModalCloseCGPDistance data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form>
+                    <div class="row">
+                            <div class="col-12">
+                              <p>{{ 'LANDING-LIST.You-are-geolocated' | translate }}</p>
+                                <div class="form-group cgp-style pad-20">
+                                    <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+                                </div>
+                                <p class="text-right mar-top-20">
+                                    <button type="button" class="btn btn-primary-right w-100" id="closeModal" (click)="updateDistance()"><i class="fas fa-arrow-right"></i></button>
+                                </p>
+                            </div>
+                        </div>
+
+
+
+                </form>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <!-- <div class="modal-footer justify-content-right">
+                <p class="text-right">
+                        <button type="button" class="btn btn-primary-right" id="closeModal">{{ 'LANDING-LIST.Validate' | translate }} <i class="fas fa-arrow-right"></i></button>
+                    </p>
+        </div> -->
+
+      </div>
+      </div>
+    </div>
+
+<!--  Availabilities -->
+<div class="modal" id="availabilities">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'LANDING-LIST.Availabilities' | translate }}</h2>
+          <button type="button" class="close" #myModalCloseCGPAvailability data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form>
+                    <div class="row">
+                            <div class="col-12">
+                              <p>{{ 'LANDING-LIST.Days' | translate }}</p>
+                                <div class="days">
+                                   <ul >
+                                     <li *ngFor="let day of days; let i = index;" [class]="{ actived:  day.active }" (click)="selectDay(i)">
+                                      {{  day.day | translate }}</li>
+                                   </ul>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                              <p>{{ 'LANDING-LIST.Time-range' | translate }}</p>
+                                <div class="range">
+                                   <ul >
+                                     <li *ngFor="let time of timeSlot; let i = index;"  [class]="{ actived:  time.active }" (click)="selectTime(i)" >{{ time.time}}</li>
+                                   </ul>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </form>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer justify-content-right">
+                <p class="text-right">
+                        <button type="button" class="btn btn-primary-right"  (click)="cgpListBasedonAvailability()" id="closeModal">{{ 'LANDING-LIST.Validate' | translate }} <i class="fas fa-arrow-right"></i></button>
+                    </p>
+        </div>
+
+      </div>
+      </div>
+    </div>

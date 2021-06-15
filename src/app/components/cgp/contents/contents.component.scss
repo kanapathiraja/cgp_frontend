@@ -1,0 +1,24 @@
+.content-table{
+    table{
+        thead{
+            tr{
+                th{
+                  min-width: 115px;
+                    border-top: none !important;
+                    border-bottom: 1px solid #EFEFEF;
+                }
+            }
+        }
+        tr{
+            td{
+                color: #4F4F4F;
+                font-size: 14px;
+                vertical-align: middle;
+                border-bottom: 1px solid #EFEFEF;
+                &:last-child{
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

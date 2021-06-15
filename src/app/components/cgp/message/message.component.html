@@ -1,0 +1,129 @@
+<section class="inner-page">
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="chatSearch clearfix">
+                    <div class="searchbarSec">
+                        <h4>{{ 'CGP.MESSAGE.Discussions' | translate }}</h4>
+                    </div>
+                </div>
+                <div class="chatMembersList">
+                    <ul *ngIf="!reloading"
+                    (loadNext)="onLoadNext()">
+                        <li [ngClass]="selectedConversation?.conversationId == conversation.conversationId ? 'active':'' " *ngFor="let conversation of conversationList" (click)="changeConversation(conversation)">
+                            <div class="chatMembers" (mouseleave)="hoverCard()">
+                                {{ conversation.toUser.firstName + conversation.toUser.lastName }}
+                                <span></span>
+                            </div>
+                            <p>{{ conversation.count }} New Messages</p>
+                        </li>
+                        <!-- <li>
+                            <div class="chatMembers">
+                                Hervé Duris
+                                <span><img src="assets/images/dash-cgp-img.png"></span>
+                            </div>
+                            <p>I want to confirm the appointment....</p>
+                        </li>
+                        <li>
+                            <div class="chatMembers">
+                                Hervé Duris
+                                <span><img src="assets/images/dash-cgp-img.png"></span>
+                            </div>
+                            <p>I want to confirm the appointment....</p>
+                        </li>
+                        <li>
+                            <div class="chatMembers">
+                                Hervé Duris
+                                <span><img src="assets/images/dash-cgp-img.png"></span>
+                            </div>
+                            <p>I want to confirm the appointment....</p>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-9 brd-left">
+                    <div class="row">
+                        <div class="col-12 col-lg-12 pad-lt-0">
+                                <div class="publicDetail display-flex ">
+                                        <div class="activeUser"></div>
+                                        <h2 *ngIf="selectedConversation">{{ selectedConversation?.toUser?.firstName + selectedConversation?.toUser?.lastName }}</h2>
+                                        <span class="text-right">{{ 'CGP.MESSAGE.Archive' | translate }}</span>
+                                    </div>
+                        </div>
+                    </div>
+              <div class="row">
+                <div class="col-12 col-lg-8" >
+                        <div class="position-relative ">
+
+                                <div class="chatSectionArea" >
+                                    <ul *ngIf="!reloading"
+                                    (loadNext)="onLoadNextMessage()">
+                                        <li *ngFor="let chat of sortData; let i = index" >
+                                            <div  *ngIf="!reloading"
+                                            (loadNext)="onLoadNextMessage()" id="{{'message'+ i}}" [ngClass]="cgpTeamUser.id == chat.fromUserId ? 'adminChatSec text-right': 'userChatSec text-left'">
+                                                <div [ngClass]="cgpTeamUser.id == chat.fromUserId ? 'display-flex adminChat': 'display-flex userChat'" >
+                                                    <div class="chatmessage" >
+                                                            <span><img src="assets/images/dash-cgp-img.png"></span>
+                                                       {{chat.message}}</div>
+                                                        <div class="chatTiming">{{chat.createdAt | date: 'MMM d, y, h:mm:ss a'}}</div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul >
+                                </div>
+                                <div class="writeChat" id="content"  >
+                                    <div class="display-flex">
+                                        <div class="chatContent">
+                                                <div class="cgp-bdr">
+                                                  <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+                                                    <div class="input-group">
+                                                      <input type="text" class="form-control" [(ngModel)]="model.message" name="message" #message="ngModel" [ngClass]="{ 'is-invalid': f.submitted && message.invalid }" required placeholder="{{ 'CGP.MESSAGE.Write-a-message' | translate }}">
+                                                      <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="submit"><i class="far fa-paper-plane"></i></button>
+                                                      </div>
+                                                      <div *ngIf="f.submitted && message.invalid" class="invalid-feedback">
+                                                        <div *ngIf="message.errors?.required">Title is required</div>
+                                                    </div>
+                                                      </div>
+                                                  </form>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-12 col-lg-4 brd-left">
+                    <div class="chat-l">
+                        <h3>Mr Hervé Duris</h3>
+                        <p>herve.duris@gmail.com</p>
+                        <p>Born on 18 Dec 1985 <br>
+                            12 avenue de l’impasse 75007 Paris
+                        </p>
+                        <h5>{{ 'CGP.MESSAGE.Next-appointment' | translate }}</h5>
+                        <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title">12 nov 2020 <span>14:00</span></h4>
+                                        <p class="card-text">John Dupont</p>
+                                        <p class="card-text">Name of the firm</p>
+                                        <p class="card-text">Investment project study</p>
+
+                                    </div>
+                                    <div class="card-footer text-muted justify-content-between">
+                                            <div class="stats">{{ 'CGP.MESSAGE.In-video' | translate }}</div>
+                                            <div class="stats">
+                                                    <button type="button" class="btn btn-primary-right">{{ 'CGP.MESSAGE.Launch-the-videoconference' | translate }} <i class="fas fa-arrow-right"></i></button>
+                                            </div>
+
+                                          </div>
+                                </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</section>

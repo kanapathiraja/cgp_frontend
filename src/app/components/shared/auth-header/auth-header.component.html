@@ -1,0 +1,253 @@
+<!--Before login other than home page-->
+<div class="contaner-fluid" *ngIf="!user">
+  <div class="new-header">
+    <div class="menu">
+      <nav class="navbar navbar-expand-lg bg-white fixed-top">
+        <a class="navbar-brand" routerLink="/homepage">
+          <img class="cgp-logo" src="assets/images/LogoPatrimonist.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarcgp"
+          aria-controls="navbarcgp"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="far fa-user"></i>
+        </button>
+        <ul class="navbar-nav mr-auto desk-hide">
+            <li class="nav-item">
+              <div class="cgp-bdr">
+                <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="{{ 'HOME.HEADER.search' | translate }}" formControlName="searchKey"
+                           (keyup)="getlistforAutocomplete()" [matAutocomplete]="auto"/>
+                    <mat-autocomplete class="autocomplete-panel" #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of autoUpdate" [value]="option" (onSelectionChange)="valueUpdate(option)">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <div class="input-group-append">
+                      <button class="btn" type="submit" (click)="searchCgp('listing', '')">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+        <div class="collapse navbar-collapse" id="navbarcgp">
+          <ul class="navbar-nav mr-auto mobile-hide">
+            <li class="nav-item">
+              <div class="cgp-bdr">
+                <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="{{ 'HOME.HEADER.search' | translate }}" formControlName="searchKey"
+                           (keyup)="getlistforAutocomplete()" [matAutocomplete]="auto"/>
+                    <mat-autocomplete class="autocomplete-panel" #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of autoUpdate" [value]="option" (onSelectionChange)="valueUpdate(option)">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <div class="input-group-append">
+                      <button class="btn" type="submit" (click)="searchCgp('listing', '')">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav navbar-nav-notuser" *ngIf="!hidelogin">
+            <li class="">
+              <button type="button" class="btn btn-new-pri" routerLink="/auth/login" data-toggle="dropdown">{{ 'HOME.HEADER-NEW.connection' | translate }}</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+
+<!---after login other than home page-->
+<div class="contaner-fluid" *ngIf="user">
+  <div class="cgp-header">
+    <div class="menu">
+      <nav class="navbar navbar-expand-lg bg-white fixed-top">
+        <a class="navbar-brand" *ngIf="user && user?.role=='USER'" routerLink="/homepage">
+          <img class="cgp-logo" src="assets/images/LogoPatrimonist.png" />
+        </a>
+        <a class="navbar-brand" *ngIf="user && user?.role=='CGP'" routerLink="/cgp/profile">
+          <img class="cgp-logo" src="assets/images/LogoPatrimonist.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarcgp"
+          aria-controls="navbarcgp"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav mr-auto desk-hide">
+            <li class="nav-item">
+              <div class="cgp-bdr">
+                <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="{{ 'HOME.HEADER.search' | translate }}" formControlName="searchKey"
+                         (keyup)="getlistforAutocomplete()" [matAutocomplete]="auto"/>
+                  <mat-autocomplete class="autocomplete-panel" #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of autoUpdate" [value]="option" (onSelectionChange)="valueUpdate(option)">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="input-group-append">
+                    <button class="btn" type="submit" (click)="searchCgp('listing', '')">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+        <div class="collapse navbar-collapse" id="navbarcgp">
+          <ul class="navbar-nav mr-auto mobile-hide">
+            <li class="nav-item">
+              <div class="cgp-bdr">
+                <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="{{ 'HOME.HEADER.search' | translate }}" formControlName="searchKey"
+                         (keyup)="getlistforAutocomplete()" [matAutocomplete]="auto"/>
+                  <mat-autocomplete class="autocomplete-panel" #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of autoUpdate" [value]="option" (onSelectionChange)="valueUpdate(option)">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="input-group-append">
+                    <button class="btn" type="submit" (click)="searchCgp('listing', '')">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+
+          <!-- <ul class="navbar-nav ml-auto" *ngIf="user && user?.role=='USER'">
+            <li class="nav-item pad-r-l-20">
+              <ng-select [items]="cgpSiretList"
+                  bindLabel="eSiret"
+                  bindValue="id"
+                  [(ngModel)]="selectedCGP"
+                  placeholder="Enter siret code"
+                  (change)="changeSiret($event)"
+                  class="custom"
+                  >
+              </ng-select>
+           </li>
+          </ul> -->
+
+              <ul class="navbar-nav navbar-right-top left-auto" *ngIf="user && user?.role=='USER'">
+            <li class="nav-item dropdown nav-user">
+              <a
+                class="nav-link nav-user-img"
+                href="#"
+                id="navbarcgp2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div class="d-flex">
+                  <div class="cgp-icon"><i class="far fa-user"></i></div>
+                  <div class="info">
+                    <a href="#" class="d-block">{{user.firstName | titlecase}} {{user.lastName | titlecase}}</a>
+
+                  </div>
+                </div>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                aria-labelledby="navbarcgp2"
+              >
+                <div class="nav-user-info">
+                  <li  class="nav-item dropdown">
+                  <a class="dropdown-item" routerLink="/user/profile">{{ 'HOME.HEADER.profile' | translate }}</a>
+
+                  <a class="dropdown-item" href="javascript:;" (click)="logout()">{{ 'HOME.HEADER.logout' | translate }}</a>
+                </li>
+
+                </div>
+              </div>
+            </li>
+          </ul>
+
+
+
+          <ul class="navbar-nav hover-new ml-auto" *ngIf="user && user?.role=='CGP' && !hidePrivacyLogin">
+<!--            <li class="nav-item pad-r-l-20 mar-top-2">-->
+<!--              <a class="nav-link" routerLink="#" [routerLinkActive]="['active']">{{ 'CGP-HEADER.dashboard' | translate }}<span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item pad-r-l-20 mar-top-2">-->
+<!--              <a class="nav-link" routerLink="/cgp/appointment"  [routerLinkActive]="['active']">{{ 'CGP-HEADER.appointment' | translate }}</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item pad-r-l-20 mar-top-2">-->
+<!--              <a class="nav-link" routerLink="/cgp/message"  [routerLinkActive]="['active']">{{ 'CGP-HEADER.messages' | translate }} </a>-->
+<!--            </li>-->
+            <li class="nav-item pad-r-l-20">
+              <!-- <ng-select [items]="cgpSiretList"
+                         bindLabel="eSiret"
+                         bindValue="id"
+                         [(ngModel)]="selectedCGP"
+                         placeholder="Enter siret code"
+                         (change)="changeSiret($event)"
+                         class="custom"
+                         [disabled]="disableCgp"
+                         [clearable]="false"
+              >
+              </ng-select> -->
+            </li>
+            <li  class="nav-item dropdown mar-top-2">
+              <button type="button" class="btn btn-gray dropdown-toggle" data-toggle="dropdown">{{ user?.firstName | titlecase}} {{ user?.lastName | titlecase}}</button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngIf="!disableCgp">
+                    <ng-select [items]="cgpSiretList"
+                   bindLabel="eSiret"
+                   bindValue="id"
+                   [(ngModel)]="selectedCGP"
+                   placeholder="Enter siret code"
+                   (change)="changeSiret($event)"
+                   class="custom"
+                   [clearable]="false"
+        >
+        </ng-select>
+                  </a>
+                        <a class="dropdown-item" routerLink="/cgp/profile">{{ 'CGP-HEADER.conmpany-info' | translate }}</a>
+                        <a class="dropdown-item" routerLink="/cgp/setting">{{ 'CGP-HEADER.settings' | translate }}</a>
+                        <a class="dropdown-item" routerLink="/cgp/contents">{{ 'CGP-HEADER.contents' | translate }}</a>
+                        <a class="dropdown-item" routerLink="/cgp/team">{{ 'CGP-HEADER.team' | translate }}</a>
+                        <a class="dropdown-item" (click)="logout()">{{ 'CGP-HEADER.logout' | translate }}</a>
+                      </div>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+
+
+

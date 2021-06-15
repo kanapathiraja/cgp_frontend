@@ -1,0 +1,491 @@
+<app-speciality-header></app-speciality-header>
+<div style="position: relative">
+  <div id="loader-cgp">
+<section>
+  <div class="header-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+          <div class="head-left">
+            <div class="cgp-bdr">
+              <div class="position-relative">
+                <img src="{{viewCGPInfoDetails?.bannerImage}}" *ngIf="viewCGPInfoDetails?.bannerImage" class="header-image">
+                <img src="./assets/images/cgp-header.png" *ngIf="!viewCGPInfoDetails?.bannerImage">
+                <img src="{{viewCGPInfoDetails?.logo}}" *ngIf="viewCGPInfoDetails?.logo" class="group-logo">
+                <img class="group-logo" src="assets/images/Mask-Group.png" *ngIf="!viewCGPInfoDetails?.logo">
+              </div>
+              <div class="group-info">
+
+                <h4>{{ viewCGPInfoDetails?.establishmentName }}</h4>
+                <p>{{ viewCGPInfoDetails?.companyAddress }}</p>
+                <ul>
+                  <li><span><i class="far fa-building"></i></span>{{ 'CGP-PROFILE.created' | translate }} {{ viewCGPInfoDetails?.foundedYear }}</li>
+                  <li><span><i class="fas fa-users"></i></span>{{viewCGPTeamInfoDetails.length}} {{ 'CGP-PROFILE.consultants' | translate }}</li>
+                  <li><a href="{{website}}" target="_blank"><span><i class="fas fa-globe"></i></span>{{ 'CGP-PROFILE.website' | translate }}</a></li>
+                  <li><a href="https://www.google.com/maps/search/?api=1&query={{latitude}},{{longitude}}" target="_blank"><span><i class="fas fa-map-marker-alt"></i></span>At {{(viewCGPInfoDetails?.reason * 1.6).toFixed()}}kms</a>  ({{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}})   <a data-toggle="modal" class="underline" data-target="#edit">{{ 'CGP-PROFILE.update_city' | translate }}</a></li>
+                </ul>
+                <div class="tag">
+                  <p>{{ 'CGP-PROFILE.specialties' | translate }}</p>
+                  <ul>
+                    <li *ngFor="let specialties of viewCGPSpecialitiesDetails">
+                        {{ specialties.specialties.specialtyName }}
+                    </li>
+                    <li *ngFor="let subtopic of viewCGPSubtopicDetails">
+                        {{ subtopic.subtopics.subtopicTitle }}
+                    </li>
+                    <li *ngFor="let tag of viewCGPTagDetails">
+                        {{ tag.subtopicTags.tagTitle }}
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+            <div class="head-right">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="cgp-bdr">
+                                    <div class="map">
+                                      <agm-map
+                                      [latitude]="latitude"
+                                      [longitude]="longitude"
+                                      [zoom]="zoom" ><agm-marker
+                                      [latitude]="latitude"
+                                      [longitude]="longitude" [label]="labelOptions" [iconUrl]="icon" (markerClick)="clickedMarker()"></agm-marker></agm-map>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+<!--                <div class="row">-->
+<!--                        <div class="col-12">-->
+<!--                                <div class="cgp-bdr mar-top-20">-->
+<!--                                        <div class="appointment">-->
+<!--                                                <button class="btn btn-primary btn-higt" data-toggle="modal" data-target="#appointment" tabindex="0">{{ 'CGP-PROFILE.appointment.Make-an-appointment' | translate }}</button>-->
+<!--                                                <button class="btn btn-outline-pri" data-toggle="modal" data-target="#sendMessage" tabindex="0">{{ 'CGP-PROFILE.appointment.Send-a-message' | translate }}</button>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-6">-->
+<!--                                                            <button class="btn btn-outline-pri" tabindex="0" ><i class="fas fa-star"></i> {{ 'CGP-PROFILE.appointment.Favorites' | translate }}</button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-6">-->
+<!--                                                            <button class="btn btn-outline-color-r0 w-100" tabindex="0"><i class="fas fa-globe"></i> {{ 'CGP-PROFILE.appointment.See-the-site' | translate }}</button>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="pro-bdr pro-bdr-btm">
+  <div class="pro-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+          <div class="pro-info-left">
+            <h2>{{ 'CGP-PROFILE.presentation' | translate }}</h2>
+            <p>
+              {{ viewCGPInfoDetails?.presentationText }}
+            </p>
+          </div>
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+          <div class="pro-info-right">
+            <h2 *ngIf="viewCGPPracticalInfoDetails.length>0">{{ 'CGP-PROFILE.opening-hours' | translate }}</h2>
+            <ul>
+              <li *ngFor="let info of viewCGPPracticalInfoDetails; let i = index; ">
+                <label *ngIf="info.startTime && info.endTime">{{ 'CGP.CONFIG.' + info.dayName | translate }} : {{ info.startTime }} - {{ info.endTime }}</label>
+              </li>
+            </ul>
+            <h2 *ngIf="viewCGPInfoDetails?.facebook || viewCGPInfoDetails?.twitter || viewCGPInfoDetails?.linkedIn || viewCGPInfoDetails?.instagram || viewCGPInfoDetails?.youtube">{{ 'CGP-PROFILE.follow-us' | translate }}</h2>
+            <ul class="follow">
+                <li class="f-color" *ngIf="viewCGPInfoDetails?.facebook"><a href="{{viewCGPInfoDetails?.facebook}}" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
+                <li class="f-color" *ngIf="viewCGPInfoDetails?.twitter"><a href="{{viewCGPInfoDetails?.twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                <li class="f-color" *ngIf="viewCGPInfoDetails?.linkedIn"><a href="{{viewCGPInfoDetails?.linkedIn}}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                <li class="f-color" *ngIf="viewCGPInfoDetails?.instagram"><a href="{{viewCGPInfoDetails?.instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li class="f-color" *ngIf="viewCGPInfoDetails?.youtube"><a href="{{viewCGPInfoDetails?.youtube}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pro-bdr pro-bdr-btm">
+  <div class="pro-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+          <div class="pro-info-left">
+            <h2>{{ 'CGP-PROFILE.our-team' | translate }}</h2>
+            <span class="text-right">
+                                      </span>
+            <div class="row mar-btm-20" *ngFor="let team of viewCGPTeamInfoDetails | slice:startPage:paginationLimit">
+              <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12">
+                <div class="team-img">
+                  <img class="rounded" src="{{team.bannerUrl}}" *ngIf="team.bannerUrl">
+                  <img class="rounded" src="assets/images/team-image-2.jpg" *ngIf="!team.bannerUrl">
+<!--                  <button class="btn btn-color"><i class="fas fa-play"></i></button>-->
+                </div>
+              </div>
+              <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                <div class="team-text">
+                  <h3>
+                    {{ team.firstname }} {{ team.lastname }}
+                    <span class="text-right">
+                                                        </span>
+                  </h3>
+                  <h4>{{ team.designation }}</h4>
+                  <p *ngIf="team.description !== 'null'"> {{ team.description }}</p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row mar-btm-20">
+              <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                <a *ngIf ="paginationLimit < viewCGPTeamInfoDetails.length" (click)="showMoreItems()">{{ 'CGP-PROFILE.see-the-3' | translate }} {{viewCGPTeamInfoDetails.length - 3}} {{ 'CGP-PROFILE.other-collaborators' | translate }} <i class="fas fa-sort-down"></i> </a>
+                <a *ngIf ="paginationLimit > 4" (click)="showLessItems()">
+                  {{ 'CGP-PROFILE.less-the-3' | translate }} {{viewCGPTeamInfoDetails.length - 3}} {{ 'CGP-PROFILE.other-collaborators' | translate }} <i class="fas fa-sort-up"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+          <div class="pro-info-right mar-btm-20">
+            <div class="client-tag">
+              <h2>{{ 'CGP-PROFILE.our-clients' | translate }}
+                <span class="text-right">
+                                                        </span>
+              </h2>
+              <ul>
+                                                                <span *ngFor="let client of viewCGPCustomerInfoDetails; let i = index;">
+                                                                        <li>
+                                                                            {{ client.customer_type }}
+                                                                        </li>
+                                                                </span>
+
+              </ul>
+            </div>
+            <div class="partners-logo">
+              <h2>
+                {{ 'CGP-PROFILE.partners' | translate }}
+                <span class="text-right">
+                                                        </span>
+              </h2>
+              <ul>
+               <span *ngFor="let partner of viewCGPPartnersDetails; let i = index;">
+                    <li *ngIf="partner?.partner_logo && partner?.partner_logo?.url">
+                    <img *ngIf="partner?.partner_logo && partner?.partner_logo?.url" src="{{img_url}}{{  partner.partner_logo.url  }}" width="75" height="50">
+                    <img *ngIf="partner?.partner_logo && partner?.partner_logo?.url" src="assets/images/placeholder-logo.jpg" width="130" height="50">
+                    </li>
+                </span>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pro-bdr category" *ngIf="articlesList.length">
+  <div class="pro-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-info-left">
+            <h2>{{ 'CGP-PROFILE.expert-advice' | translate }}</h2>
+            <div class="advice mar-btm-20">
+              <div class="row">
+                <div class="col-12">
+<!--                  <ul>-->
+<!--                    <li class="active" routerLinkActive="active" (click)="getArticlesList('all')">{{ 'CGP-PROFILE.all' | translate }}</li>-->
+<!--                    <li routerLinkActive="active" (click)="getArticlesList('article')">{{ 'CGP-PROFILE.articles' | translate }}</li>-->
+<!--                    <li routerLinkActive="active" (click)="getArticlesList('podcast')">{{ 'CGP-PROFILE.podcasts' | translate }}</li>-->
+<!--                    <li routerLinkActive="active" (click)="getArticlesList('video')">{{ 'CGP-PROFILE.videos' | translate }}</li>-->
+<!--                    <li routerLinkActive="active" (click)="getArticlesList('guide')">{{ 'CGP-PROFILE.guides' | translate }}</li>-->
+<!--                  </ul>-->
+                  <div class="advisors-nearby">
+                    <app-articles-grid [list]="articlesList" [limit]="8" [type]="'cgp'" [id]="cgpId"></app-articles-grid>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="text-center mar-top-20">
+                    <button class="btn btn-outline w-25" [routerLink]="'/landing/more-articles/cgp/' + cgpId + '/' + viewCGPInfoDetails?.establishmentName + '\'s Articles'">{{ 'CGP-PROFILE.see-all-expert-reviews' | translate }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pro-bdr">
+  <div class="pro-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-info-left" *ngIf="cgpList.length">
+            <h2>{{ 'CGP-PROFILE.other-advisors-nearby' | translate }}</h2>
+            <div class="advice mar-btm-20">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" *ngFor="let cgp of cgpList">
+                  <div class="card" routerLink="/landing/{{cgp?.establishmentName}}/profile">
+                    <div class="position-relative">
+                      <img class="card-img-top grp-image" src="./assets/images/nearby.png" alt="" *ngIf="!cgp.bannerImage">
+                      <img class="card-img-top grp-image" src="{{cgp.bannerImage}}" alt="" *ngIf="cgp.bannerImage">
+                      <img src="{{cgp?.logo}}" *ngIf="cgp?.logo" class="group-logo-small">
+                      <img class="group-logo-small" src="assets/images/Mask-Group.png" *ngIf="!cgp?.logo">
+                    </div>
+                    <div class="card-block mar-top-20">
+                      <h4 class="card-title">{{ cgp?.establishmentName }}</h4>
+                      <p class="card-text">{{ cgp?.city }}</p>
+
+                    </div>
+                    <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                      <div class="stats"><i class="fas fa-map-marker-alt"></i> A {{(cgp?.reason * 1.6).toFixed()}}kms</div>
+                      <div class="stats">
+                        <i class="fas fa-users"></i> {{ cgp?.cgpTeams.length}} {{ 'CGP-PROFILE.consultants' | translate }}
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
+                  <div class="col-lg-12">
+                      <div class="text-center mar-top-20">
+                          <button class="btn btn-outline w-25">{{ 'CGP-PROFILE.see-all-expert-reviews' | translate }}</button>
+                      </div>
+                  </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--
+<section class="make-app">
+   <div class="container-fluid">
+      <div class="row">
+                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12">
+                   <div _ngcontent-asp-c83="" class="cgp-logo">
+                       <img _ngcontent-asp-c83="" src="assets/images/cgp-logo.png">
+                   </div>
+               </div>
+           <div class="col-lg-4">
+           </div>
+           <div class="col-lg-2">
+                   <button class="btn btn-outline-none" tabindex="0" ><i class="fas fa-star"></i> {{ 'CGP-PROFILE.appointment.Add-to-my-favorites' | translate }}</button>
+           </div>
+           <div class="col-lg-2">
+                   <button class="btn btn-primary btn-higt" data-toggle="modal" data-target="#appointment" tabindex="0">{{ 'CGP-PROFILE.appointment.Make-an-appointment' | translate }}</button>
+           </div>
+           <div class="col-lg-2">
+                   <button class="btn btn-outline-pri" tabindex="0">{{ 'CGP-PROFILE.appointment.Send-a-message' | translate }}</button>
+           </div>
+       </div>
+   </div>
+ </section>  -->
+</div>
+</div>
+
+
+<ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+
+
+<!--Appointment-->
+<div class="modal show" id="appointment">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content search_geo">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ 'CGP-PROFILE.appointment.Please-fill' | translate }}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <form >
+                    <div>
+                      <ol>
+                      <li *ngIf="step1">
+                        <p>{{ 'CGP-PROFILE.appointment.Type-of-appointment' | translate }}</p>
+                        <div class="row">
+                            <div class="col-12 col-lg-6 col-md-6">
+                                <div class="cgp-bdr-2">
+                                    <div class="cgp-style">
+                                        <input id="radio-1" class="radio-custom" name="radio-group" type="radio" value="office" (change)="onChange('step1')">
+                                        <label for="radio-1" class="radio-custom-label">{{ 'CGP-PROFILE.appointment.In-the-office' | translate }}</label>
+                                        <i class="fas fa-home"></i>
+                                          </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-6">
+                                <div class="cgp-bdr-2">
+                                    <div class="cgp-style">
+                                        <input id="radio-2" class="radio-custom"name="radio-group" type="radio" value="video" (change)="onChange('step1')">
+                                        <label for="radio-2" class="radio-custom-label">{{ 'CGP-PROFILE.appointment.In-video' | translate }}</label>
+                                        <i class="fas fa-video"></i>
+                                          </div>
+                                </div>
+                            </div>
+
+                    </div>
+                      </li>
+                      <li *ngIf="step2">
+                          <p>{{ 'CGP-PROFILE.appointment.Choose-a-reason' | translate }}</p>
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="cgp-bdr-2">
+                                      <div class="cgp-style">
+                                          <select class="browser-default btn w-100" (change)="onChange('step2')">
+                                              <option value="">{{ 'CGP-PROFILE.appointment.1st-wealth' | translate }}</option>
+                                              <option value="1">{{ 'CGP-PROFILE.appointment.1st-wealth' | translate }}</option>
+                                              <option value="2">{{ 'CGP-PROFILE.appointment.1st-wealth' | translate }}</option>
+                                            </select>
+                                            </div>
+                                  </div>
+                                </div>
+                          </div>
+                        </li>
+                        <li *ngIf="step3">
+                            <p style="line-height: 44px;">{{ 'CGP-PROFILE.appointment.Choose-your-advisor' | translate }}</p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <swiper [slidesPerView]="2" [spaceBetween]="10" [virtual]="true" [navigation]="true">
+                                        <ng-container *ngFor="let slide of slides; index as i">
+                                          <ng-template swiperSlide>
+                                              <div class="card-1">
+                                                <img src="../../../../assets/images/advisor.png">
+                                                  <h3>John Dupont</h3>
+                                                  <p> Financial manager</p>
+                                              </div>
+                                          </ng-template>
+                                        </ng-container>
+                                         <!-- Add Pagination -->
+                                        <div class="swiper-pagination"></div>
+
+                                        <!-- Add Arrows -->
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                      </swiper>
+                                  </div>
+                            </div>
+                          </li>
+                          <li *ngIf="step4">
+                            <p style="line-height: 0px;">{{ 'CGP-PROFILE.appointment.Select-your-appointment' | translate }}</p>
+                          </li>
+                    </ol></div>
+
+
+                </form>
+
+
+        </div>
+
+        <!-- Modal footer -->
+  <!-- <div style="height: 300px;"></div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Send message -->
+  <div class="modal show" id="sendMessage">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content search_geo">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ 'CGP-PROFILE.appointment.Please-fill' | translate }}</h4>
+          <button type="button" class="close" (click)="clodeModel()" [attr.data-dismiss]="closeModel">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                      <div class="">
+                      <!-- <h4 class="modal-title">{{ 'CGP-PROFILE.appointment.Please-fill' | translate }}</h4> -->
+                      <select class="form-control" id="sel2" name="selectedTeam" (change)="onSelectFa($event)" [(ngModel)]="selectedTeam">
+                        <option  *ngFor="let cgpTeam of viewCGPTeamInfoDetails" [value]="cgpTeam.id"  >{{ cgpTeam.firstname + cgpTeam.lastname}}</option>
+                      </select>
+                      </div>
+
+                      <div class="mar-top-50">
+                        <button  type="button" class="btn btn-primary" data-dismiss="modal" (click)="navigateToChat()">Select <i  class="fas fa-arrow-right"></i></button>
+                      </div>
+                    </div>
+                </div>
+
+        </div>
+
+
+        <!-- Modal footer -->
+      </div>
+    </div>
+  </div>
+
+    <!-- Update City -->
+<div class="modal show" id="edit">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content search_geo">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">{{ 'LANDING-LIST.Find-Geolocation' | translate }}</h2>
+        <button type="button" class="close" #myModalCloseCGPLocation data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+                  <div class="row">
+                          <div class="col-12">
+                            <p>{{ 'LANDING-LIST.You-are-geolocated' | translate }}</p>
+                            <p class="b-text">{{ 'HOME.CATEGORY.Geolocalized' | translate }} {{address}}</p>
+
+                            <div class="">
+                                <div class="form-group cgp-style-input">
+                                  <input type="text" class="form-control" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" autofocus #search_location [(ngModel)]="search_clear">
+                                </div>
+                            </div>
+
+                            <div class="mar-top-40">
+                              <button class="btn btn-primary" (click)="validateSearchAddress()">{{ 'LANDING-LIST.Validate' | translate }} <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                          </div>
+                      </div>
+
+
+
+
+
+
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+
+

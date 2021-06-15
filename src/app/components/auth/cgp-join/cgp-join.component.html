@@ -1,0 +1,486 @@
+<div class="cpg-main">
+        <div class="container">
+        <div class="col-12">
+        <div class="public-login">
+
+        <div class="tab-content">
+
+        <form [formGroup]="form" (keydown)="keyDownAction($event)">
+        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+        <h2>{{ 'CGP-REGISTER.join' | translate }}</h2>
+        <h1>{{ 'CGP-REGISTER.establishment_details' | translate }}</h1>
+        <div class="row">
+                <div class="col-12">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['establishmentName'].invalid && submitAttempt, 'border-green': !form.controls['establishmentName'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{
+                                                'CGP-REGISTER.establishmentName'
+                                                |
+                                                translate }}"
+                                                formControlName="establishmentName">
+                                </div>
+                                <div *ngIf="form.controls['establishmentName'].invalid && (form.controls['establishmentName'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['establishmentName'].errors?.required">
+                                                {{'CGP-REGISTER.validation.establishmentName-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <div class="row">
+        <div class="col-12 col-lg-6 col-md-6">
+                <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['email'].invalid && submitAttempt, 'border-green': !form.controls['email'].invalid  && submitAttempt }">
+                        <div class="form-group cgp-style">
+                                <input type="text"
+                                        class="form-control"
+                                        required="required"
+                                        placeholder="{{ 'CGP-REGISTER.email' |
+                                        translate }} "
+                                        formControlName="email">
+                        </div>
+
+                        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['email'].errors?.required">
+                                        {{'CGP-REGISTER.validation.email-required'
+                                        | translate}}
+                                </p>
+                                <p
+                                *ngIf="form.controls['email'].errors?.pattern">
+                                {{'CGP-REGISTER.validation.email-pattern'
+                                | translate}}
+                                </p>
+                        </div>
+
+                </div>
+        </div>
+        <div class="col-12 col-lg-6 col-md-6">
+                <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['contactNumber'].invalid && submitAttempt, 'border-green': !form.controls['contactNumber'].invalid  && submitAttempt }">
+                        <div class="form-group cgp-style">
+                                <input type="tel"
+                                        class="form-control"
+                                        required="required"
+                                        placeholder="{{ 'CGP-REGISTER.contactNumber' |
+                                        translate }} "
+                                        formControlName="contactNumber">
+                        </div>
+                        <div *ngIf="form.controls['contactNumber'].invalid && (form.controls['contactNumber'].dirty || submitAttempt)"
+                        class="err">
+                        <p
+                                *ngIf="form.controls['contactNumber'].errors?.required">
+                                {{'CGP-REGISTER.validation.contactNumber-required'
+                                | translate}}
+                        </p>
+                        <p
+                        *ngIf="form.controls['contactNumber'].errors?.pattern">
+                        {{'CGP-REGISTER.validation.contactNumber-pattern'
+                        | translate}}
+                </p>
+                </div>
+
+
+
+                </div>
+        </div>
+        </div>
+
+        <div class="row">
+                <div class="col-12">
+                        <div class="cgp-bdr" >
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                placeholder="BATIMENT A"
+                                                formControlName="addressComplement">
+                                </div>
+
+                                <div *ngIf="form.controls['addressComplement'].invalid && (form.controls['addressComplement'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['addressComplement'].errors?.required">
+                                                {{'CGP-REGISTER.validation.addressComplement-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="row">
+
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                placeholder="PL"
+                                                formControlName="addressType">
+                                </div>
+
+                                <div *ngIf="form.controls['addressType'].invalid && (form.controls['addressType'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['addressType'].errors?.required">
+                                                {{'CGP-REGISTER.validation.addressType-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['addressNumber'].invalid && submitAttempt, 'border-green': !form.controls['addressNumber'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="16"
+                                                formControlName="addressNumber">
+                                </div>
+
+                                <div *ngIf="form.controls['addressNumber'].invalid && (form.controls['addressNumber'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['addressNumber'].errors?.required">
+                                                {{'CGP-REGISTER.validation.addressNumber-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="row">
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['addressStreet'].invalid && submitAttempt, 'border-green': !form.controls['addressStreet'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="CHARLES DE GAULLE"
+                                                formControlName="addressStreet">
+                                </div>
+
+                                <div *ngIf="form.controls['addressStreet'].invalid && (form.controls['addressStreet'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['addressStreet'].errors?.required">
+                                                {{'CGP-REGISTER.validation.addressStreet-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['city'].invalid && submitAttempt, 'border-green': !form.controls['city'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="SAINT-GERMAIN-EN-LAYE"
+                                                formControlName="city">
+                                </div>
+
+                                <div *ngIf="form.controls['city'].invalid && (form.controls['city'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['city'].errors?.required">
+                                                {{'CGP-REGISTER.validation.city-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['country'].invalid && submitAttempt, 'border-green': !form.controls['country'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="FRANCE"
+                                                formControlName="country">
+                                </div>
+
+                                <div *ngIf="form.controls['country'].invalid && (form.controls['country'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['country'].errors?.required">
+                                                {{'CGP-REGISTER.validation.country-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['postalCode'].invalid && submitAttempt, 'border-green': !form.controls['postalCode'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text" (keydown)="validateNumber($event)"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="78100"
+                                                formControlName="postalCode">
+                                </div>
+
+                                <div *ngIf="form.controls['postalCode'].invalid && (form.controls['postalCode'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['postalCode'].errors?.required">
+                                                {{'CGP-REGISTER.validation.postalCode-required'
+                                                | translate}}
+                                        </p>
+                                        <p
+                                        *ngIf="form.controls['postalCode'].errors?.pattern">
+                                        {{'CGP-REGISTER.validation.contactNumber-pattern'
+                                        | translate}}
+                                </p>
+                                  <p
+                                    *ngIf="form.controls['postalCode'].errors?.maxlength?.actualLength > 5">
+                                    {{'CGP-REGISTER.validation.postalcode-length'
+                                    | translate}}
+                                  </p>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['hOrias'].invalid && submitAttempt, 'border-green': !form.controls['hOrias'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{ 'CGP-REGISTER.hOrias' |
+                                                translate }} "
+                                                formControlName="hOrias">
+                                </div>
+
+                                <div *ngIf="form.controls['hOrias'].invalid && (form.controls['hOrias'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['hOrias'].errors?.required">
+                                                {{'CGP-REGISTER.validation.hOrias-required'
+                                                | translate}}
+                                        </p>
+                                </div>
+
+
+
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['eSiret'].invalid && submitAttempt, 'border-green': !form.controls['eSiret'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{ 'CGP-REGISTER.eSiret' |
+                                                translate }} "
+                                                formControlName="eSiret">
+                                </div>
+                                <div *ngIf="form.controls['eSiret'].invalid && (form.controls['eSiret'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['eSiret'].errors?.required">
+                                        {{'CGP-REGISTER.validation.eSiret-required'
+                                        | translate}}
+                                </p>
+                               </div>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="row">
+
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['hCompanyRcsSiren'].invalid && submitAttempt, 'border-green': !form.controls['hCompanyRcsSiren'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{ 'CGP-REGISTER.hCompanyRcsSiren' |
+                                                translate }} "
+                                                formControlName="hCompanyRcsSiren">
+                                </div>
+                                <div *ngIf="form.controls['hCompanyRcsSiren'].invalid && (form.controls['hCompanyRcsSiren'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['hCompanyRcsSiren'].errors?.required">
+                                        {{'CGP-REGISTER.validation.hCompanyRcsSiren-required'
+                                        | translate}}
+                                </p>
+                               </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-3">
+                        <div class="">
+                                <label>{{ 'CGP-REGISTER.hCif' |
+                                        translate }} </label>
+                                <div class="form-group cgp-style">
+                                        <label class="switch">
+                                                <input type="checkbox" formControlName="hCif">
+                                                <span class="slider round"></span>
+                                              </label>
+
+                                </div>
+
+                                <!-- <div *ngIf="form.controls['hCif'].invalid && (form.controls['hCif'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['hCif'].errors?.required">
+                                                {{'CGP-REGISTER.validation.hCif-required'
+                                                | translate}}
+                                        </p>
+                                </div> -->
+
+
+                        </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-3">
+                        <div class="">
+                                <label>{{ 'CGP-REGISTER.hCoa' |
+                                        translate }} </label>
+                                <div class="form-group cgp-style">
+                                        <label class="switch">
+                                                <input type="checkbox" formControlName="hCoa">
+                                                <span class="slider round"></span>
+                                              </label>
+
+                                </div>
+
+                                <!-- <div *ngIf="form.controls['hCoa'].invalid && (form.controls['hCoa'].dirty || submitAttempt)"
+                                        class="err">
+                                        <p
+                                                *ngIf="form.controls['hCoa'].errors?.required">
+                                                {{'CGP-REGISTER.validation.hCoa-required'
+                                                | translate}}
+                                        </p>
+                                </div> -->
+
+
+                        </div>
+                </div>
+        </div>
+
+        <h1>{{ 'CGP-REGISTER.contact_person' | translate }}</h1>
+        <div class="row">
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['firstname'].invalid && submitAttempt, 'border-green': !form.controls['firstname'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{
+                                                'CGP-REGISTER.firstName'
+                                                |
+                                                translate }} "
+                                                formControlName="firstname">
+                                </div>
+                                <div *ngIf="form.controls['firstname'].invalid && (form.controls['firstname'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['firstname'].errors?.required">
+                                        {{'CGP-REGISTER.validation.firstName-required'
+                                        | translate}}
+                                </p>
+                               </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['lastname'].invalid && submitAttempt, 'border-green': !form.controls['lastname'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{
+                                                'CGP-REGISTER.lastName'
+                                                |
+                                                translate }} "
+                                                formControlName="lastname">
+                                </div>
+                                <div *ngIf="form.controls['lastname'].invalid && (form.controls['lastname'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['lastname'].errors?.required">
+                                        {{'CGP-REGISTER.validation.lastName-required'
+                                        | translate}}
+                                </p>
+                               </div>
+                        </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['designation'].invalid && submitAttempt, 'border-green': !form.controls['designation'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{
+                                                'CGP-REGISTER.function'
+                                                |
+                                                translate }} "
+                                                formControlName="designation">
+                                </div>
+                                <div *ngIf="form.controls['designation'].invalid && (form.controls['designation'].dirty || submitAttempt)"
+                                class="err">
+                                <p
+                                        *ngIf="form.controls['designation'].errors?.required">
+                                        {{'CGP-REGISTER.validation.function-required'
+                                        | translate}}
+                                </p>
+                               </div>
+                        </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                        <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['contactPersonEmail'].invalid && submitAttempt, 'border-green': !form.controls['contactPersonEmail'].invalid  && submitAttempt }">
+                                <div class="form-group cgp-style">
+                                        <input type="text"
+                                                class="form-control"
+                                                required="required"
+                                                placeholder="{{
+                                                'CGP-REGISTER.email_contact'
+                                                |
+                                                translate }} "
+                                                formControlName="contactPersonEmail"
+                                               (blur)="emailValidation($event.target)">
+                                </div>
+
+                          <div *ngIf="emailValidate || (form.controls['contactPersonEmail'].invalid && (form.controls['contactPersonEmail'].dirty || submitAttempt))" class="err">
+                            <p *ngIf="form.controls['contactPersonEmail'].errors?.required">
+                              {{'CGP-REGISTER.validation.email_contact-required'
+                              | translate}}
+                            </p>
+                            <p *ngIf="form.controls['contactPersonEmail'].errors?.pattern">
+                              {{'CGP-PROFILE.validation.email-pattern' | translate}}
+                            </p>
+                            <p *ngIf="form.controls['contactPersonEmail'].valid && emailValidate">{{'CGP-PROFILE.validation.email-exists' | translate}}</p>
+                          </div>
+                        </div>
+                </div>
+        </div>
+
+        <button class="btn-outline-pri pad-20" (click)="cgpRequest()">
+                {{ 'CGP-REGISTER.continue' | translate }}
+        </button>
+        </div>
+        </form>
+        </div>
+        </div>
+        </div>
+
+        </div>
+        </div>
+

@@ -1,0 +1,23 @@
+<section class="most-recommended">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="most-head">
+          <h2>
+            {{ 'HOME.Most' | translate }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-12" *ngFor="let speciality of subtopics; let i = index">
+            <div *ngIf="i < 12" class="border-gradient" routerLink="/landing/article/{{speciality?.specialtyId}}/{{speciality?.id}}">
+              <h2> {{ speciality.subtopicTitle }} </h2>
+              <p>{{ speciality?.specialtyName }} </p>
+            </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,17 @@
+<!--<section class="mini-head">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col-12">-->
+<!--          <div class="lang-sel " [ngClass]="{'lang-sel-18': langSelFlag}">-->
+<!--              <label>-->
+<!--                <select #langSelect (change)="translate.use(langSelect.value)" class="select-dropdown selectpicker">-->
+<!--                  <option class="selectlg" *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>-->
+<!--                </select>-->
+<!--              </label>-->
+<!--            </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<router-outlet (activate)="onActivate()"></router-outlet>

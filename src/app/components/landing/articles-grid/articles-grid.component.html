@@ -1,0 +1,92 @@
+<div class="row" *ngIf="type === 'recent'">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let article of aticlesList">
+    <div class="card" (click)="articleRedirect('/landing/articles/' + article?.title)">
+      <img class="card-img-top" src="{{article?.articleUrl}}" alt="" *ngIf="article?.articleUrl">
+      <div class="card-block">
+        <h4 class="card-title">{{  article?.title | slice: 0:40}}{{ article?.title.length > 40 ? '...' : ''}}</h4>
+        <p class="card-text"> By {{ article?.cgp ? article?.cgp.establishmentName : ''}}</p>
+
+      </div>
+      <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+        <div class="stats">{{article.createdAt | date: 'mediumDate'}}</div>
+        <div class="views">
+          <a class="btn btn-primary" (click)="articleRedirect('/landing/articles/' + article?.title)">
+            <i class="fas fa-bars" *ngIf="article?.type === 'article'"></i>
+            <i class="fas fa-bars" *ngIf="article?.type === 'guide'"></i>
+            <i class="fas fa-headphones" *ngIf="article?.type === 'podcast' || article?.type === 'podcast-embed'"></i>
+            <i class="fas fa-play" *ngIf="article?.type === 'video'  || article?.type === 'video-embed'"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div style="position: relative">-->
+<div *ngIf="type !== 'recent'">
+  <section class="pro-bdr expert-advice">
+  <div class="pro-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-info-left">
+            <div class="advice mar-btm-20">
+              <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
+                  <ul *ngIf="!list?.length || type === 'recent-speciality' || type === 'cgp' || type === 'tags'">
+                    <li [class]="{actived:  selectedType == 'all'}" routerLinkActive="active" (click)="articlesBasedonTypes('all')">{{ 'CGP-PROFILE.all' | translate }}</li>
+                    <li [class]="{actived:  selectedType == 'article'}" routerLinkActive="active" (click)="articlesBasedonTypes('article')">{{ 'CGP-PROFILE.articles' | translate }}</li>
+                    <li [class]="{actived:  selectedType == 'podcast'}" routerLinkActive="active" (click)="articlesBasedonTypes('podcast')">{{ 'CGP-PROFILE.podcasts' | translate }}</li>
+                    <li [class]="{actived:  selectedType == 'video'}" routerLinkActive="active" (click)="articlesBasedonTypes('video')">{{ 'CGP-PROFILE.videos' | translate }}</li>
+                    <li [class]="{actived:  selectedType == 'guide'}" routerLinkActive="active" (click)="articlesBasedonTypes('guide')">{{ 'CGP-PROFILE.guides' | translate }}</li>
+                  </ul>
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" *ngIf="!login">
+                  <div class="text-editor">
+                    <select class="form-control" style="border: none" [(ngModel)]="sortingType" #mySelect (change)="changeType(mySelect.value)">
+                      <option value="recent">{{"HOME.TESTIMONIAL.The-most-recent" | translate}}</option>
+                      <option value="consulted">{{"HOME.TESTIMONIAL.The-most-consulted" | translate}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let article of aticlesList">
+      <div class="card" (click)="articleRedirect('/landing/articles/' + article?.title)">
+        <img class="card-img-top" src="{{article?.articleUrl}}" alt="" *ngIf="article?.articleUrl">
+        <div class="card-block">
+          <h4 class="card-title">{{  article?.title | slice: 0:40}}{{ article?.title.length > 40 ? '...' : ''}}</h4>
+          <p class="card-text"> By {{ article?.cgp ? article?.cgp.establishmentName : ''}}</p>
+        </div>
+        <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+          <div class="stats">{{article.createdAt | date: 'mediumDate'}}</div>
+          <div class="views">
+            <a class="btn btn-primary">
+              <i class="fas fa-bars" *ngIf="article?.type === 'article'"></i>
+              <i class="fas fa-bars" *ngIf="article?.type === 'guide'"></i>
+              <i class="fas fa-headphones" *ngIf="article?.type === 'podcast' || article?.type === 'podcast-embed'"></i>
+              <i class="fas fa-play" *ngIf="article?.type === 'video'  || article?.type === 'video-embed'"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-task'"></ngx-ui-loader>-->
+<!--</div>-->
+

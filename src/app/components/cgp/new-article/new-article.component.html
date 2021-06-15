@@ -1,0 +1,352 @@
+<!--Edit-->
+<div style="margin-top:50px; border:1px solid #000"></div>
+
+<section class="inner-page">
+        <div class="new-article">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                            <div class="most-head">
+                                    <h2 >
+                                        {{ 'CGP.NEW-ARTICLE.Draft-new-article' | translate }}
+                                        <button data-toggle="modal" (click)="saveDraft()" class="btn float-right btn-primary-right-save" type="button" [disabled]="buttonDisable">
+                                            {{ 'CGP.NEW-ARTICLE.Save-as-draft' | translate }} <i class="fas fa-save"></i>
+                                       </button>
+                                        <button data-toggle="modal" (click)="onInsertArticle()" class="btn float-right btn-primary-right normal-btn mar-r-20" type="button" [disabled]="buttonDisable">
+                                                {{ 'CGP.NEW-ARTICLE.Publish-Now' | translate }} <i class="fas fa-arrow-right"></i>
+                                        </button>
+
+
+                                    </h2>
+                            </div>
+                    </div>
+                </div>
+                <form [formGroup]="cgpArticleForm">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="text-editor">
+                            <select class="form-control" formControlName="type" #mySelect (change)="changeType(mySelect.value)">
+                                <option value="article">{{'CGP.NEW-ARTICLE.Article' | translate}}</option>
+                                <option value="video">{{'CGP.NEW-ARTICLE.Video' | translate}}</option>
+                                <option value="podcast">{{'CGP.NEW-ARTICLE.Podcast' | translate}}</option>
+                                <option value="guide">{{'CGP.NEW-ARTICLE.Guide' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-editor-1">
+                                <input class="form-control" id="disabledInput" formControlName="title" type="text" placeholder="{{'CGP.NEW-ARTICLE.title' | translate}}" required="required" [ngClass]="{ 'border-red': cgpArticleForm.controls['title'].invalid && submitCGPArticle, 'border-green': !cgpArticleForm.controls['title'].invalid  && submitCGPArticle }">
+                                <div *ngIf="cgpArticleForm.controls['title'].invalid && (cgpArticleForm.controls['title'].dirty || submitCGPArticle)" class="err">
+                                    <p *ngIf="cgpArticleForm.controls['title'].errors?.required">
+                                        {{'CGP.NEW-ARTICLE.validation.title-required' | translate}}
+                                    </p>
+                                </div>
+                        </div>
+                        <div class="text-editor-1 mar-btm-30">
+                        <textarea required="required" rows="5" class="form-control" formControlName="description" id="disabledInput1" placeholder="{{'CGP.NEW-ARTICLE.description' | translate}}" [ngClass]="{ 'border-red': cgpArticleForm.controls['description'].invalid && submitCGPArticle, 'border-green': !cgpArticleForm.controls['description'].invalid  && submitCGPArticle }"></textarea>
+                        <div *ngIf="cgpArticleForm.controls['description'].invalid && (cgpArticleForm.controls['description'].dirty || submitCGPArticle)" class="err">
+                            <p *ngIf="cgpArticleForm.controls['description'].errors?.required">
+                                {{'CGP.NEW-ARTICLE.validation.description-required' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                <div class="row">
+                   <div class="col-lg-12">
+                    <div class="text-editor-1" *ngIf="type=='article'">
+                    <ckeditor formControlName="articleEditor" [config]="ckEditorConfig" [ngClass]="{ 'border-red': cgpArticleForm.controls['articleEditor'].invalid && submitCGPArticle, 'border-green': !cgpArticleForm.controls['articleEditor'].invalid  && submitCGPArticle }"></ckeditor>
+                    <div *ngIf="cgpArticleForm.controls['articleEditor'].invalid && (cgpArticleForm.controls['articleEditor'].dirty || submitCGPArticle)" class="err">
+                        <p *ngIf="cgpArticleForm.controls['articleEditor'].errors?.required">
+                            {{'CGP.NEW-ARTICLE.validation.articleEditor-required' | translate}}
+                        </p>
+                    </div>
+
+                    </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+
+                             <div class="text-editor-1" *ngIf="type=='video'">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 col-md-6">
+                                        <button class="btn btn-outline-nohover w-100 btn-mar-top"> {{ 'CGP.NEW-ARTICLE.upload' | translate }} {{ 'CGP.NEW-ARTICLE.Video' | translate }}
+                                        <input type="file"
+                                            #fileInput3
+                                            (change)="onSelectFile($event,'video')" accept="video/*" class="upload-btn"/>
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6">
+                                        <p>(or) Embed URL</p>
+                                        <div class="d-flex">
+                                        <input class="form-control" type="text" formControlName="embedURLVideo" [ngClass]="{ 'border-red': cgpArticleForm.controls['embedURLVideo'].invalid && submitCGPArticle, 'border-green': !cgpArticleForm.controls['embedURLVideo'].invalid  && submitCGPArticle }">
+                                        <button (click)="addURL('video-embed')" class="btn float-right btn-primary-right normal-btn mar-l-20" [disabled]="buttonAddDisable">{{ 'CGP.NEW-ARTICLE.add' | translate }}</button>
+                                      </div>
+                                      <div *ngIf="!cgpArticleForm.controls['embedURLVideo'].invalid" class="err">
+                                        <p *ngIf="errorVideoMsg">
+                                            {{'CGP.NEW-ARTICLE.validation.urlVideo-required' | translate}}
+                                        </p>
+                                    </div>
+                                        </div>
+                                </div>
+
+                                <div *ngIf="cgpArticleForm.controls['embedURLVideo'].invalid && (cgpArticleForm.controls['embedURLVideo'].dirty || submitCGPArticle)" class="err">
+                                    <p *ngIf="cgpArticleForm.controls['embedURLVideo'].errors?.required">
+                                        {{'CGP.NEW-ARTICLE.validation.embedURLVideo-required' | translate}}
+                                    </p>
+                                </div>
+
+                             </div>
+                        <div class="text-editor-1" *ngIf="type=='podcast'">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6">
+                                        <button class="btn btn-outline-nohover w-100 btn-mar-top">
+                                          {{ 'CGP.NEW-ARTICLE.upload' | translate }} {{ 'CGP.NEW-ARTICLE.Podcast' | translate }}
+                                        <input type="file"
+                                        #fileInput4
+                                        (change)="onSelectFile($event,'podcast')" accept="audio/*" class="upload-btn"/>
+                                        <i class="fas fa-headphones"></i>
+                                        </button>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6">
+                                    <p>(or) Embed URL </p>
+                                    <div class="d-flex">
+                                    <input class="form-control" type="text" formControlName="embedURLAudio" [ngClass]="{ 'border-red': cgpArticleForm.controls['embedURLAudio'].invalid && submitCGPArticle, 'border-green': !cgpArticleForm.controls['embedURLAudio'].invalid  && submitCGPArticle }">
+                                        <button (click)="addURL('podcast-embed')" class="btn float-right btn-primary-right normal-btn mar-l-20" [disabled]="buttonAddDisable">{{ 'CGP.NEW-ARTICLE.add' | translate }}</button>
+                                    </div>
+                                    <div *ngIf="!cgpArticleForm.controls['embedURLAudio'].invalid" class="err">
+                                      <p *ngIf="errorAudioMsg">
+                                          {{'CGP.NEW-ARTICLE.validation.urlAudio-required' | translate}}
+                                      </p>
+                                  </div>
+                                 </div>
+                              </div>
+
+                            <div *ngIf="cgpArticleForm.controls['embedURLAudio'].invalid && (cgpArticleForm.controls['embedURLAudio'].dirty || submitCGPArticle)" class="err">
+                                <p *ngIf="cgpArticleForm.controls['embedURLAudio'].errors?.required">
+                                    {{'CGP.NEW-ARTICLE.validation.embedURLAudio-required' | translate}}
+                                </p>
+                            </div>
+                              </div>
+
+                                <div class="text-editor-1" *ngIf="type=='guide'">
+                                    <div class="row">
+                                     <div class="col-12 col-lg-6 col-md-6">
+                                        <button class="btn btn-outline-nohover w-100 btn-mar-top">
+                                          {{ 'CGP.NEW-ARTICLE.upload' | translate }} {{ 'CGP.NEW-ARTICLE.Guide' | translate }}
+                                        <input type="file"
+                                            #fileInput5
+                                            (change)="onSelectFile($event,'guide')" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                                            text/plain, application/pdf" class="upload-btn"/><i class="fas fa-sticky-note"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="cgpArticleForm.controls['guide_url'].invalid && (cgpArticleForm.controls['guide_url'].dirty || submitCGPArticle)" class="err">
+                                        <p *ngIf="cgpArticleForm.controls['guide_url'].errors?.required">
+                                            {{'CGP.NEW-ARTICLE.validation.guide_url-required' | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            <div class="article-l">
+                                <div class="attach">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                                            <ngx-ui-loader bdColor="rgba(0, 0, 0, 0)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'">Uploading in progress</ngx-ui-loader>
+
+                                                <img [src]="url" *ngIf="type=='article' && url" class="responsive" width="400" height="200">
+                                                <video [src]="url" *ngIf="type=='video' && url && visual!='video-embed'" width="400" height="200" controls id="videoId"></video>
+                                                <audio [src]="url" *ngIf="type=='podcast' && url && visual!='audio-embed'" height="200" controls id="audioId"></audio>
+                                                <div class="cgp-bdr" *ngIf="type=='guide' && url">
+                                                  <div>
+                                                    <div class="row">
+                                                        <div class="cal-12 col-lg-7">
+                                                          <p class="overlap_name">{{filename}}</p> 
+                                                        </div>
+                                                        <div class="cal-12 col-lg-5 ml-auto">
+                                                          <a class="btn btn-primary-right pull-right" [href]="url" download>{{ 'HOME.ARTICLE.download' | translate }}
+                                                            <i class="fas fa-download"></i>
+                                                          </a>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    </div>
+
+                                                <iframe width="400" height="200" [src]="url" *ngIf="visual=='video-embed' || visual=='audio-embed'" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+
+                                </div>
+                             </div>
+                    </div>
+                </div>
+                </form>
+        </div>
+    </div>
+</section>
+
+<!-- Image Upload-->
+<div class="modal" id="image-upload" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <!-- Modal Header -->
+            <div class="modal-header">
+                    <!-- <h4 class="modal-title">{{ 'CGP-PROFILE.our-partners' | translate }}</h4> -->
+                    <button type="button" class="close" data-dismiss="modal" (click) ="goBack()">&times;</button>
+                  </div>
+            <!-- Modal body -->
+
+            <div class="modal-body">
+                    <div class="container">
+                        <form [formGroup]="cgpArticleForm2">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                                        <h4 class="modal-title"><b>{{ 'CGP.NEW-ARTICLE.Home-image' | translate }}</b></h4>
+                                         <div class="cgp-bdr"
+                                         style=" overflow: hidden;"
+                                         [ngClass]="{ 'border-red': cgpArticleForm2.controls['image_url'].invalid && submitCGPArticle2, 'border-green': !cgpArticleForm2.controls['image_url'].invalid  && submitCGPArticle2 }">
+                                            <input type="file"
+                                            #fileInput1
+                                            (change)="onSelectBannerFile($event)" accept="image/*">
+                                             <img width="100" height="100" [src]="url1">
+                                             <p>{{ 'CGP.NEW-ARTICLE.Add-image' | translate }}</p>
+
+                                             <div *ngIf="cgpArticleForm2.controls['image_url'].invalid && (cgpArticleForm2.controls['image_url'].dirty || submitCGPArticle2)" class="err">
+                                                <p *ngIf="cgpArticleForm2.controls['image_url'].errors?.required">
+                                                    {{'CGP.NEW-ARTICLE.validation.image_url-required' | translate}}
+                                                </p>
+                                            </div>
+
+                                            </div>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                                        <h4 class="modal-title"><b>{{ 'CGP.NEW-ARTICLE.Tags-of-your-article' | translate }}</b></h4>
+
+                                  <div class="form-group cgp-style" >
+                                    <div class="tag">
+                                      <p>{{ 'CGP-PROFILE.topics' | translate }}</p>
+                                    </div>
+
+                                    <div class="multi-select">
+                                      <ng-select [items]="cgpSpecialityInfoValue"
+                                                 [hideSelected]="true"
+                                                 [multiple]="true"
+                                                 bindLabel="specialtyName"
+                                                 [(ngModel)]="selectedSpeciality"
+                                                 [ngModelOptions]="{standalone: true}"
+                                                 class="custom"
+                                                 (change)="specilaityUpdate($event)"
+                                      >
+                                      </ng-select>
+
+                                    </div>
+                                    <div *ngIf="cgpSpecialityCheck && !selectedSpeciality.length" class="err">
+                                      <p>
+                                        {{'CGP.NEW-ARTICLE.validation.speciality-required' | translate}}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group cgp-style">
+                                    <div class="tag">
+                                      <p>{{ 'CGP-PROFILE.subtopic' | translate }}</p>
+                                    </div>
+
+                                    <div>
+                                    <div class="multi-select">
+                                      <ng-select [items]="cgpSubtopicInfoValue"
+                                                 [hideSelected]="true"
+                                                 [multiple]="true"
+                                                 bindLabel="subtopicTitle"
+                                                 [(ngModel)]="selectedSubtopic"
+                                                 [ngModelOptions]="{standalone: true}"
+                                                 class="custom">
+                                      </ng-select>
+                                    </div>
+                                    <div *ngIf="cgpSubtopicCheck && !selectedSubtopic.length" class="err">
+                                      <p>
+                                        {{'CGP.NEW-ARTICLE.validation.subtpoics-required' | translate}}
+                                      </p>
+                                    </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group cgp-style" >
+                                    <div class="tag">
+                                      <p>{{ 'CGP-PROFILE.tag' | translate }}</p>
+                                    </div>
+
+                                    <div>
+                                    <div class="multi-select">
+                                      <ng-select [items]="cgpTagInfoValue"
+                                                 [hideSelected]="true"
+                                                 [multiple]="true"
+                                                 bindLabel="tagTitle"
+                                                 [(ngModel)]="selectedTag"
+                                                 [ngModelOptions]="{standalone: true}"
+                                                 class="custom"
+                                      >
+                                      </ng-select>
+
+                                    </div>
+                                    <div *ngIf="cgpTagsCheck && !selectedTag.length" class="err">
+                                       <p>
+                                          {{'CGP.NEW-ARTICLE.validation.tags-required' | translate}}
+                                       </p>
+                                     </div>
+                                    </div>
+                                  </div>
+
+
+<!--                                                <div class="form-group cgp-style">-->
+<!--                                                    <div class="multi-select">-->
+<!--                                                        <ng-select formControlName="tags"-->
+<!--                                                            [items]="cgpTagInfoValue"-->
+<!--                                                            [hideSelected]="true"-->
+<!--                                                            [multiple]="true"-->
+<!--                                                            bindLabel="tag_title"-->
+<!--                                                            [(ngModel)]="selectedTag"-->
+<!--                                                            class="custom" [ngClass]="{ 'border-red': cgpArticleForm2.controls['image_url'].invalid && submitCGPArticle2, 'border-green': !cgpArticleForm2.controls['image_url'].invalid  && submitCGPArticle2 }">-->
+<!--                                                       </ng-select>-->
+
+<!--                                                  </div>-->
+<!--                                                  <div *ngIf="cgpArticleForm2.controls['tags'].invalid && (cgpArticleForm2.controls['tags'].dirty || submitCGPArticle2)" class="err">-->
+<!--                                                    <p *ngIf="cgpArticleForm2.controls['tags'].errors?.required">-->
+<!--                                                        {{'CGP.NEW-ARTICLE.validation.tags-required' | translate}}-->
+<!--                                                    </p>-->
+<!--                                                </div>-->
+<!--                                                </div>-->
+                                                <!-- <p > -->
+                                                  <div class="text-right">
+                                                    <button (click)="saveDraft()" class="btn float-right btn-primary-right-save" type="button" [disabled]="buttonDisable">
+                                                      {{ 'CGP.NEW-ARTICLE.Save-as-draft' | translate }} <i class="fas fa-save"></i>
+                                                  </button>
+                                                  <button (click)="onInsertArticle2()" class="btn float-right btn-primary-right normal-btn mar-r-20" type="button" [disabled]="buttonDisable">
+                                                      {{ 'CGP.NEW-ARTICLE.Publish-Now' | translate }} <i class="fas fa-arrow-right"></i>
+                                                  </button>
+                                                  </div>
+                                                <!-- </p> -->
+                                </div>
+
+                            </div>
+                        </form>
+                        </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+

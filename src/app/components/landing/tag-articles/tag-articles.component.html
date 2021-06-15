@@ -1,0 +1,15 @@
+<app-speciality-header></app-speciality-header>
+<div style="position: relative">
+  <div id="loader-cgp">
+    <section class="category">
+      <div class="container">
+        <h1>Results of "{{name}}"</h1>
+        <app-articles-grid [list]="aticlesList" [type]="'tags'" [id]="id" *ngIf="aticlesList.length"></app-articles-grid>
+        <div *ngIf="!aticlesList.length">
+          No Articles found!
+        </div>
+      </div>
+    </section>
+  </div>
+  <ngx-ui-loader bdColor="rgba(0, 0, 0, 0.8)" size="medium" [hasProgressBar]="false" fgsColor="#fff" fgsType="ball-scale-multiple" [loaderId]="'loader-cgp'"></ngx-ui-loader>
+</div>

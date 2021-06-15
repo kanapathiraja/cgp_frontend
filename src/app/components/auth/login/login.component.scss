@@ -1,0 +1,47 @@
+.err {
+    color: #EC526B;
+    font-size: 12px;
+    font-weight: 300;
+    float: left;
+    padding: 5px 0px;
+
+    p {
+        margin-bottom: 0 !important;
+    }
+}
+.border-red{
+    border: 1px solid #EC526B !important;
+    label{
+        color: #EC526B !important;
+    }
+}
+.border-green{
+    border: 1px solid #0AB21B !important;
+    label{
+        color: #0AB21B !important;
+    }
+}
+
+.forgot {
+  text-align: center;
+    a{
+        color:#6C63FF;
+        font-size: 15px;
+    }
+
+}
+
+@media (min-width: 350px) and (max-width: 767.98px) {
+    .forgot {
+        padding-left: 90px;
+        padding-right: 70px;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+    .forgot {
+        padding-left: 90px;
+        padding-right: 70px;
+    }
+}
+

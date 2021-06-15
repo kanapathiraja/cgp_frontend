@@ -1,0 +1,160 @@
+
+
+<div class="cpg-main">
+<div class="container">
+<div class="col-12">
+    <div class="login-form">
+            <!-- server response alert -->
+            <div class="alert {{ responseMessage.alertType }}"  *ngIf="responseMessage.flag" role="alert">{{ responseMessage.message | translate }}</div>
+
+            <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" [ngClass]="{'active' : activeTab == 'SIGNIN'}" data-toggle="tab" href="#tabs-1" role="tab" (click)="tabChange('SIGNIN')">{{ 'LOGIN.to-login' | translate }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [ngClass]="{'active' : activeTab == 'SIGNUP'}" data-toggle="tab" href="#tabs-2" role="tab" (click)="tabChange('SIGNUP')">{{ 'LOGIN.register' | translate }}</a>
+                    </li>
+                </ul><!-- Tab panes -->
+                <div class="tab-content">
+
+                        <div class="tab-pane active" [ngClass]="{'active' : activeTab == 'SIGNIN'}" id="tabs-1" role="tabpanel">
+
+                                <form [formGroup]="form" (keydown)="keyDownAuthenticate($event)">
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['email'].invalid && submitAttempt, 'border-green': !form.controls['email'].invalid  && submitAttempt }">
+
+                                        <div class="form-group cgp-style">
+                                                <input type="email" class="form-control" required="required" placeholder="{{ 'LOGIN.email' | translate }}" formControlName="email" >
+                                        </div>
+
+                                        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || submitAttempt)" class="err">
+                                            <p *ngIf="form.controls['email'].errors?.required">
+                                                {{'LOGIN.validation.email-required' | translate}}
+                                            </p>
+                                            <p *ngIf="form.controls['email'].errors?.pattern">
+                                                {{'LOGIN.validation.email-pattern' | translate}}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': form.controls['password'].invalid && submitAttempt, 'border-green': !form.controls['password'].invalid  && submitAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'LOGIN.password' | translate }}" formControlName="password">
+                                        </div>
+
+                                        <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || submitAttempt)" class="err">
+                                            <p *ngIf="form.controls['password'].errors?.required">
+                                                {{'LOGIN.validation.password-required' | translate}}
+                                            </p>
+                                        </div>
+                                </div>
+
+                                <button class="btn btn-outline-pri pad-20" type="button" (click)="authenticate()">
+                                    {{ 'LOGIN.login' | translate }}
+                            </button>
+                                </form>
+                                <div class=" pad-20 forgot"><a routerLink="/auth/password/forgot">{{ 'LOGIN.forgot-password' | translate }}?</a></div>
+                                <div style="height: 150px;"></div>
+                        </div>
+
+                        <div class="tab-pane" [ngClass]="{'active' : activeTab == 'SIGNUP'}" id="tabs-2" role="tabpanel">
+                                <form autocomplete="off" [formGroup]="signupForm" (keydown)="keyDownRegister($event)">
+
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': signupForm.controls['firstName'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['firstName'].invalid  && submitSignupAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="text" class="form-control" required="required" placeholder="{{ 'LOGIN.firstName' | translate }}" formControlName="firstName">
+                                        </div>
+
+                                        <div *ngIf="signupForm.controls['firstName'].invalid && (signupForm.controls['firstName'].dirty || submitSignupAttempt)" class="err">
+                                            <p *ngIf="signupForm.controls['firstName'].errors?.required">
+                                                {{'LOGIN.validation.firstName-required' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['firstName'].errors?.minlength">
+                                                {{'LOGIN.validation.firstName-minlength' | translate}}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="cgp-bdr" [ngClass]="{ 'border-red': signupForm.controls['lastName'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['lastName'].invalid  && submitSignupAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="text" class="form-control" placeholder="{{ 'LOGIN.lastName' | translate }}" formControlName="lastName">
+                                        </div>
+
+
+                                        <div *ngIf="signupForm.controls['lastName'].invalid && (signupForm.controls['lastName'].dirty || submitSignupAttempt)" class="err">
+                                            <p *ngIf="signupForm.controls['lastName'].errors?.required">
+                                                {{'LOGIN.validation.lastName-required' | translate}}
+                                            </p>
+                                          <p *ngIf="signupForm.controls['lastName'].errors?.minlength">
+                                            {{'LOGIN.validation.lastName-minlength' | translate}}
+                                          </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="cgp-bdr"  [ngClass]="{ 'border-red': signupForm.controls['email'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['email'].invalid  && submitSignupAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="email" class="form-control" required="required" placeholder="{{ 'LOGIN.email' | translate }}" formControlName="email" (blur)="emailValidation($event.target)">
+                                        </div>
+
+                                        <div *ngIf="emailValidate || signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || submitSignupAttempt)" class="err">
+                                            <p *ngIf="signupForm.controls['email'].errors?.required">
+                                                {{'LOGIN.validation.email-required' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['email'].errors?.pattern">
+                                                {{'LOGIN.validation.email-pattern' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['email'].valid && emailValidate">{{'CGP-PROFILE.validation.email-exists' | translate}}</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="cgp-bdr"  [ngClass]="{ 'border-red': signupForm.controls['password'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['password'].invalid  && submitSignupAttempt }">
+                                        <div class="form-group cgp-style">
+                                                <input type="password" class="form-control" required="required" placeholder="{{ 'LOGIN.password' | translate }}" formControlName="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                        </div>
+
+                                        <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || submitSignupAttempt)" class="err">
+                                            <p *ngIf="signupForm.controls['password'].errors?.required">
+                                                {{'LOGIN.validation.password-required' | translate}}
+                                            </p>
+                                            <p *ngIf="signupForm.controls['password'].errors?.pattern">
+                                                {{'LOGIN.validation.password-pattern' | translate}}
+                                            </p>
+                                        </div>
+
+
+                                </div>
+
+                                <div class="cgp-bdr"  [ngClass]="{ 'border-red': signupForm.controls['confirm_password'].invalid && submitSignupAttempt, 'border-green': !signupForm.controls['confirm_password'].invalid  && submitSignupAttempt }">
+                                    <div class="form-group cgp-style">
+                                            <input type="password" class="form-control" required="required" placeholder="{{ 'LOGIN.confirm-password' | translate }} " formControlName="confirm_password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                                    </div>
+                                <div *ngIf="signupForm.controls['confirm_password'].invalid && (signupForm.controls['confirm_password'].dirty || submitSignupAttempt)" class="err">
+                                    <p *ngIf="signupForm.controls['confirm_password'].errors?.required">
+                                        {{'LOGIN.validation.confirm-password-required' | translate }}
+                                    </p>
+                                    <p *ngIf="signupForm.controls['confirm_password'].errors?.mustMatch">
+                                        {{'LOGIN.validation.match-password-required' | translate }}
+                                    </p>
+                                    <p *ngIf="signupForm.controls['confirm_password'].errors?.pattern">
+                                        {{'LOGIN.validation.password-pattern' | translate }}
+                                    </p>
+                                </div>
+                               </div>
+
+                                <button class="btn btn-outline-pri pad-20" type="button" (click)="register()">
+                                    {{ 'LOGIN.register' | translate }}
+                            </button>
+                                </form>
+                          <div class=" pad-20 forgot"><a routerLink="/auth/request">{{ 'LOGIN.new-cgp' | translate }}</a></div>
+                                <div style="height: 50px;"></div>
+                        </div>
+
+                </div>
+
+    </div>
+</div>
+
+</div>
+</div>

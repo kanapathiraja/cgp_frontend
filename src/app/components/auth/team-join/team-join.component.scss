@@ -1,0 +1,69 @@
+.d-flex {
+    float: left;
+    margin-right: 20px;
+  }
+  input[type="radio"] {
+    appearance: none;
+    + {
+      label {
+        cursor: pointer;
+        position: relative;
+        padding-left: 30px;
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border: 1px solid #686de0;
+          border-radius: 50%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 1;
+          transition: all 0.3s;
+        }
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border: 1px solid #686de0;
+          background: #686de0;
+          border-radius: 50%;
+          position: absolute;
+          left: 5px;
+          bottom: 5px;
+          opacity: 0;
+          transition: all 0.3s;
+        }
+      }
+    }
+    &:checked {
+      + {
+        label {
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  
+  .placeholder{
+      top:-1rem !important;
+  }
+  
+  ::placeholder{
+          color:#c5c8ca !important;
+          }
+  
+  
+    .pad-30{
+      padding: 9PX !important;
+    }
+
+    .public-login {
+      width: 450px !important;
+      margin: 0 auto;
+      padding-bottom: 20px;
+  }

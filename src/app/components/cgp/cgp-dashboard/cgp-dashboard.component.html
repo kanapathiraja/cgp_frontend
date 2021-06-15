@@ -1,0 +1,335 @@
+<section class="inner-page">
+<div class="cgp-dashboard"> 
+        <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="dashboard-details mar-btm-50">
+                                    <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                                <div class="row">
+                                                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                                        <div class="mar-20">
+                                                            <div class="cgp-bdr">
+                                                                <div class="row">                                                                        
+                                                                    <div class="col-12">
+                                                                        <div class="pad-30">
+                                                                            <a  aria-label="Change Profile Picture">
+                                                                                <div class="profile-pic" style="background-image: url('https://cdn.pixabay.com/photo/2015/12/22/20/42/face-1104763_960_720.jpg')" >
+                                                                                    <div class="mr-auto edit">
+                                                                                        <button class="btn" type="submit"><i class="fas fa-pencil-alt"></i></button>
+                                                                                    </div>                                                                                              
+                                                                                </div>
+                                                                            </a>
+                                                                            <div class="prof-info">
+                                                                                <h2>{{ 'CGP-DASHBOARD.name' | translate }}</h2>
+                                                                                <p>{{ 'CGP-DASHBOARD.responsable-financier' | translate }}</p>
+                                                                                <p><span class="dot"></span>{{ 'CGP-DASHBOARD.prifle-visible-online' | translate }}</p>
+                                                                                <button class="btn btn-outline-pri">{{ 'CGP-DASHBOARD.go-offline' | translate }}</button>
+                                                                            </div>  
+                                                                            
+                                                                        </div>                                                                                    
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                                                        <div class="mar-20">
+                                                            <div class="cgp-bdr">
+                                                                <div class="profile-visible">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8 col-xs-6 col-sm-6">
+                                                                        <h2>{{ 'CGP-DASHBOARD.visible-cgp-profile' | translate }}</h2>
+                                                                    </div>
+                                                                    <div class="col-lg-4 col-md-4 col-xs-6 col-sm-6">
+                                                                        <div class="tab-style">
+                                                                                <ul class="nav nav-tabs" role="tablist">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">{{ 'CGP-DASHBOARD.week' | translate }}</a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">{{ 'CGP-DASHBOARD.month' | translate }}</a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                                                    <div class="prof-inner-d">
+                                                                        <h3>{{ 'CGP-DASHBOARD.appearances' | translate }}</h3>
+                                                                        <p>{{ 'CGP-DASHBOARD.appearances-text' | translate }}</p>
+                                                                        <h4 class="mb-0">$35, 723 <span>+20%</span></h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                                                        <div class="prof-inner-d">
+                                                                                <h3>{{ 'CGP-DASHBOARD.visits' | translate }}</h3>
+                                                                                <p>{{ 'CGP-DASHBOARD.visits-text' | translate }}</p>
+                                                                                <h4 class="mb-0">$35, 723 <span>+20%</span></h4>
+                                                                            </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+                                                                        <div class="prof-inner-d">
+                                                                                <h3>{{ 'CGP-DASHBOARD.favorites' | translate }}</h3>
+                                                                                <p>{{ 'CGP-DASHBOARD.favorites-text' | translate }}</p>
+                                                                                <h4 class="mb-0">$35, 723 <span>+20%</span></h4>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                            <!--chart start-->
+                                                            <div class="Chart">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+
+                                                                        Chart
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <!--chart end-->
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                        <h2>{{ 'CGP-DASHBOARD.keywords-used' | translate }}</h2>
+                                                                        <p>The .table-striped class adds zebra-stripes to a table:</p>
+                                                                        <div class="table-responsive">          
+                                                                            <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>{{ 'CGP-DASHBOARD.keywords-used' | translate }}
+                                                                                    <p>{{ 'CGP-DASHBOARD.keywords-text' | translate }}</p></th>
+                                                                                    <th>{{ 'CGP-DASHBOARD.appearance' | translate }}
+                                                                                        <p>{{ 'CGP-DASHBOARD.appearance-text' | translate }}</p></th>
+                                                                                    <th>{{ 'CGP-DASHBOARD.position' | translate }}
+                                                                                        <p>{{ 'CGP-DASHBOARD.position-text' | translate }}</p></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                <td>{{ 'CGP-DASHBOARD.immovable' | translate }}</td>
+                                                                                <td>37</td>
+                                                                                <td>5</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                <td>{{ 'CGP-DASHBOARD.immovable' | translate }}</td>
+                                                                                <td>37</td>
+                                                                                <td>5</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                <td>{{ 'CGP-DASHBOARD.immovable' | translate }}</td>
+                                                                                <td>37</td>
+                                                                                <td>5</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>    
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                         
+                                                            </div>
+                                                            <!--2-->
+                                                            <div class="mar-20">
+                                                                <div class="cgp-bdr">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                                            <div class="dash-cgp-list">
+                                                                                    <div class="card-block mar-top-20">
+                                                                                        <h4 class="card-title">{{ 'CGP-DASHBOARD.Appointment' | translate }}</h4>
+                                                                                        <p class="card-text">{{ 'CGP-DASHBOARD.no-of-Appointment' | translate }}</p>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-6">
+                                                                                                <div class="card-body">
+                                                                                                        <div class="media">
+                                                                                                                <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                        <img class="group-logo" src="assets/images/Mask-Group.png">
+                                                                                                                </div>
+                                                                                                            <div class="media-body">
+                                                                                                                <h4 class="mb-0">1,235</h4>
+                                                                                                                <p >+20 %</p>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        
+                                                                                                    </div>
+                                                                                        </div>
+                                                                                        <div class="col-6">
+                                                                                                <div class="card-body">
+                                                                                                        <div class="media">
+                                                                                                                <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                        <img class="group-logo" src="assets/images/Mask-Group.png">
+                                                                                                                </div>
+                                                                                                            <div class="media-body">
+                                                                                                                <h4 class="mb-0">1,235</h4>
+                                                                                                                <p >+20 %</p>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        
+                                                                                                    </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                                                <div class="dash-cgp-list">
+                                                                                        <div class="card-block mar-top-20">
+                                                                                            <h4 class="card-title">{{ 'CGP-DASHBOARD.Conversion' | translate }}</h4>
+                                                                                            <p class="card-text">{{ 'CGP-DASHBOARD.Conversion-rate' | translate }}</p>
+                                                                                            
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-6">
+                                                                                                    <div class="card-body">
+                                                                                                            <div class="media">
+                                                                                                                    <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                            <img class="group-logo" src="assets/images/Mask-Group.png">
+                                                                                                                    </div>
+                                                                                                                <div class="media-body">
+                                                                                                                    <h4 class="mb-0">1,235</h4>
+                                                                                                                    <p >+20 %</p>
+                                                                                                                    
+                                                                                                                </div>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                            </div>
+                                                                                            <div class="col-6">
+                                                                                                    <div class="card-body">
+                                                                                                            <div class="media">
+                                                                                                                    <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                            <img class="group-logo" src="assets/images/Mask-Group.png">
+                                                                                                                    </div>
+                                                                                                                <div class="media-body">
+                                                                                                                    <h4 class="mb-0">1,235</h4>
+                                                                                                                    <p >+20 %</p>
+                                                                                                                    
+                                                                                                                </div>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                            </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--2-->
+                                                        </div>
+                                                        <!-- <div class="mar-20">
+                                                                <div class="cgp-bdr">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                                            <div class="dash-cgp-list">
+                                                                                    <div class="card-block mar-top-20">
+                                                                                        <h4 class="card-title">{{ 'CGP-DASHBOARD.Appointment' | translate }}</h4>
+                                                                                        <p class="card-text">{{ 'CGP-DASHBOARD.no-of-Appointment' | translate }}</p>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-6">
+                                                                                                <div class="card-body">
+                                                                                                        <div class="media">
+                                                                                                                <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                        <img class="group-logo" src="../../../assets/images/Mask-Group.png">
+                                                                                                                </div>
+                                                                                                            <div class="media-body">
+                                                                                                                <h4 class="mb-0">1,235</h4>
+                                                                                                                <p >+20 %</p>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        
+                                                                                                    </div>
+                                                                                        </div>
+                                                                                        <div class="col-6">
+                                                                                                <div class="card-body">
+                                                                                                        <div class="media">
+                                                                                                                <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                        <img class="group-logo" src="../../../assets/images/Mask-Group.png">
+                                                                                                                </div>
+                                                                                                            <div class="media-body">
+                                                                                                                <h4 class="mb-0">1,235</h4>
+                                                                                                                <p >+20 %</p>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        
+                                                                                                    </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                                                <div class="dash-cgp-list">
+                                                                                        <div class="card-block mar-top-20">
+                                                                                            <h4 class="card-title">{{ 'CGP-DASHBOARD.Conversion' | translate }}</h4>
+                                                                                            <p class="card-text">{{ 'CGP-DASHBOARD.Conversion-rate' | translate }}</p>
+                                                                                            
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-6">
+                                                                                                    <div class="card-body">
+                                                                                                            <div class="media">
+                                                                                                                    <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                            <img class="group-logo" src="../../../assets/images/Mask-Group.png">
+                                                                                                                    </div>
+                                                                                                                <div class="media-body">
+                                                                                                                    <h4 class="mb-0">1,235</h4>
+                                                                                                                    <p >+20 %</p>
+                                                                                                                    
+                                                                                                                </div>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                            </div>
+                                                                                            <div class="col-6">
+                                                                                                    <div class="card-body">
+                                                                                                            <div class="media">
+                                                                                                                    <div class="mini-stat-icon avatar-sm align-self-center">
+                                                                                                                            <img class="group-logo" src="../../../assets/images/Mask-Group.png">
+                                                                                                                    </div>
+                                                                                                                <div class="media-body">
+                                                                                                                    <h4 class="mb-0">1,235</h4>
+                                                                                                                    <p >+20 %</p>
+                                                                                                                    
+                                                                                                                </div>
+                                                                                                                
+                                                                                                            </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                            </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                    </div>
+
+                </div>
+        </div>    
+</section>
+

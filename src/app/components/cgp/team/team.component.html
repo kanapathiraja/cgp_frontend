@@ -1,0 +1,207 @@
+<section class="inner-page">
+        <div class="profile">
+
+            <div class="inner-head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>{{ 'CGP.TEAM.The-team' | translate }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="container-fluid inner-head-link">
+                    <div class="row">
+                        <div class="col-12">
+                                <div class="container">
+                                        <!-- <div class="inner-head-link">
+                                                 <ul class="nav nav-tabs" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">{{ 'CGP.CONTENTS.draft' | translate }}</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">{{ 'CGP.CONTENTS.published' | translate }}</a>
+                                                        </li>
+                                                    </ul>
+                                        </div> -->
+<!--                                    <div class="text-right mar-btm-20">-->
+<!--                                            <button data-toggle="modal" data-target="#add-team" class="btn btn btn-primary-right w-auto">{{ 'CGP.TEAM.Invite-collaborators' | translate }} <i class="fas fa-arrow-right"></i></button>-->
+<!--                                       </div>-->
+                                </div>
+                        </div>
+
+                    </div>
+                </div>
+<div class="container">
+<div class="row">
+<div class="col-12">
+<div class="profile-details mar-btm-50">
+<!-- Tab panes -->
+<div class="tab-content">
+<div class="tab-pane active" id="tabs-1" role="tabpanel">
+<div class="row">
+        <div class="col-lg-12">
+        <div class="pad-20 table-responsive content-table">
+                <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                        <thead>
+                                <tr>
+                                <th width="20%">{{ 'CGP.TEAM.First-name' | translate }}</th>
+                                <th width="20%">{{ 'CGP.TEAM.Last-name' | translate }}</th>
+                                <th width="25%">{{ 'CGP.TEAM.Email' | translate }}</th>
+                                <th width="10%">{{ 'CGP.TEAM.Status' | translate }}</th>
+                                <th width="20%">{{ 'CGP.TEAM.Role' | translate }}</th>
+                                <th width="5%"></th>
+                                </tr>
+                        </thead>
+                        <tbody *ngIf="persons?.length != 0">
+                                <tr *ngFor="let person of persons">
+                                <td width="20%">{{person.firstname}} </td>
+                                <td width="20%">{{person.lastname}}</td>
+                                <td width="25%">{{person.email}}</td>
+                                <td width="10%" *ngIf="person.status == 1">Active</td>
+                                <td width="10%" *ngIf="person.status == 0">Inactive</td>
+                                <td width="20%">
+                                    <select class="form-control" id="sel2" name="sellist2" (change)="changeStatus($event,person.id,person.firstname)" [(ngModel)]="person.role" [disabled]="true">
+                                    <option value="null">--Select--</option>
+                                    <option *ngFor="let role of role_status" [ngValue]="role.name">{{role.value | titlecase }}</option>
+                                    </select></td>
+                                <td width="5%">
+                                <button class="btn bdr-round" [disabled]="person.role=='ADMIN'" (click)="deleteTeam(person.id)"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                                </tr>
+                        </tbody>
+                        <tbody *ngIf="persons?.length == 0">
+                            <tr>
+                              <td colspan="5" class="no-data-available text-center">{{ 'CGP.TEAM.Nodata' | translate }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+        </div>
+        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+<!--Popup-->
+<div class="modal" id="add-team" [style.display]="showModal2 ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+    <h4 class="modal-title">{{ 'CGP.TEAM.Invite' | translate }}</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+    <form>
+    <div class="row">
+    <div class="col-12">
+    <div class="form-group cgp-style">
+        <ng-select [items]="cgpEmailList"
+        [hideSelected]="true"
+        [multiple]="true"
+        bindLabel="name"
+        [(ngModel)]="selectedEmail"
+        [ngModelOptions]="{standalone: true}"
+        class="custom"
+        [clearOnBackspace] = "true"
+        [addTag]="addTagFn"
+        (change)="cgpEmailValidate($event)"
+        >
+   </ng-select>
+   <div *ngIf="emailValid || submitEmail" class="err">
+    <p *ngIf="submitEmail && !selectedEmail.length">{{ 'CGP.TEAM.email-validation' | translate }}</p>
+    <p *ngIf="emailValid">{{ 'CGP.TEAM.email-pattern' | translate }}</p>
+   </div>
+    </div>
+
+    <p class="mar-top-35">{{ 'CGP.TEAM.Insert-your-emails' | translate }}</p>
+    </div>
+    </div>
+    </form>
+
+
+    </div>
+
+<!-- Modal footer -->
+<div class="modal-footer modal-dialog-centered">
+<div class="text-right">
+<button type="button" class="btn btn-primary-right" (click) ="sendEmail()">{{ 'CGP.TEAM.Send' | translate }} <i class="fas fa-arrow-right"></i></button>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="modal new" id="image-upload" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <!-- Modal Header -->
+        <div class="modal-header">
+                <h4 class="modal-title">{{'CGP.TEAM.delete-msg' | translate}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click) ="goBack()">&times;</button>
+              </div>
+        <!-- Modal body -->
+
+        <div class="modal-body">
+                <div class="container">
+
+                    </div>
+                    <p class="text-right">
+                    <button type="button" class="btn float-right btn-primary-right" (click) ="goBack()">
+                        {{'CGP.CONTENTS.no' | translate}}
+                   </button>
+                        <button class="btn float-right btn-primary-right normal-btn mar-r-20" (click) ="deleteArt()" type="button">
+                            {{'CGP.CONTENTS.yes' | translate}}
+                    </button>
+                   </p>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>
+
+<div class="modal new" id="image-upload" [style.display]="showModal1 ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <!-- Modal Header -->
+        <div class="modal-header">
+                <h4 class="modal-title">{{'CGP.TEAM.warning-msg' | translate}} <b>{{firstname}}</b> {{'CGP.TEAM.warning-msg2' | translate}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click) ="goBack1()">&times;</button>
+              </div>
+        <!-- Modal body -->
+
+        <div class="modal-body">
+                <div class="container">
+
+                    </div>
+                    <p class="text-right">
+                    <button type="button" class="btn float-right btn-primary-right" (click) ="goBack1()">
+                        {{'CGP.CONTENTS.no' | translate}}
+                   </button>
+                        <button class="btn float-right btn-primary-right normal-btn mar-r-20" (click) ="changeStatus1()" type="button">
+                            {{'CGP.CONTENTS.yes' | translate}}
+                    </button>
+                   </p>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>

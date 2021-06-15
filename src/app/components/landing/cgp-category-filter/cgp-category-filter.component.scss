@@ -1,0 +1,92 @@
+@import '../../../../styles.scss';
+
+.category{
+    padding: 0 60px 0 0;
+    .category-list{
+        .most-head{
+                h2{
+                font-weight: 500;
+                font-size: 40px;
+                line-height: 40px;
+                align-items: center;
+                text-align: left;
+            }
+            ul{
+                list-style: none;
+                padding-left: 0px;
+                li{
+                    display: inline-block;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    &:hover{
+                        @include txt-color;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.slide{
+    .carousel{
+        .carousel-inner{
+            .carousel-item{
+                .card{
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                    margin: 20px 0;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    &:hover{
+                        border-color: #6C63FF !important;
+                    }
+                    .card-top{
+                        @include btn-color;
+                        border-top-left-radius: 10px;
+                        border-top-right-radius: 10px;
+                        height: 65px;
+                        padding: 10px 0 10px 20px;
+                        p{
+                            font-size: 16px;
+                            color: #fff;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .card-block{
+                        padding: 20px;
+                        .card-text{
+                            color: #4F4F4F;
+                            font-size: 14px !important;
+                        }
+                    }
+                }
+            }
+        }
+        a{
+            color: $black;
+            text-align: center;
+            .carousel-nav-icon{
+                position: absolute;
+                right: -20px;
+                top: 97px;
+                width: 46px;
+                height: 46px;
+                background-color: #ffffff;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+                i{
+                    color: $primary-color;
+                    padding: 15px;
+                }
+                &:hover{
+                    @include btn-color;
+                    i{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+    }
+}

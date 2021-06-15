@@ -1,0 +1,95 @@
+<section class="inner-page">
+  <div class="container">
+
+  </div>
+</section>
+
+<section class="category">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="category-list">
+          <div class="text-right">
+            <div><a [routerLink]="'/cgp/contents'" class="text-right"><i class="fas fa-arrow-left"></i> {{ "HOME.ARTICLE.back" | translate }}</a></div>
+          </div>
+          <div class="most-head">
+            <h2>
+              {{ details?.title }}
+            </h2>
+            <h3>By {{ details?.cgp?.establishmentName }} {{details?.createdAt | date: 'mediumDate'}}</h3>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="article">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="article-l">
+          <img src="{{details?.articleUrl}}" class="responsive">
+          <div class="text-justify white-space">{{details?.description}}</div>
+
+          <h2 *ngIf="details?.articleEditor"></h2>
+          <div *ngIf="details?.articleEditor" [innerHTML]="details?.articleEditor"> </div>
+
+          <div class="attach">
+            <img src="{{details?.articleImage}}" class="responsive" *ngIf="details?.type === 'article'">
+            <video class="responsive"  src="{{details?.articleImage}}" height="400" width="700" controls *ngIf="details?.type === 'video'"></video>
+            <div class="cgp-bdr" *ngIf="details?.type === 'podcast'"><audio src="{{details?.articleImage}}" height="400" controls ></audio></div>
+            <div  class="cgp-bdr" *ngIf="details?.type === 'guide'">
+              <div class="row">
+                <div class="col-md-8">
+                <p>{{this.filename}}</p>
+                </div>
+                <div class="col-md-4">
+                <a  class="btn btn-primary-right" [href]="safeUrl(details?.articleImage)" download> {{ 'HOME.ARTICLE.download' | translate }}
+                <i  class="fas fa-download">
+                </i></a>
+                        </div>
+                    </div>
+              <div class="row">
+
+              </div>
+          </div>
+
+            <!-- <div class="cgp-bdr" *ngIf="details?.type === 'guide'">{{this.filename}} <a class="btn btn-primary-right" [href]="safeUrl(details?.articleImage)" download> {{ 'HOME.ARTICLE.download' | translate }} <i class="fas fa-download"></i></a></div> -->
+
+            <iframe [src]="safeUrl(details?.articleImage)" width="730" height="400" *ngIf="details?.type === 'video-embed' || details?.type === 'podcast-embed'"></iframe>
+            </div>
+
+          <div class="row">
+            <ul class="tags-follow">
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let specialties of details?.cgpArticlesSpecialities">
+                {{ specialties.specialties.specialtyName }}
+              </li>
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let subtopic of details?.cgpArticlesSubtopics">
+                {{ subtopic.subtopics.subtopicTitle }}
+              </li>
+              <li class="active tags-class" routerLinkActive="active" *ngFor="let tag of details?.cgpArticlesTags">
+                {{ tag?.subtopicTags.tagTitle }}</li>
+            </ul>
+          </div>
+
+          <ul class="follow">
+            <li>{{ 'HOME.ARTICLE.share' | translate }}</li>
+            <li class="f-color"><a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&t=' + encodeURIComponent(location.href)); return false;"> <i class="fab fa-facebook-square"></i></a></li>
+            <li class="f-color"><a href="#" onclick="window.open('https://twitter.com/intent/tweet?text=%20Check%20up%20this%20awesome%20content' + encodeURIComponent(document.title) + ':%20 ' + encodeURIComponent(location.href)); return false;"><i class="fab fa-twitter"></i></a></li>
+            <li class="f-color"><a href="#" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)); return false;"><i class="fab fa-linkedin-in"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+
